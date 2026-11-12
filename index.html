@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BaliWise - Perencana itinerary Bali berbasis AI dengan panduan budaya dan etika di setiap lokasi. Rencanakan liburan dengan lebih aman, hemat, dan tenang." />
+  <meta name="theme-color" content="#0A3D62" />
+
+  <title>BaliWise — Perencana Itinerary Bali Berbasis AI</title>
+
+  <!-- Font: Plus Jakarta Sans (satu font saja untuk seluruh aplikasi) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230A3D62'/%3E%3Cpath d='M20 62c8-10 16-10 24 0s16 10 24 0 16-10 24 0' stroke='%23E8A33D' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50 20l18 12-18 12-18-12z' fill='%230F9D76'/%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <!-- Lompatan ke konten utama: aksesibilitas keyboard -->
+  <a class="skip-link" href="#rencana" data-i18n="skip">Langsung ke form rencana</a>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#hero" class="brand" aria-label="BaliWise">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 100 100" width="34" height="34" role="img">
+            <rect width="100" height="100" rx="26" fill="#0A3D62" />
+            <path d="M50 18l19 13-19 13-19-13z" fill="#0F9D76" />
+            <path d="M18 64c9-11 17-11 26 0s17 11 26 0 12-6 12-6" stroke="#E8A33D" stroke-width="7" fill="none" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="brand__text">Bali<span class="brand__accent">Wise</span></span>
+      </a>
+
+      <nav class="nav__links" aria-label="Navigasi utama">
+        <a href="#cara-kerja" data-i18n="nav.how">Cara Kerja</a>
+        <a href="#fitur" data-i18n="nav.features">Fitur</a>
+        <a href="#rencana" data-i18n="nav.planner">Rencanakan</a>
+      </nav>
+
+      <div class="nav__actions">
+        <!-- Toggle bahasa: memengaruhi seluruh UI dan hasil AI -->
+        <div class="lang-toggle" role="group" aria-label="Pilih bahasa">
+          <button type="button" class="lang-toggle__btn is-active" data-lang="id" aria-pressed="true">ID</button>
+          <button type="button" class="lang-toggle__btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a href="#rencana" class="btn btn--primary btn--sm nav__cta" data-i18n="nav.cta">Mulai Rencanakan</a>
+        <button type="button" class="nav__burger" id="burger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Buka menu navigasi">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu mobile -->
+    <div class="nav__drawer" id="nav-drawer" hidden>
+      <a href="#cara-kerja" data-i18n="nav.how">Cara Kerja</a>
+      <a href="#fitur" data-i18n="nav.features">Fitur</a>
+      <a href="#rencana" data-i18n="nav.planner">Rencanakan</a>
+      <a href="#hasil" data-i18n="nav.result">Hasil Rencana</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="pill" data-i18n="hero.pill">Powered by AI · Guide budaya otomatis</p>
+          <h1 class="hero__title" data-i18n="hero.title">Rencanakan Liburan Bali, Tanpa Lagi Bingung.</h1>
+          <p class="hero__desc" data-i18n="hero.desc">
+            BaliWise menyusun itinerary harian sesuai durasi, budget, dan minat Anda —
+            lengkap dengan tips budaya &amp; etika di setiap lokasi, supaya AndaSQRT tidak salah adat.
+          </p>
+
+          <div class="hero__cta">
+            <a href="#rencana" class="btn btn--gold btn--lg" data-i18n="hero.cta1">Mulai Rencanakan</a>
+            <a href="#cara-kerja" class="hero__link" data-i18n="hero.cta2">Lihat Cara Kerja</a>
+          </div>
+
+          <ul class="hero__stats">
+            <li><strong>28</strong><span data-i18n="hero.stat1">Destinasi terverifikasi</span></li>
+            <li><strong>2</strong><span data-i18n="hero.stat2">Bahasa (ID &amp; EN)</span></li>
+            <li><strong>1–7</strong><span data-i18n="hero.stat3">Hari itinerary</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__visual">
+          <figure class="hero__card">
+            <img
+              src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=70"
+              alt="Pura di tepi laut di Bali saat matahari terbenam"
+              width="900" height="600" loading="eager" />
+            <figcaption class="hero__card-caption">
+              <span class="tag tag--gold" data-i18n="hero.cardTag">Rekomendasi AI</span>
+              <strong data-i18n="hero.cardTitle">Uluwatu · Sunset &amp; Tari Kechak</strong>
+            </figcaption>
+          </figure>
+          <div class="hero__badge">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z" fill="#E8A33D"/></svg>
+            <span data-i18n="hero.badge">Tips etika per lokasi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MASALAH ================= -->
+    <section class="problem" aria-labelledby="problem-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-head__eyebrow" data-i18n="problem.eyebrow">The Problem</p>
+          <h2 class="section-head__title" id="problem-title" data-i18n="problem.title">Wisatawan bingung merencanakan perjalanan di Bali</h2>
+        </div>
+        <div class="grid grid--3 problem__grid">
+          <article class="card card--flat">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="problem.p1.title">Ribuan tempat, waktu terbatas</h3>
+            <p data-i18n="problem.p1.text">Bali punya ratusan atraksi. Pengunjung sering kehabisan waktu di jalan atau keliling bolak-balik tanpa rencana.</p>
+          </article>
+          <article class="card card--flat">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 1a11 11 0 1011 11A11 11 0 0012 1zm1 17h-2v-2h2zm2.1-7.7l-.9.9A3 3 0 0113 15h-2v-.5l1.1-1.1a2 2 0 10-2.8-2.8L8.5 9.8l1.4 1.4 1-1a1 1 0 111.4 1.4z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="problem.p2.title">Budget meleset di tengah jalan</h3>
+            <p data-i18n="problem.p2.text">Tanpa estimasi biaya per hari, pengeluaran membengkak karena transportar, tiket, dan makan sering di luar dugaan.</p>
+          </article>
+          <article class="card card--flat">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2L2 7l10 5 8-4v6c0 1.7-3.6 3-8 3s-8-1.3-8-3V7l-2-1v12c0 3.3 4.5 5 10 5s10-1.7 10-5V6z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="problem.p3.title">Tidak paham adat &amp; etika lokal</h3>
+            <p data-i18n="problem.p3.text">Banyak tourists tidak tahu aturan beribadah, dress code di pura, hingga cara terima kasih di Bali agar tidak membuat warga lokal tersinggung.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CARA KERJA ================= -->
+    <section class="how" id="cara-kerja" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-head__eyebrow" data-i18n="how.eyebrow">How It Works</p>
+          <h2 class="section-head__title" id="how-title" data-i18n="how.title">Tiga langkah, rencana siap pakai</h2>
+        </div>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num">01</span>
+            <h3 data-i18n="how.s1.title">Isi preferensi</h3>
+            <p data-i18n="how.s1.text">Pilih durasi, budget, minat, gaya perjalanan, dan wilayah awal. Cukup 30 detik.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">02</span>
+            <h3 data-i18n="how.s2.title">AI menyusun itinerary</h3>
+            <p data-i18n="how.s2.text">AI memilih tempat nyata dari katalog 28 destinasi, menghitung biaya, dan menambahkan tips etika per lokasi.</p>
+          </li>
+          <li class="step">
+            <span class="step__num">03</span>
+            <h3 data-i18n="how.s3.title">Tanya &amp; ubah bebas</h3>
+            <p data-i18n="how.s3.text">Chat lanjutan mengingat rencana Anda. Minta ubah hari, tambah tempat, atau sesuaikan budget kapan saja.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= FITUR ================= -->
+    <section class="features" id="fitur" aria-labelledby="fit-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-head__eyebrow" data-i18n="feat.eyebrow">Fitur Utama</p>
+          <h2 class="section-head__title" id="fit-title" data-i18n="feat.title">Dibuat untuk traveler, bukan untuk agent</h2>
+        </div>
+
+        <div class="grid grid--3">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2zm0-4h-2V7h2z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="feat.f1.title">Grounded, bukan karangan</h3>
+            <p data-i18n="feat.f1.text">AI dibatasi hanya boleh merekomendasikan tempat dari data/destinasi.json. Tempat yang tidak dikenal otomatis dibuang.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2l2.4 6.9H22l-6.2 4.4 2.4 6.9L12 16.8 5.8 20.2l2.4-6.9L2 8.9h7.6z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="feat.f2.title">Tips budaya di tiap lokasi</h3>
+            <p data-i18n="feat.f2.text">Setiap kartu memuat etika spesifik: pakai sarong, alur beribadah, aturan snorkeling, hingga cara menawar di pasar.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M21 12a9 9 0 11-9-9v9h9z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="feat.f3.title">Estimasi biaya transparan</h3>
+            <p data-i18n="feat.f3.text">Rincian biaya per kegiatan dan total harian, siap dibandingkan dengan budget yang Anda tetapkan.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 4h16v12H4z" opacity=".35" fill="currentColor"/><path d="M2 18h20v2H2z" fill="currentColor"/><path d="M7 7h10v6H7z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="feat.f4.title">Timeline visual</h3>
+            <p data-i18n="feat.f4.text">Rencana ditampilkan sebagai kartu per hari dengan jam, tempat, aktivitas, biaya, dan tips — mudah dipindai.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2zM7 9h10v2H7zm0-3h10v2H7zm0 6h7v2H7z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="feat.f5.title">Chat yang mengingat</h3>
+            <p data-i18n="feat.f5.text">AI menyimpan konteks itinerary selama percakapan, jadi permintaan “ganti hari 2 jadi lebih santai” langsung dieksekusi.</p>
+          </article>
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.9 7h-3a15.7 15.7 0 00-1.3-5.3A8 8 0 0119.9 9zM12 4.1c.8 1.2 1.5 3 1.8 4.9h-3.6c.3-1.9 1-3.7 1.8-4.9zM4.1 12c0-.7.1-1.4.2-2h3.6a17 17 0 000 4H4.3a8 8 0 01-.2-2zm.8 4h3a15.7 15.7 0 001.3 5.3A8 8 0 014.9 16zm3-8h-3a8 8 0 014.3-5.3A15.7 15.7 0 008.9 8zm4.2 11.9c-.8-1.2-1.5-3-1.8-4.9h3.6c-.3 1.9-1 3.7-1.8 4.9zM13 15.9h-2a16 16 0 01-.3 0 17 17 0 011-4.9h3.6c-.3 1.9-1 3.7-1.8 4.9zM14.6 12a17 17 0 000-4h3.6c.1.6.2 1.3.2 2s-.1 1.4-.2 2h-3.6zm1.2 5.3A15.7 15.7 0 0018.1 16h3a8 8 0 01-4.3 5.3z" fill="currentColor"/></svg>
+            </div>
+            <h3 data-i18n="feat.f6.title">Bilingual penuh</h3>
+            <p data-i18n="feat.f6.text">Antarmuka dan hasil AI mengikuti pilihan bahasa: Bahasa Indonesia atau English, tanpa kehilangan isi.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FORM RENCANA ================= -->
+    <section class="planner" id="rencana" aria-labelledby="plan-title">
+      <div class="container planner__inner">
+        <div class="planner__intro">
+          <h2 id="plan-title" data-i18n="plan.title">Susun Rencana Liburan Anda</h2>
+          <p data-i18n="plan.desc">Isi preferensi di samping. AI akan menyusun rencana per hari lengkap dengan jam, aktivitas, estimasi biaya, dan tips budaya.</p>
+
+          <ul class="planner__notes">
+            <li><span aria-hidden="true">✓</span><span data-i18n="plan.note1">28 destinasi nyata Bali (bukan hasil karangan AI)</span></li>
+            <li><span aria-hidden="true">✓</span><span data-i18n="plan.note2">Tips adat &amp; etika untuk setiap lokasi</span></li>
+            <li><span aria-hidden="true">✓</span><span data-i18n="plan.note3">Bisa chatting untuk revisi kapan saja</span></li>
+          </ul>
+        </div>
+
+        <!-- Pesan error validasi (dikendalikan JS) -->
+        <div class="alert alert--error" id="form-error" role="alert" hidden></div>
+
+        <form class="planner__form card" id="plan-form" novalidate>
+          <!-- Durasi -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.durasi">Durasi perjalanan</legend>
+            <div class="chips chips--wrap" role="radiogroup" aria-label="Durasi perjalanan">
+              <label class="chip"><input type="radio" name="durasi" value="1" /><span>1</span></label>
+              <label class="chip"><input type="radio" name="durasi" value="2" /><span>2</span></label>
+              <label class="chip"><input type="radio" name="durasi" value="3" checked /><span>3</span></label>
+              <label class="chip"><input type="radio" name="durasi" value="4" /><span>4</span></label>
+              <label class="chip"><input type="radio" name="durasi" value="5" /><span>5</span></label>
+              <label class="chip"><input type="radio" name="durasi" value="6" /><span>6</span></label>
+              <label class="chip"><input type="radio" name="durasi" value="7" /><span>7</span></label>
+            </div>
+            <p class="field__hint" data-i18n="plan.durasiHint">Pilih jumlah hari (1–7 hari).</p>
+          </fieldset>
+
+          <!-- Budget -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.budget">Budget</legend>
+            <div class="chips chips--3" role="radiogroup" aria-label="Level budget">
+              <label class="chip"><input type="radio" name="budget" value="hemat" /><span data-i18n="plan.b1">Hemat</span></label>
+              <label class="chip"><input type="radio" name="budget" value="menengah" checked /><span data-i18n="plan.b2">Menengah</span></label>
+              <label class="chip"><input type="radio" name="budget" value="mewah" /><span data-i18n="plan.b3">Mewah</span></label>
+            </div>
+          </fieldset>
+
+          <!-- Minat -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.minat">Minat perjalanan <span class="req" data-i18n="plan.minatReq">(pilih minimal 1)</span></legend>
+            <div class="chips chips--wrap">
+              <label class="chip"><input type="checkbox" name="minat" value="pantai" /><span data-i18n="plan.m1">Pantai</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="budaya" /><span data-i18n="plan.m2">Budaya</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="kuliner" /><span data-i18n="plan.m3">Kuliner</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="alam" /><span data-i18n="plan.m4">Alam</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="belanja" /><span data-i18n="plan.m5">Belanja</span></label>
+            </div>
+          </fieldset>
+
+          <!-- Gaya -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.gaya">Gaya perjalanan</legend>
+            <div class="chips chips--2" role="radiogroup" aria-label="Gaya perjalanan">
+              <label class="chip"><input type="radio" name="gaya" value="santai" /><span data-i18n="plan.g1">Santai</span></label>
+              <label class="chip"><input type="radio" name="gaya" value="padat" checked /><span data-i18n="plan.g2">Padat</span></label>
+            </div>
+          </fieldset>
+
+          <!-- Wilayah awal -->
+          <div class="field">
+            <label class="field__label" for="wilayah-awal" data-i18n="plan.wilayah">Wilayah awal</label>
+            <select id="wilayah-awal" name="wilayahAwal" class="select">
+              <option value="Denpasar">Denpasar</option>
+              <option value="Ubud" selected>Ubud</option>
+              <option value="Kuta">Kuta</option>
+              <option value="Seminyak">Seminyak</option>
+              <option value="Sanur">Sanur</option>
+              <option value="Tabanan">Tabanan</option>
+              <option value="Klungkung">Klungkung</option>
+              <option value="Buleleng">Buleleng</option>
+              <option value="Gianyar">Gianyar</option>
+            </select>
+          </div>
+
+          <!-- Catatan tambahan -->
+          <div class="field">
+            <label class="field__label" for="catatan" data-i18n="plan.catatan">Catatan tambahan <span class="field__optional" data-i18n="plan.optional">(opsional)</span></label>
+            <textarea id="catatan" name="catatan" class="textarea" rows="3" maxlength="300" placeholder="Contoh: naik dengan keluarga, menghindari keramaian, suka foto..."></textarea>
+            <div class="counter"><span id="catatan-count">0</span>/300</div>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg btn--block" id="submit-btn">
+            <span data-i18n="plan.submit">Susun Itinerary dengan AI</span>
+          </button>
+          <p class="planner__disclaimer" data-i18n="plan.disclaimer">Rencana ini adalah saran. Selalu konfirmasi harga, jam buka, dan aturan terbaru ke sumber resmi.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= HASIL ITINERARY ================= -->
+    <!-- Section ini selalu terlihat; sebelum ada hasil ditampilkan empty state. -->
+    <section class="results" id="hasil" aria-labelledby="res-title">
+      <div class="container">
+        <!-- Kepala + 3 kotak ringkasan: disembunyikan sampai ada hasil,
+             supaya tidak pernah menampilkan "0" atau "Rp 0" yang kosong. -->
+        <div class="results__head" id="res-head" hidden>
+          <div>
+            <p class="section-head__eyebrow" data-i18n="res.eyebrow">Your Itinerary</p>
+            <h2 id="res-title" data-i18n="res.title">Rencana Perjalanan Anda</h2>
+            <p class="results__summary" id="res-summary"></p>
+            <button type="button" class="btn btn--outline btn--sm" id="regenerate-btn" hidden style="margin-top:12px" aria-label="Buat ulang itinerary">Buat ulang</button>
+          </div>
+          <div class="results__meta">
+            <div class="meta-box"><span data-i18n="res.days">Hari</span><strong id="res-days">0</strong></div>
+            <div class="meta-box"><span data-i18n="res.places">Tempat</span><strong id="res-places">0</strong></div>
+            <div class="meta-box meta-box--gold"><span data-i18n="res.total">Estimasi Total</span><strong id="res-total">Rp 0</strong></div>
+          </div>
+        </div>
+
+        <!-- Empty state: tampil sebelum pengguna menekan tombol submit -->
+        <div class="empty-state" id="res-empty">
+          <div class="empty-state__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="30" height="30">
+              <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2c1.7 0 3.2.6 4.4 1.6L5.6 16.4A8 8 0 0112 4zM4 12c0-1.2.3-2.4.9-3.4l4.5 4.5A8 8 0 014 12zm8 8c-1.2 0-2.4-.3-3.4-.9l4.5-4.5A8 8 0 0112 20zm4.3-4.3-1-1-1.8 1.8-4.9-4.9 1.8-1.8-1-1L7.5 4.9A8 8 0 0116.3 15.7z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 data-i18n="res.emptyTitle">Belum ada rencana</h3>
+          <p data-i18n="res.emptyText">Isi preferensi di atas, lalu tekan "Susun Itinerary dengan AI". Rencana per hari beserta tips budaya akan muncul di sini.</p>
+        </div>
+
+        <!-- Timeline kartu per hari (juga tempat loading & pesan error) -->
+        <div id="timeline" class="timeline"></div>
+      </div>
+    </section>
+
+    <!-- ================= CHAT LANJUTAN ================= -->
+    <section class="chatsec" id="chat" aria-labelledby="chat-title" hidden>
+      <div class="container chatsec__inner">
+        <div class="chatsec__intro">
+          <h2 id="chat-title" data-i18n="chat.title">Tanya atau Ubah Rencana</h2>
+          <p data-i18n="chat.desc">AI mengingat itinerary Anda. Contoh: “ganti hari 2 jadi lebih santai”, “tambah aktivitas snorkeling”, “turunkan budget jadi hemat”.</p>
+          <div class="chatsec__suggestions" id="chat-suggestions">
+            <button type="button" class="suggestion" data-teks="Ganti hari 2 jadi lebih santai" data-i18n="chat.s1">Ganti hari 2 jadi lebih santai</button>
+            <button type="button" class="suggestion" data-teks="Turunkan budget jadi hemat" data-i18n="chat.s2">Turunkan budget jadi hemat</button>
+            <button type="button" class="suggestion" data-teks="Tambahkan aktivitas belanja di hari 3" data-i18n="chat.s3">Tambahkan aktivitas belanja di hari 3</button>
+          </div>
+        </div>
+
+        <div class="chat card">
+          <div class="chat__head">
+            <span class="chat__avatar" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2l2.4 6.9H22l-6.2 4.4 2.4 6.9L12 16.8 5.8 20.2l2.4-6.9L2 8.9h7.6z" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <strong>BaliWise AI</strong>
+              <span class="chat__status" data-i18n="chat.status">Siap membantu</span>
+            </div>
+          </div>
+
+          <div class="chat__log" id="chat-log" role="log" aria-live="polite" aria-atomic="false"></div>
+
+          <form class="chat__form" id="chat-form">
+            <label class="sr-only" for="chat-input" data-i18n="chat.label">Tulis pesan</label>
+            <input
+              type="text" id="chat-input" class="chat__input" maxlength="300"
+              autocomplete="off" placeholder="Tulis permintaan Anda (maks 300 karakter)" data-i18n="chat.placeholder" />
+            <button type="submit" class="btn btn--primary btn--icon" id="chat-send" aria-label="Kirim pesan">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2z" fill="currentColor"/></svg>
+            </button>
+          </form>
+          <div class="chat__counter"><span id="chat-count">0</span>/300</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA PENUTUP ================= -->
+    <section class="cta-final">
+      <div class="container cta-final__inner">
+        <h2 data-i18n="cta.title">Siap mulai libcary dengan lebih tenang?</h2>
+        <p data-i18n="cta.desc">Buat rencana Anda dalam satu menit — lengkap dengan panduan budaya yang membuat Anda dihormati oleh warga lokal.</p>
+        <a href="#rencana" class="btn btn--gold btn--lg" data-i18n="cta.btn">Mulai Rencanakan Gratis</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="brand__text brand__text--light">Bali<span class="brand__accent">Wise</span></span>
+        <p data-i18n="footer.desc">Perencana itinerary Bali berbasis AI dengan panduan budaya &amp; etika di setiap lokasi.</p>
+      </div>
+      <div class="footer__cols">
+        <div>
+          <h3 data-i18n="footer.navTitle">Navigasi</h3>
+          <a href="#cara-kerja" data-i18n="nav.how">Cara Kerja</a>
+          <a href="#fitur" data-i18n="nav.features">Fitur</a>
+          <a href="#rencana" data-i18n="nav.planner">Rencanakan</a>
+        </div>
+        <div>
+          <h3 data-i18n="footer.techTitle">Teknologi</h3>
+          <span>HTML5 · CSS3 · Vanilla JS</span>
+          <span>Vercel Serverless</span>
+          <span>Google Gemini API</span>
+        </div>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>© 2026 BaliWise · NAISC 2026</span>
+      <span data-i18n="footer.note">Dibuat oleh pelajar SMA/SMK untuk kompetisi NAISC 2026 &middot; Kategori Website.</span>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

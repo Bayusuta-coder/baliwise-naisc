@@ -1,0 +1,36 @@
+# ==========================================================================
+#  BALIWISE - .gitignore
+#  File ini mencegah file sensitif (terutama .env) ikut ter-upload ke GitHub.
+# ==========================================================================
+
+# Environment variable & kunci API  (PENTING!)
+.env
+.env.local
+.env.*.local
+.env.backup
+*.env
+
+# Dependencies Node (jika suatu saat memakai npm)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json.bak
+
+# Build / cache
+.vercel
+.next
+dist/
+build/
+.cache/
+
+# Editor & OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log
+*.log
+logs/
