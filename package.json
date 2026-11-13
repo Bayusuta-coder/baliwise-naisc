@@ -1,12 +1,13 @@
 {
-  "name": "baliwise",
+  "name": "griska-go",
   "version": "1.0.0",
   "private": true,
-  "description": "BaliWise - Perencana itinerary Bali berbasis AI dengan panduan budaya & etika. NAISC 2026 kategori Website.",
+  "description": "Griska Go - Perencana itinerary Bali berbasis AI dengan panduan budaya & etika. NAISC 2026 kategori Website.",
   "scripts": {
     "dev": "node tools/dev-server.js",
     "start": "node tools/dev-server.js",
     "check": "node tools/scan.js",
+    "test": "node tools/test-api.js && node tools/test-rencana.js && node tools/test-json-terpotong.js && node tools/test-waktu.js && node tools/scan.js",
     "vercel": "vercel"
   },
   "engines": {

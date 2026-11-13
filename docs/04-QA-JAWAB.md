@@ -7,12 +7,12 @@
 
 ---
 
-## Q1. Apa yang membuat BaliWise berbeda dari aplikasi itinerary atau travel guide yang sudah ada?
+## Q1. Apa yang membuat Griska Go berbeda dari aplikasi itinerary atau travel guide yang sudah ada?
 
 **Jawaban:**
 > "Perbedaannya ada di dua hal, dan keduanya kami rancang dengan sengaja.
 >
-> **Pertama, groundedness.** Travel guide biasanya memuat daftar tempat; AI chat biasa bisa mengarang tempat yang tidak ada. BaliWise menutup celah itu dengan tiga lapis: prompt yang melarang nama di luar katalog, `responseSchema` yang memaksa format JSON, dan — yang paling menentukan — **post-filter server yang membuang setiap nama yang tidak ada di katalog**. Metadata `tempatDitebuang` melaporkan berapa yang dibuang, jadi prosesnya transparan dan bisa diverifikasi.
+> **Pertama, groundedness.** Travel guide biasanya memuat daftar tempat; AI chat biasa bisa mengarang tempat yang tidak ada. Griska Go menutup celah itu dengan tiga lapis: prompt yang melarang nama di luar katalog, `responseSchema` yang memaksa format JSON, dan — yang paling menentukan — **post-filter server yang membuang setiap nama yang tidak ada di katalog**. Metadata `tempatDitebuang` melaporkan berapa yang dibuang, jadi prosesnya transparan dan bisa diverifikasi.
 >
 > **Kedua, budaya menyatu dengan rute.** Tips etika diambil langsung dari katalog tiap lokasi, jadi spesifik — pakai sarong di pura, alur beribadah di Tirta Empul, aturan snorkeling di Nusa Lembongan, cara menawar di Pasar Badung. Bukan nasihat umum di akhir halaman.
 >
@@ -148,7 +148,7 @@
 >
 > **Untuk traveler:** waktu lebih hemat, budget lebih terukur, dan yang paling penting — **tahu aturan sebelum datang**. Mengurangi insiden 'tanpa sarong' atau 'memberi makan monyet' berarti mengurangi konflik antara tamu dan warga.
 >
-> **Untuk sektor:** setiap kunjungan yang muncul dari BaliWise datang bersama panduan sopan santun. Itu bentuk promosi responsible tourism yang nyata, bukan slogan. Katalog kami juga mencakup destinasi yang masih jarang dikunjungi — Gitgit, Tirta Gangga, Lovina, dan Pasare Betis — sehingga”[tempat baru] ikut mendapat perhatian dan kunjungan, yang baik untuk ekonomi desa.
+> **Untuk sektor:** setiap kunjungan yang muncul dari Griska Go datang bersama panduan sopan santun. Itu bentuk promosi responsible tourism yang nyata, bukan slogan. Katalog kami juga mencakup destinasi yang masih jarang dikunjungi — Gitgit, Tirta Gangga, Lovina, dan Pasare Betis — sehingga”[tempat baru] ikut mendapat perhatian dan kunjungan, yang baik untuk ekonomi desa.
 >
 > **Untuk pengembangan lokal:** arsitekturnya open. Katalog JSON bisa diisi oleh Guides,Pok&Dinas Honeys, atau sogar komunitas warga dengan tambahan satu file — tanpa menyentuh kode AI. Kami membayangkan itu sebagai model scaling ke wilayah lain: satu orang locally bisa menambah 15 destinasi kotanya sendiri, dan AI langsung bisa menjadwalkannya.
 >
@@ -171,5 +171,5 @@
 
 <div align="center">
 
-**BaliWise** · Bahan Presentasi & Tanya Jawab · NAISC 2026
+**Griska Go** · Bahan Presentasi & Tanya Jawab · NAISC 2026
 </div>

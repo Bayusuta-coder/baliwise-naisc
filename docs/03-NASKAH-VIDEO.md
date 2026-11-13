@@ -1,4 +1,4 @@
-# 🎬 Naskah Video Demo — BaliWise
+# 🎬 Naskah Video Demo — Griska Go
 
 **Durasi total: 2 menit 55 detik** (maksimal 3 menit)
 **Format:** screen recording + voice over + musik latar tipis
@@ -29,7 +29,7 @@
 
 ## ADEGAN 1 — Hook & Masalah *(0:00 – 0:25 | 25 detik)*
 
-**Visual:** Layar membuka di hero website BaliWise. Skor kecepat: scroll pelan ke section "The Problem" (3 kartu masalah). Statistik kompleks tampil dengan *overlay* teks.
+**Visual:** Layar membuka di hero website Griska Go. Skor kecepat: scroll pelan ke section "The Problem" (3 kartu masalah). Statistik kompleks tampil dengan *overlay* teks.
 
 **Voice over:**
 > "Bali adalah tujuan wisata paling terkenal di dunia. Tapi bagi wisatawan pertama, keindahan ini bukan fitur — justru menjadi masalah. Ada ratusan tempat, waktu cuma beberapa hari, budget terbatas, dan yang paling penting: banyak yang **tidak tahu adat di tempat yang mereka datangi**.
@@ -48,7 +48,7 @@
 **Visual:** Kembali ke atas, scroll ke section "How It Works" (3 langkah). Lalu scroll ke section Form. Berhenti di tombol submit.
 
 **Voice over:**
-> "BaliWise menjawabnya. Daniel, cukup lima preferensi — **berapa hari, berapa budget, minat apa, gaya seperti apa, dan mau mulai dari mana**.
+> "Griska Go menjawabnya. Daniel, cukup lima preferensi — **berapa hari, berapa budget, minat apa, gaya seperti apa, dan mau mulai dari mana**.
 >
 > AI menyusun rencana per hari, lengkap dengan jam, aktivitas, estimasi biaya, dan yang paling penting: **Tips Budaya & Etika di setiap lokasi**.
 >
@@ -152,15 +152,15 @@ Lalu potret ke terminal: `node tools/test-api.js` → **"Lulus: 29 Gagal: 0"**.
 
 ## ADEGAN 7 — Closing & CTA *(2:40 – 2:55 | 15 detik)*
 
-**Visual:** Kembali ke browser, hero section BaliWise. Tampilkan URL website di bawah. Tim Outro (wajah, 1 kalimat masing-masing) atau teks penutup.
+**Visual:** Kembali ke browser, hero section Griska Go. Tampilkan URL website di bawah. Tim Outro (wajah, 1 kalimat masing-masing) atau teks penutup.
 
 **Voice over:**
-> "BaliWise. Satu klik, rencana jadi. Dan Anda tidak hanya tahu *ke mana* pergi — tapi juga *bagaimana* agar dihormati.
+> "Griska Go. Satu klik, rencana jadi. Dan Anda tidak hanya tahu *ke mana* pergi — tapi juga *bagaimana* agar dihormati.
 >
-> BaliWise. Perencana itinerary Bali berbasis AI. Terima kasih."
+> Griska Go. Perencana itinerary Bali berbasis AI. Terima kasih."
 
 **Teks di layar (overlay):**
-`"BaliWise — Rencanakan Liburan Bali, Tanpa Lagi Bingung."`
+`"Griska Go — Rencanakan Liburan Bali, Tanpa Lagi Bingung."`
 `https://[nama-repo].vercel.app`
 
 ---
@@ -183,7 +183,7 @@ Lalu potret ke terminal: `node tools/test-api.js` → **"Lulus: 29 Gagal: 0"**.
 
 > "Bali adalah tujuan wisata paling terkenal di dunia. Tapi bagi wisatawan pertama, keindahan ini bukan fitur — justru menjadi masalah. Ada ratusan tempat, waktu cuma beberapa hari, budget terbatas, dan yang paling penting: banyak yang **tidak tahu adat di tempat yang mereka datangi**.
 >
-> BaliWise menjawabnya. Cukup lima preferensi — berapa hari, berapa budget, minat apa, gaya seperti apa, dan mau mulai dari mana. AI menyusun rencana per hari lengkap dengan jam, aktivitas, estimasi biaya, dan yang paling penting: **Tips Budaya & Etika di setiap lokasi**. Semuanya dibatasi hanya pada 28 destinasi nyata.
+> Griska Go menjawabnya. Cukup lima preferensi — berapa hari, berapa budget, minat apa, gaya seperti apa, dan mau mulai dari mana. AI menyusun rencana per hari lengkap dengan jam, aktivitas, estimasi biaya, dan yang paling penting: **Tips Budaya & Etika di setiap lokasi**. Semuanya dibatasi hanya pada 28 destinasi nyata.
 >
 > Saya pilih empat hari, budget menengah, minat pantai dan budaya, gaya santai, mulai dari Ubud. Dalam beberapa detik, AI menyusun empat hari rencana, dan setiap lokasi punya tips etika spesifik. Di pura: pakai sarong, jangan menyela barisan.
 >
@@ -193,11 +193,11 @@ Lalu potret ke terminal: `node tools/test-api.js` → **"Lulus: 29 Gagal: 0"**.
 >
 > Secara teknis, pertanyaannya: bagaimana kita tahu AI tidak mengarang? Tiga lapis. System prompt melarang keras menyebut apa pun di luar katalog. Kami paksa Gemini menjawab JSON ketat lewat `responseSchema`. Lalu server memfilter ulang — nama yang tidak ada di katalog dibuang. Semua ini teruji otomatis, 29 uji nol gagal.
 >
-> BaliWise. Satu klik, rencana jadi. Dan Anda tidak hanya tahu ke mana pergi, tapi juga bagaimana agar dihormati. Terima kasih."
+> Griska Go. Satu klik, rencana jadi. Dan Anda tidak hanya tahu ke mana pergi, tapi juga bagaimana agar dihormati. Terima kasih."
 
 ---
 
 <div align="center">
 
-**BaliWise** · Naskah Video Demo · NAISC 2026
+**Griska Go** · Naskah Video Demo · NAISC 2026
 </div>

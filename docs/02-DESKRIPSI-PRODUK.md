@@ -1,13 +1,13 @@
 # 📋 Deskripsi Singkat Produk
 
-**BaliWise — Perencana Itinerary Bali Berbasis AI dengan Panduan Budaya & Etika**
+**Griska Go — Perencana Itinerary Bali Berbasis AI dengan Panduan Budaya & Etika**
 NAISC 2026 · Kategori Website
 
 ---
 
 ## 1. Nama Website
 
-**BaliWise** *(gabungan "Bali" + "Wise", melambangkan kecakapan merencanakan)*
+**Griska Go** *(gabungan "Bali" + "Wise", melambangkan kecakapan merencanakan)*
 
 - **Tagline:** *"Rencanakan Liburan Bali, Tanpa Lagi Bingung."*
 - **URL demo:** `https://[nama-repo].vercel.app`
@@ -46,7 +46,7 @@ NAISC 2026 · Kategori Website
 | # | Fitur | Ringkasan |
 |---|---|---|
 | 1 | **Landing page informatif** | Hero, penjelasan masalah dan solusi, 3 langkah cara kerja, 6 fitur, CTA penutup. |
-| 2 | **Form preferensi ringkas** | Durasi (1-7 hari), budget (hemat/menengah/mewah), minat (5 kategori, boleh multi-pilih), gaya (santai/padat), wilayah awal, catatan tambahan (maks 300 karakter). |
+| 2 | **Form preferensi ringkas** | Durasi (1-7 hari atau "Lainnya" 8-14), budget (hemat/menengah/mewah), minat (5 kategori + 9 preset + teks bebas), gaya (santai/padat), **titik awal bebas** (daftar wilayah / cari nama tempat / klik pin di peta / GPS), catatan tambahan (maks 300 karakter). |
 | 3 | **Itinerary kartu per hari** | Dihasilkan AI, ditampilkan sebagai timeline: jam, nama tempat, aktivitas, estimasi biaya, durasi, dan **Tips Budaya & Etika** per lokasi. |
 | 4 | **Chat lanjutan yang mengingat** | Pengguna menulis permintaan bebas; AI membawa itinerary sebelumnya dan riwayat percakapan sebagai konteks, lalu mengembalikan versi terbaru yang langsung dirender ulang. |
 | 5 | **Bilingual Indonesia / English** | Toggle mengubah seluruh antarmuka dan bahasa hasil AI (system prompt dibuat dalam dua versi). |
@@ -60,7 +60,7 @@ NAISC 2026 · Kategori Website
 
 ## 5. Solusi yang Ditawarkan
 
-**BaliWise** adalah **perencana itinerary AI** yang mengubah lima parameter preferensi sederhana menjadi rencana perjalanan terperinci dalam satu klik, lengkap dengan panduan adab di setiap lokasi.
+**Griska Go** adalah **perencana itinerary AI** yang mengubah lima parameter preferensi sederhana menjadi rencana perjalanan terperinci dalam satu klik, lengkap dengan panduan adab di setiap lokasi.
 
 ### Bagaimana solusinya bekerja?
 
@@ -123,7 +123,7 @@ Pengguna dapat chat untuk mengubah rencana kapan saja
 
 ## 7. Target Pengguna
 
-| Segmen | Kebutuhan Utama | Bagaimana BaliWise Membantu |
+| Segmen | Kebutuhan Utama | Bagaimana Griska Go Membantu |
 |---|---|---|
 | **Wisatawan pertama ke Bali** (segmen utama) | Tidak tahu adat dan etika, takut salah | Tips etika di setiap lokasi, itinerary yang jelas |
 | **Pelajar dan mahasiswa** | Budget terbatas, waktu terbatas | Budget hemat, durasi 1-7 hari, estimasi biaya transparan |
@@ -135,13 +135,13 @@ Pengguna dapat chat untuk mengubah rencana kapan saja
 
 ## 8. Ringkasan Satu Kalimat
 
-> **BaliWise adalah perencana itinerary Bali berbasis AI yang tidak hanya memberi tahu *ke mana* pergi, tetapi juga *bagaimana* berperilaku agar Anda menjadi tamu yang dihormati — dengan 28 destinasi nyata, tips budaya di setiap lokasi, dan chat yang mengingat rencana Anda.**
+> **Griska Go adalah perencana itinerary Bali berbasis AI yang tidak hanya memberi tahu *ke mana* pergi, tetapi juga *bagaimana* berperilaku agar Anda menjadi tamu yang dihormati — dengan 28 destinasi nyata, tips budaya di setiap lokasi, dan chat yang mengingat rencana Anda.**
 
 ---
 
 <div align="center">
 
-**BaliWise** · NAISC 2026 · Kategori Website
+**Griska Go** · NAISC 2026 · Kategori Website
 *Nama Tim: [....] · Sekolah: [....]*
 
 </div>

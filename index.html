@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="BaliWise - Perencana itinerary Bali berbasis AI dengan panduan budaya dan etika di setiap lokasi. Rencanakan liburan dengan lebih aman, hemat, dan tenang." />
-  <meta name="theme-color" content="#0A3D62" />
+  <meta name="description" content="Griska Go - Perencana itinerary Bali berbasis AI dengan panduan budaya dan etika di setiap lokasi. Rencanakan liburan dengan lebih aman, hemat, dan tenang." />
+  <meta name="theme-color" content="#072F4F" />
 
-  <title>BaliWise — Perencana Itinerary Bali Berbasis AI</title>
+  <title>Griska Go — Perencana Itinerary Bali Berbasis AI</title>
 
   <!-- Font: Plus Jakarta Sans (satu font saja untuk seluruh aplikasi) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,7 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230A3D62'/%3E%3Cpath d='M20 62c8-10 16-10 24 0s16 10 24 0 16-10 24 0' stroke='%23E8A33D' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50 20l18 12-18 12-18-12z' fill='%230F9D76'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/planner.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230A3D62'/%3E%3Cstop offset='55%25' stop-color='%230E5486'/%3E%3Cstop offset='100%25' stop-color='%230F9D76'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='26' fill='url(%23g)'/%3E%3Cpath d='M68 38a22 22 0 1 0 0 24' fill='none' stroke='%23E8A33D' stroke-width='11' stroke-linecap='round'/%3E%3Cpath d='M50 52h22' stroke='%23E8A33D' stroke-width='11' stroke-linecap='round'/%3E%3C/svg%3E" />
 </head>
 <body>
 
@@ -24,18 +26,17 @@
   <!-- ================= NAVBAR ================= -->
   <header class="nav" id="nav">
     <div class="container nav__inner">
-      <a href="#hero" class="brand" aria-label="BaliWise">
-        <span class="brand__mark" aria-hidden="true">
-          <svg viewBox="0 0 100 100" width="34" height="34" role="img">
-            <rect width="100" height="100" rx="26" fill="#0A3D62" />
-            <path d="M50 18l19 13-19 13-19-13z" fill="#0F9D76" />
-            <path d="M18 64c9-11 17-11 26 0s17 11 26 0 12-6 12-6" stroke="#E8A33D" stroke-width="7" fill="none" stroke-linecap="round" />
-          </svg>
-        </span>
-        <span class="brand__text">Bali<span class="brand__accent">Wise</span></span>
+      <!--
+        LOGO: file gambarnya ada di /logo.png (lihat js/brand.js).
+        Teks "Griska Go" dipakai sebagai placeholder; otomatis disembunyikan
+        bila file logo yang dipakai berupa wordmark (gambar lebar).
+      -->
+      <a href="#hero" class="brand" data-brand data-brand-label="AI travel planner">
+        <span class="brand__mark" data-brand-mark></span>
+        <span class="brand__text" data-brand-text>Griska <span class="brand__accent">Go</span></span>
       </a>
 
-      <nav class="nav__links" aria-label="Navigasi utama">
+      <nav class="nav__links" aria-label="Navigasi utama" data-i18n-aria-label="nav.menu">
         <a href="#cara-kerja" data-i18n="nav.how">Cara Kerja</a>
         <a href="#fitur" data-i18n="nav.features">Fitur</a>
         <a href="#rencana" data-i18n="nav.planner">Rencanakan</a>
@@ -47,95 +48,318 @@
           <button type="button" class="lang-toggle__btn is-active" data-lang="id" aria-pressed="true">ID</button>
           <button type="button" class="lang-toggle__btn" data-lang="en" aria-pressed="false">EN</button>
         </div>
-        <a href="#rencana" class="btn btn--primary btn--sm nav__cta" data-i18n="nav.cta">Mulai Rencanakan</a>
-        <button type="button" class="nav__burger" id="burger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Buka menu navigasi">
+        <a href="#rencana" class="btn btn--gold btn--sm nav__cta" data-i18n="nav.cta">Mulai Rencanakan</a>
+        <button type="button" class="nav__burger" data-nav-burger aria-expanded="false" aria-controls="nav-drawer" aria-label="Buka menu navigasi">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
 
-    <!-- Menu mobile -->
-    <div class="nav__drawer" id="nav-drawer" hidden>
+    <!-- Menu mobile (drawer) -->
+    <div class="nav__drawer" id="nav-drawer" data-nav-drawer aria-hidden="true">
       <a href="#cara-kerja" data-i18n="nav.how">Cara Kerja</a>
       <a href="#fitur" data-i18n="nav.features">Fitur</a>
       <a href="#rencana" data-i18n="nav.planner">Rencanakan</a>
       <a href="#hasil" data-i18n="nav.result">Hasil Rencana</a>
+      <a href="#rencana" class="btn btn--gold nav__drawer-cta" data-i18n="nav.cta">Mulai Rencanakan</a>
     </div>
   </header>
 
   <main>
     <!-- ================= HERO ================= -->
     <section class="hero" id="hero">
-      <div class="hero__bg" aria-hidden="true"></div>
+      <!-- Dekorasi: blob gradient + pola subtle (murni CSS, tanpa gambar) -->
+      <div class="hero__bg" aria-hidden="true">
+        <span class="hero__blob hero__blob--1"></span>
+        <span class="hero__blob hero__blob--2"></span>
+        <span class="hero__blob hero__blob--3"></span>
+        <span class="hero__pattern"></span>
+      </div>
+
       <div class="container hero__inner">
         <div class="hero__content">
-          <p class="pill" data-i18n="hero.pill">Powered by AI · Guide budaya otomatis</p>
-          <h1 class="hero__title" data-i18n="hero.title">Rencanakan Liburan Bali, Tanpa Lagi Bingung.</h1>
+          <p class="pill hero__pill" data-i18n="hero.pill">Powered by AI · Panduan budaya otomatis</p>
+
+          <h1 class="hero__title">
+            <span class="hero__title-line" data-i18n="hero.title">Rencana Bali Impian,</span>
+            <span class="hero__title-line hero__title-accent" data-i18n="hero.titleAccent">Dalam 60 Detik.</span>
+          </h1>
+
           <p class="hero__desc" data-i18n="hero.desc">
-            BaliWise menyusun itinerary harian sesuai durasi, budget, dan minat Anda —
-            lengkap dengan tips budaya &amp; etika di setiap lokasi, supaya AndaSQRT tidak salah adat.
+            Griska Go menyusun itinerary harian sesuai durasi, budget, dan minat Anda —
+            lengkap dengan tips budaya &amp; etika di setiap lokasi, supaya Anda tidak salah adat.
           </p>
 
           <div class="hero__cta">
-            <a href="#rencana" class="btn btn--gold btn--lg" data-i18n="hero.cta1">Mulai Rencanakan</a>
-            <a href="#cara-kerja" class="hero__link" data-i18n="hero.cta2">Lihat Cara Kerja</a>
+            <a href="#rencana" class="btn btn--gold btn--lg hero__cta-main" data-i18n="hero.cta1">Mulai Rencanakan</a>
+            <a href="#cara-kerja" class="btn btn--ghost btn--lg hero__cta-alt" data-i18n="hero.cta2">Lihat Cara Kerja</a>
           </div>
 
-          <ul class="hero__stats">
-            <li><strong>28</strong><span data-i18n="hero.stat1">Destinasi terverifikasi</span></li>
-            <li><strong>2</strong><span data-i18n="hero.stat2">Bahasa (ID &amp; EN)</span></li>
-            <li><strong>1–7</strong><span data-i18n="hero.stat3">Hari itinerary</span></li>
+          <p class="hero__trust">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"/></svg>
+            <span data-i18n="hero.trust">Tanpa kartu kredit · Hasil instan</span>
+          </p>
+
+          <!-- Statistik: angka beranimasi count-up saat terlihat -->
+          <ul class="hero__stats" data-reveal-group>
+            <li class="hero__stat">
+              <strong data-count-to="28" data-count-suffix="+">28+</strong>
+              <span data-i18n="hero.stat1">Destinasi terverifikasi</span>
+            </li>
+            <li class="hero__stat">
+              <strong data-count-to="2">2</strong>
+              <span data-i18n="hero.stat2">Bahasa (ID &amp; EN)</span>
+            </li>
+            <li class="hero__stat">
+              <strong data-count-prefix="1&ndash;" data-count-from="1" data-count-to="7">1&ndash;7</strong>
+              <span data-i18n="hero.stat3">Hari itinerary</span>
+            </li>
+            <li class="hero__stat">
+              <strong data-count-to="100" data-count-suffix="%">100%</strong>
+              <span data-i18n="hero.stat4">Rekomendasi dari katalog nyata</span>
+            </li>
           </ul>
         </div>
 
-        <div class="hero__visual">
-          <figure class="hero__card">
-            <img
-              src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=70"
-              alt="Pura di tepi laut di Bali saat matahari terbenam"
-              width="900" height="600" loading="eager" />
-            <figcaption class="hero__card-caption">
-              <span class="tag tag--gold" data-i18n="hero.cardTag">Rekomendasi AI</span>
-              <strong data-i18n="hero.cardTitle">Uluwatu · Sunset &amp; Tari Kechak</strong>
-            </figcaption>
-          </figure>
-          <div class="hero__badge">
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z" fill="#E8A33D"/></svg>
-            <span data-i18n="hero.badge">Tips etika per lokasi</span>
+        <!-- ============ CAROUSEL DESTINASI ============ -->
+        <div class="hero__visual" data-reveal="120">
+          <div class="carousel" data-carousel role="region" aria-roledescription="carousel" aria-label="Destinasi unggulan Bali" tabindex="0">
+            <div class="carousel__viewport">
+
+              <!-- data-posisi = object-position tiap slide ( Easily adjusted ) -->
+              <article class="carousel__slide is-active"
+                data-carousel-slide data-title-key="hero.s1.title" data-tip-key="hero.s1.tip"
+                data-posisi="center 65%" data-zona="Bedugul" data-kategori="alam"
+                role="group" aria-roledescription="slide">
+                <img
+                  src="/images/hero/hero-1.jpg"
+                  srcset="/images/hero/hero-1-800.jpg 800w, /images/hero/hero-1.jpg 1600w"
+                  sizes="(max-width: 560px) 92vw, (max-width: 1023px) 94vw, 58vw"
+                  alt="Pura Ulun Danu Beratan di tepi Danau Beratan"
+                  width="1600" height="1600" loading="eager"
+                  fetchpriority="high" decoding="async"
+                  data-i18n-alt="hero.s1.alt" />
+                <span class="carousel__shade" aria-hidden="true"></span>
+                <div class="carousel__caption">
+                  <span class="tag tag--gold carousel__tag" data-i18n="hero.cardTag">Rekomendasi AI</span>
+                  <h2 class="carousel__title" data-i18n="hero.s1.title"></h2>
+                  <p class="carousel__meta">
+                    <span class="carousel__meta-item">
+                      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+                      <span data-i18n="hero.s1.zona"></span>
+                    </span>
+                    <span class="carousel__meta-dot" aria-hidden="true"></span>
+                    <span class="carousel__meta-item" data-i18n="kategori.alam"></span>
+                  </p>
+                </div>
+              </article>
+
+              <!-- data-posisi = object-position tiap slide ( Easily adjusted ) -->
+              <article class="carousel__slide"
+                data-carousel-slide data-title-key="hero.s2.title" data-tip-key="hero.s2.tip"
+                data-posisi="center 55%" data-zona="Uluwatu" data-kategori="budaya"
+                role="group" aria-roledescription="slide" aria-hidden="true">
+                <img
+                  src="/images/hero/hero-2.jpg"
+                  srcset="/images/hero/hero-2-800.jpg 800w, /images/hero/hero-2.jpg 1600w"
+                  sizes="(max-width: 560px) 92vw, (max-width: 1023px) 94vw, 58vw"
+                  alt="Pura Uluwatu di tepi tebing menghadap laut"
+                  width="1600" height="1600" loading="lazy" decoding="async"
+                  data-i18n-alt="hero.s2.alt" />
+                <span class="carousel__shade" aria-hidden="true"></span>
+                <div class="carousel__caption">
+                  <span class="tag tag--gold carousel__tag" data-i18n="hero.cardTag">Rekomendasi AI</span>
+                  <h2 class="carousel__title" data-i18n="hero.s2.title"></h2>
+                  <p class="carousel__meta">
+                    <span class="carousel__meta-item">
+                      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+                      <span data-i18n="hero.s2.zona"></span>
+                    </span>
+                    <span class="carousel__meta-dot" aria-hidden="true"></span>
+                    <span class="carousel__meta-item" data-i18n="kategori.budaya"></span>
+                  </p>
+                </div>
+              </article>
+
+              <!-- data-posisi = object-position tiap slide ( Easily adjusted ) -->
+              <article class="carousel__slide"
+                data-carousel-slide data-title-key="hero.s3.title" data-tip-key="hero.s3.tip"
+                data-posisi="center 50%" data-zona="Ubud" data-kategori="alam"
+                role="group" aria-roledescription="slide" aria-hidden="true">
+                <img
+                  src="/images/hero/hero-3.jpg"
+                  srcset="/images/hero/hero-3-800.jpg 800w, /images/hero/hero-3.jpg 1400w"
+                  sizes="(max-width: 560px) 92vw, (max-width: 1023px) 94vw, 58vw"
+                  alt="Sawah terasering Tegallalang di Ubud"
+                  width="1400" height="1400" loading="lazy" decoding="async"
+                  data-i18n-alt="hero.s3.alt" />
+                <span class="carousel__shade" aria-hidden="true"></span>
+                <div class="carousel__caption">
+                  <span class="tag tag--gold carousel__tag" data-i18n="hero.cardTag">Rekomendasi AI</span>
+                  <h2 class="carousel__title" data-i18n="hero.s3.title"></h2>
+                  <p class="carousel__meta">
+                    <span class="carousel__meta-item">
+                      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+                      <span data-i18n="hero.s3.zona"></span>
+                    </span>
+                    <span class="carousel__meta-dot" aria-hidden="true"></span>
+                    <span class="carousel__meta-item" data-i18n="kategori.alam"></span>
+                  </p>
+                </div>
+              </article>
+
+              <!-- data-posisi = object-position tiap slide ( Easily adjusted ) -->
+              <article class="carousel__slide"
+                data-carousel-slide data-title-key="hero.s4.title" data-tip-key="hero.s4.tip"
+                data-posisi="center 40%" data-zona="Nusa Penida" data-kategori="pantai"
+                role="group" aria-roledescription="slide" aria-hidden="true">
+                <img
+                  src="/images/hero/hero-4.jpg"
+                  srcset="/images/hero/hero-4-800.jpg 800w, /images/hero/hero-4.jpg 1600w"
+                  sizes="(max-width: 560px) 92vw, (max-width: 1023px) 94vw, 58vw"
+                  alt="Tebing Kelingking Beach di Nusa Penida"
+                  width="1600" height="1600" loading="lazy" decoding="async"
+                  data-i18n-alt="hero.s4.alt" />
+                <span class="carousel__shade" aria-hidden="true"></span>
+                <div class="carousel__caption">
+                  <span class="tag tag--gold carousel__tag" data-i18n="hero.cardTag">Rekomendasi AI</span>
+                  <h2 class="carousel__title" data-i18n="hero.s4.title"></h2>
+                  <p class="carousel__meta">
+                    <span class="carousel__meta-item">
+                      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+                      <span data-i18n="hero.s4.zona"></span>
+                    </span>
+                    <span class="carousel__meta-dot" aria-hidden="true"></span>
+                    <span class="carousel__meta-item" data-i18n="kategori.pantai"></span>
+                  </p>
+                </div>
+              </article>
+
+              <!-- data-posisi = object-position tiap slide ( Easily adjusted ) -->
+              <article class="carousel__slide"
+                data-carousel-slide data-title-key="hero.s5.title" data-tip-key="hero.s5.tip"
+                data-posisi="center 60%" data-zona="Tabanan" data-kategori="budaya"
+                role="group" aria-roledescription="slide" aria-hidden="true">
+                <img
+                  src="/images/hero/hero-5.jpg"
+                  srcset="/images/hero/hero-5-800.jpg 800w, /images/hero/hero-5.jpg 1600w"
+                  sizes="(max-width: 560px) 92vw, (max-width: 1023px) 94vw, 58vw"
+                  alt="Pura Tanah Lot di atas laut saat matahari terbenam"
+                  width="1600" height="1600" loading="lazy" decoding="async"
+                  data-i18n-alt="hero.s5.alt" />
+                <span class="carousel__shade" aria-hidden="true"></span>
+                <div class="carousel__caption">
+                  <span class="tag tag--gold carousel__tag" data-i18n="hero.cardTag">Rekomendasi AI</span>
+                  <h2 class="carousel__title" data-i18n="hero.s5.title"></h2>
+                  <p class="carousel__meta">
+                    <span class="carousel__meta-item">
+                      <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+                      <span data-i18n="hero.s5.zona"></span>
+                    </span>
+                    <span class="carousel__meta-dot" aria-hidden="true"></span>
+                    <span class="carousel__meta-item" data-i18n="kategori.budaya"></span>
+                  </p>
+                </div>
+              </article>
+
+            </div>
+
+            <!-- Tips etika: pill kecil di kiri atas (satu baris) -->
+            <div class="carousel__tip glass glass--dark">
+              <span class="carousel__tip-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z" fill="currentColor"/></svg>
+              </span>
+              <span class="sr-only" data-i18n="hero.badge"></span>
+              <span class="carousel__tip-text" data-carousel-tip aria-live="polite"></span>
+            </div>
+
+            <!-- Tombol navigasi -->
+            <button type="button" class="carousel__nav carousel__nav--prev" data-carousel-prev aria-label="Slide sebelumnya">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4-4.6-4.6z" fill="currentColor"/></svg>
+            </button>
+            <button type="button" class="carousel__nav carousel__nav--next" data-carousel-next aria-label="Slide berikutnya">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8.6 7.4L10 6l6 6-6 6-1.4-1.4 4.6-4.6z" fill="currentColor"/></svg>
+            </button>
+
+            <!-- Kontrol bawah: dots sederhana -->
+            <div class="carousel__controls">
+              <div class="carousel__dots" data-carousel-dots role="group" aria-label="Pilih slide"></div>
+            </div>
+
+            <!-- Pembaca layar: perubahan slide diumumkan di sini -->
+            <p class="sr-only" data-carousel-live aria-live="polite"></p>
+          </div>
+
+          <!-- Satu kartu kecil di luar frame (kanan bawah), tidak menutupi foto -->
+          <div class="hero__float hero__float--a" aria-hidden="true">
+            <span class="hero__float-icon hero__float-icon--gold">
+              <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z" fill="currentColor"/></svg>
+            </span>
+            <span class="hero__float-body">
+              <strong data-i18n="hero.float1">28+ Destinasi</strong>
+              <span data-i18n="hero.float2">Terverifikasi &amp; siap dikunjungi</span>
+            </span>
           </div>
         </div>
-      </div>
-    </section>
+</section>
 
     <!-- ================= MASALAH ================= -->
     <section class="problem" aria-labelledby="problem-title">
       <div class="container">
-        <div class="section-head">
-          <p class="section-head__eyebrow" data-i18n="problem.eyebrow">The Problem</p>
-          <h2 class="section-head__title" id="problem-title" data-i18n="problem.title">Wisatawan bingung merencanakan perjalanan di Bali</h2>
-        </div>
-        <div class="grid grid--3 problem__grid">
-          <article class="card card--flat">
-            <div class="card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+        <div class="problem__layout">
+
+          <!-- Kiri: gambar dengan blob gradien lembut di belakang -->
+          <figure class="problem__media" data-reveal>
+            <span class="problem__blob" aria-hidden="true"></span>
+            <img class="problem__img"
+              src="/images/problem2.png"
+              alt="Wisatawan bingung saat memilih rencana perjalanan di Bali"
+              data-i18n-alt="problem.imgAlt"
+              width="960" height="720" decoding="async" />
+          </figure>
+
+          <!-- Kanan: badge, judul, lalu 3 kartu masalah (satu kolom) -->
+          <div class="problem__side" data-reveal-group>
+            <div class="problem__head">
+              <p class="section-head__eyebrow" data-i18n="problem.eyebrow">The Problem</p>
+              <h2 class="section-head__title" id="problem-title" data-i18n="problem.title">Wisatawan bingung merencanakan perjalanan di Bali</h2>
             </div>
-            <h3 data-i18n="problem.p1.title">Ribuan tempat, waktu terbatas</h3>
-            <p data-i18n="problem.p1.text">Bali punya ratusan atraksi. Pengunjung sering kehabisan waktu di jalan atau keliling bolak-balik tanpa rencana.</p>
-          </article>
-          <article class="card card--flat">
-            <div class="card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 1a11 11 0 1011 11A11 11 0 0012 1zm1 17h-2v-2h2zm2.1-7.7l-.9.9A3 3 0 0113 15h-2v-.5l1.1-1.1a2 2 0 10-2.8-2.8L8.5 9.8l1.4 1.4 1-1a1 1 0 111.4 1.4z" fill="currentColor"/></svg>
+
+            <div class="problem__list">
+              <article class="problem__card problem__card--1">
+                <span class="problem__num" aria-hidden="true">01</span>
+                <span class="problem__icon problem__icon--sea" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+                </span>
+                <div class="problem__body">
+                  <h3 data-i18n="problem.p1.title">Ribuan tempat, waktu terbatas</h3>
+                  <p data-i18n="problem.p1.text">Bali punya ratusan atraksi. Pengunjung sering kehabisan waktu di jalan atau keliling bolak-balik tanpa rencana.</p>
+                </div>
+              </article>
+
+              <article class="problem__card problem__card--2">
+                <span class="problem__num" aria-hidden="true">02</span>
+                <span class="problem__icon problem__icon--gold" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 1a11 11 0 1011 11A11 11 0 0012 1zm1 17h-2v-2h2zm2.1-7.7l-.9.9A3 3 0 0113 15h-2v-.5l1.1-1.1a2 2 0 10-2.8-2.8L8.5 9.8l1.4 1.4 1-1a2 2 0 111.4 1.4z" fill="currentColor"/></svg>
+                </span>
+                <div class="problem__body">
+                  <h3 data-i18n="problem.p2.title">Budget meleset di tengah jalan</h3>
+                  <p data-i18n="problem.p2.text">Tanpa estimasi biaya per hari, pengeluaran membengkak karena transportasi, tiket, dan makan sering di luar dugaan.</p>
+                </div>
+              </article>
+
+              <article class="problem__card problem__card--3">
+                <span class="problem__num" aria-hidden="true">03</span>
+                <span class="problem__icon problem__icon--trop" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2L2 7l10 5 8-4v6c0 1.7-3.6 3-8 3s-8-1.3-8-3V7l-2-1v12c0 3.3 4.5 5 10 5s10-1.7 10-5V6z" fill="currentColor"/></svg>
+                </span>
+                <div class="problem__body">
+                  <h3 data-i18n="problem.p3.title">Tidak paham adat &amp; etika lokal</h3>
+                  <p data-i18n="problem.p3.text">Banyak wisatawan tidak tahu aturan beribadah, dress code di pura, hingga cara terima kasih di Bali agar tidak membuat warga lokal tersinggung.</p>
+                </div>
+              </article>
             </div>
-            <h3 data-i18n="problem.p2.title">Budget meleset di tengah jalan</h3>
-            <p data-i18n="problem.p2.text">Tanpa estimasi biaya per hari, pengeluaran membengkak karena transportar, tiket, dan makan sering di luar dugaan.</p>
-          </article>
-          <article class="card card--flat">
-            <div class="card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2L2 7l10 5 8-4v6c0 1.7-3.6 3-8 3s-8-1.3-8-3V7l-2-1v12c0 3.3 4.5 5 10 5s10-1.7 10-5V6z" fill="currentColor"/></svg>
-            </div>
-            <h3 data-i18n="problem.p3.title">Tidak paham adat &amp; etika lokal</h3>
-            <p data-i18n="problem.p3.text">Banyak tourists tidak tahu aturan beribadah, dress code di pura, hingga cara terima kasih di Bali agar tidak membuat warga lokal tersinggung.</p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -143,12 +367,12 @@
     <!-- ================= CARA KERJA ================= -->
     <section class="how" id="cara-kerja" aria-labelledby="how-title">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <p class="section-head__eyebrow" data-i18n="how.eyebrow">How It Works</p>
           <h2 class="section-head__title" id="how-title" data-i18n="how.title">Tiga langkah, rencana siap pakai</h2>
         </div>
 
-        <ol class="steps">
+        <ol class="steps" data-reveal-group>
           <li class="step">
             <span class="step__num">01</span>
             <h3 data-i18n="how.s1.title">Isi preferensi</h3>
@@ -171,12 +395,12 @@
     <!-- ================= FITUR ================= -->
     <section class="features" id="fitur" aria-labelledby="fit-title">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <p class="section-head__eyebrow" data-i18n="feat.eyebrow">Fitur Utama</p>
           <h2 class="section-head__title" id="fit-title" data-i18n="feat.title">Dibuat untuk traveler, bukan untuk agent</h2>
         </div>
 
-        <div class="grid grid--3">
+        <div class="grid grid--3" data-reveal-group>
           <article class="card">
             <div class="card__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2zm0-4h-2V7h2z" fill="currentColor"/></svg>
@@ -214,7 +438,7 @@
           </article>
           <article class="card">
             <div class="card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.9 7h-3a15.7 15.7 0 00-1.3-5.3A8 8 0 0119.9 9zM12 4.1c.8 1.2 1.5 3 1.8 4.9h-3.6c.3-1.9 1-3.7 1.8-4.9zM4.1 12c0-.7.1-1.4.2-2h3.6a17 17 0 000 4H4.3a8 8 0 01-.2-2zm.8 4h3a15.7 15.7 0 001.3 5.3A8 8 0 014.9 16zm3-8h-3a8 8 0 014.3-5.3A15.7 15.7 0 008.9 8zm4.2 11.9c-.8-1.2-1.5-3-1.8-4.9h3.6c-.3 1.9-1 3.7-1.8 4.9zM13 15.9h-2a16 16 0 01-.3 0 17 17 0 011-4.9h3.6c-.3 1.9-1 3.7-1.8 4.9zM14.6 12a17 17 0 000-4h3.6c.1.6.2 1.3.2 2s-.1 1.4-.2 2h-3.6zm1.2 5.3A15.7 15.7 0 0018.1 16h3a8 8 0 01-4.3 5.3z" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.9 7h-3a15.7 15.7 0 00-1.3-5.3A8 8 0 0119.9 9zM12 4.1c.8 1.2 1.5 3 1.8 4.9h-3.6c.3-1.9 1-3.7 1.8-4.9zM4.1 12c0-.7.1-1.4.2-2h3.6a17 17 0 000 4H4.3a8 8 0 01-.2-2zm.8 4h3a15.7 15.7 0 001.3 5.3A8 8 0 014.9 16zm3-8h-3a8 8 0 014.3-5.3A15.7 15.7 0 008.9 8zm4.2 11.9c-.8-1.2-1.5-3-1.8-4.9h3.6c-.3 1.9-1 3.7-1.8 4.9zM13 15.9h-2a16 16 0 01-.3 0 17 17 0 011-4.9h3.6c-.3 1.9-1 3.7-1.8 4.9zM14.6 12a17 17 0 000-4h3.6c.1.6.2 1.3.2 2s-.1 1.4-.2 2h-3.6zm1.2 5.3A15.7 15.7 0 0118.1 16h3a8 8 0 01-4.3 5.3z" fill="currentColor"/></svg>
             </div>
             <h3 data-i18n="feat.f6.title">Bilingual penuh</h3>
             <p data-i18n="feat.f6.text">Antarmuka dan hasil AI mengikuti pilihan bahasa: Bahasa Indonesia atau English, tanpa kehilangan isi.</p>
@@ -226,7 +450,8 @@
     <!-- ================= FORM RENCANA ================= -->
     <section class="planner" id="rencana" aria-labelledby="plan-title">
       <div class="container planner__inner">
-        <div class="planner__intro">
+        <div class="planner__intro" data-reveal>
+          <p class="section-head__eyebrow" data-i18n="nav.planner">Rencanakan</p>
           <h2 id="plan-title" data-i18n="plan.title">Susun Rencana Liburan Anda</h2>
           <p data-i18n="plan.desc">Isi preferensi di samping. AI akan menyusun rencana per hari lengkap dengan jam, aktivitas, estimasi biaya, dan tips budaya.</p>
 
@@ -252,8 +477,89 @@
               <label class="chip"><input type="radio" name="durasi" value="5" /><span>5</span></label>
               <label class="chip"><input type="radio" name="durasi" value="6" /><span>6</span></label>
               <label class="chip"><input type="radio" name="durasi" value="7" /><span>7</span></label>
+              <label class="chip"><input type="radio" name="durasi" value="lainnya" /><span data-i18n="plan.durasiLainnya">Lainnya</span></label>
             </div>
-            <p class="field__hint" data-i18n="plan.durasiHint">Pilih jumlah hari (1–7 hari).</p>
+            <div class="field__inline" id="durasi-baris" hidden>
+              <label class="field__label" for="durasi-jumlah" data-i18n="plan.durasiJumlah">Jumlah hari (8-14)</label>
+              <input type="number" id="durasi-jumlah" name="durasiJumlah" class="input input--num"
+                     min="8" max="14" step="1" inputmode="numeric" value="10"
+                     aria-describedby="durasi-baris-hint" />
+              <p class="field__hint" id="durasi-baris-hint" data-i18n="plan.durasiJumlahHint">Untuk trip lebih lama, isi 8 sampai 14 hari.</p>
+            </div>
+            <p class="field__hint" data-i18n="plan.durasiHint">Pilih jumlah hari (1-7 hari, atau "Lainnya" untuk 8-14 hari).</p>
+          </fieldset>
+
+          <!-- Jumlah traveler -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.traveler">Jumlah traveler</legend>
+            <div class="steppers">
+              <div class="stepper">
+                <label class="stepper__label" for="traveler-dewasa-input" data-i18n="plan.travelerDewasa">Dewasa</label>
+                <input type="number" id="traveler-dewasa-input" name="travelerDewasa" class="input input--num"
+                       min="1" max="20" step="1" inputmode="numeric" value="2"
+                       aria-describedby="traveler-hint" />
+              </div>
+              <div class="stepper">
+                <label class="stepper__label" for="traveler-anak-input" data-i18n="plan.travelerAnak">Anak (&lt; 12 tahun)</label>
+                <input type="number" id="traveler-anak-input" name="travelerAnak" class="input input--num"
+                       min="0" max="10" step="1" inputmode="numeric" value="0"
+                       aria-describedby="traveler-hint" />
+              </div>
+            </div>
+            <p class="field__hint" id="traveler-hint" data-i18n="plan.travelerHint">Maksimal 20 dewasa dan 10 anak.</p>
+          </fieldset>
+
+          <!-- Jenis wisatawan -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.touristType">Jenis wisatawan</legend>
+            <div class="chips chips--2" role="radiogroup" aria-label="Jenis wisatawan">
+              <label class="chip"><input type="radio" name="touristType" value="domestik" checked /><span data-i18n="plan.tDomestik">Domestik (WNI)</span></label>
+              <label class="chip"><input type="radio" name="touristType" value="mancanegara" /><span data-i18n="plan.tAsing">Mancanegara</span></label>
+            </div>
+            <p class="field__hint" data-i18n="plan.touristTypeHint">Harga tiket untuk wisatawan mancanegara umumnya lebih tinggi.</p>
+          </fieldset>
+
+          <!-- Transportasi -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.transport">Transportasi</legend>
+            <div class="chips chips--wrap" role="radiogroup" aria-label="Transportasi">
+              <label class="chip"><input type="radio" name="transport" value="motor" /><span data-i18n="plan.trMotor">Sewa motor</span></label>
+              <label class="chip"><input type="radio" name="transport" value="mobil" checked /><span data-i18n="plan.trMobil">Mobil + driver</span></label>
+              <label class="chip"><input type="radio" name="transport" value="ojek" /><span data-i18n="plan.trOjek">Ojek online &amp; taksi</span></label>
+              <label class="chip"><input type="radio" name="transport" value="lainnya" /><span data-i18n="plan.trLainnya">Lainnya</span></label>
+            </div>
+            <div class="field__inline" id="transport-baris" hidden>
+              <label class="field__label" for="biaya-transport" data-i18n="plan.biayaTransport">Biaya transport per hari (Rp)</label>
+              <div class="input-group">
+                <span class="input-group__prefix">Rp</span>
+                <input type="number" id="biaya-transport" name="biayaTransportHarian" class="input"
+                       min="0" max="5000000" step="10000" inputmode="numeric" placeholder="contoh: 250000"
+                       aria-describedby="transport-baris-hint" />
+              </div>
+              <p class="field__hint" id="transport-baris-hint" data-i18n="plan.biayaTransportHint">Biaya harian untuk seluruh scaffolder, dipakai langsung di hitungan budget.</p>
+            </div>
+          </fieldset>
+
+          <!-- Akomodasi -->
+          <fieldset class="field">
+            <legend class="field__label" data-i18n="plan.accommodation">Tipe akomodasi</legend>
+            <div class="chips chips--wrap" role="radiogroup" aria-label="Tipe akomodasi">
+              <label class="chip"><input type="radio" name="akomodasi" value="hostel" /><span data-i18n="plan.acHostel">Hostel / Homestay</span></label>
+              <label class="chip"><input type="radio" name="akomodasi" value="hotel" checked /><span data-i18n="plan.acHotel">Hotel</span></label>
+              <label class="chip"><input type="radio" name="akomodasi" value="villa" /><span data-i18n="plan.acVilla">Villa / Resort</span></label>
+              <label class="chip"><input type="radio" name="akomodasi" value="lainnya" /><span data-i18n="plan.acLainnya">Lainnya</span></label>
+            </div>
+            <div class="field__inline" id="akomodasi-baris" hidden>
+              <label class="field__label" for="biaya-akomodasi" data-i18n="plan.biayaAkomodasi">Biaya akomodasi per malam (Rp)</label>
+              <div class="input-group">
+                <span class="input-group__prefix">Rp</span>
+                <input type="number" id="biaya-akomodasi" name="biayaAkomodasiMalam" class="input"
+                       min="0" max="50000000" step="50000" inputmode="numeric" placeholder="contoh: 800000"
+                       aria-describedby="akomodasi-baris-hint" />
+              </div>
+              <p class="field__hint" id="akomodasi-baris-hint" data-i18n="plan.biayaAkomodasiHint">Biaya per malam untuk seluruh scaffolder, dipakai langsung di hitungan budget.</p>
+            </div>
+            <p class="field__hint" data-i18n="plan.acHint">Pilihan akomodasi mengikuti level budget Anda dan bisa diubah.</p>
           </fieldset>
 
           <!-- Budget -->
@@ -276,6 +582,30 @@
               <label class="chip"><input type="checkbox" name="minat" value="alam" /><span data-i18n="plan.m4">Alam</span></label>
               <label class="chip"><input type="checkbox" name="minat" value="belanja" /><span data-i18n="plan.m5">Belanja</span></label>
             </div>
+            <p class="field__sublabel" data-i18n="plan.minatPreset">Preset minat</p>
+            <div class="chips chips--wrap">
+              <label class="chip"><input type="checkbox" name="minat" value="spiritual" /><span data-i18n="plan.m6">Spiritual / Yoga</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="fotografi" /><span data-i18n="plan.m7">Fotografi</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="petualangan" /><span data-i18n="plan.m8">Petualangan</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="spa" /><span data-i18n="plan.m9">Spa &amp; Wellness</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="nightlife" /><span data-i18n="plan.m10">Nightlife</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="keluarga" /><span data-i18n="plan.m11">Keluarga</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="romantis" /><span data-i18n="plan.m12">Romantis</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="sejarah" /><span data-i18n="plan.m13">Sejarah</span></label>
+              <label class="chip"><input type="checkbox" name="minat" value="sport-air" /><span data-i18n="plan.m14">Olahraga Air</span></label>
+            </div>
+            <div class="field__inline">
+              <label class="field__label" for="minat-bebas" data-i18n="plan.minatBebas">Minat lainnya (ketik bebas)</label>
+              <div class="searchbox">
+                <input type="text" id="minat-bebas" name="minatBebas" class="input"
+                       maxlength="100" autocomplete="off" placeholder="Contoh: surfing, diving, senja"
+                       aria-describedby="minat-bebas-hint" />
+                <button type="button" class="btn btn--outline btn--sm" id="minat-bebas-add" data-i18n="plan.minatBebasTambah">Tambahkan</button>
+              </div>
+              <div class="counter"><span id="minat-bebas-count">0</span>/100</div>
+              <ul class="taglist" id="minat-bebas-list" aria-label="Minat bebas yang dipilih"></ul>
+              <p class="field__hint" id="minat-bebas-hint" data-i18n="plan.minatBebasHint">AI memetakan teks ini ke tag katalog kami. Kalau tidak ada yang cocok, kami pemberian jawaban jujur - bukan asal menebak.</p>
+            </div>
           </fieldset>
 
           <!-- Gaya -->
@@ -287,20 +617,124 @@
             </div>
           </fieldset>
 
-          <!-- Wilayah awal -->
-          <div class="field">
-            <label class="field__label" for="wilayah-awal" data-i18n="plan.wilayah">Wilayah awal</label>
-            <select id="wilayah-awal" name="wilayahAwal" class="select">
-              <option value="Denpasar">Denpasar</option>
-              <option value="Ubud" selected>Ubud</option>
-              <option value="Kuta">Kuta</option>
-              <option value="Seminyak">Seminyak</option>
-              <option value="Sanur">Sanur</option>
-              <option value="Tabanan">Tabanan</option>
-              <option value="Klungkung">Klungkung</option>
-              <option value="Buleleng">Buleleng</option>
-              <option value="Gianyar">Gianyar</option>
-            </select>
+          <!-- Titik awal (bebas) -->
+          <div class="field field--start" id="field-titik-awal">
+            <p class="field__label" id="label-titik-awal" data-i18n="plan.titikAwal">Titik awal</p>
+
+            <!-- Ringkasan titik awal yang dipilih -->
+            <div class="startpoint" id="startpoint" hidden>
+              <span class="startpoint__icon" aria-hidden="true">&#128205;</span>
+              <span class="startpoint__body">
+                <strong class="startpoint__name" id="startpoint-name"></strong>
+                <span class="startpoint__meta" id="startpoint-meta"></span>
+              </span>
+              <button type="button" class="startpoint__clear" id="startpoint-clear" data-i18n="plan.titikAwalHapus">Hapus</button>
+            </div>
+
+            <!-- Tiga cara memilih -->
+            <div class="tabs tabs--3" role="tablist" aria-labelledby="label-titik-awal">
+              <button type="button" class="tabs__tab is-active" role="tab" id="tab-start-daerah"
+                      data-start-tab="daerah" aria-selected="true" aria-controls="panel-start-daerah" data-i18n="plan.titikAwalDari">Dari daftar wilayah</button>
+              <button type="button" class="tabs__tab" role="tab" id="tab-start-cari"
+                      data-start-tab="cari" aria-selected="false" aria-controls="panel-start-cari" tabindex="-1" data-i18n="plan.titikAwalCari">Cari nama tempat</button>
+              <button type="button" class="tabs__tab" role="tab" id="tab-start-peta"
+                      data-start-tab="peta" aria-selected="false" aria-controls="panel-start-peta" tabindex="-1" data-i18n="plan.titikAwalPeta">Klik di peta</button>
+            </div>
+
+            <!-- (a) Daftar wilayah -->
+            <div class="tabs__panel" id="panel-start-daerah" role="tabpanel" aria-labelledby="tab-start-daerah" data-start-panel="daerah">
+              <div class="picker-field" id="field-wilayah">
+                <span class="field__label" id="label-wilayah" data-i18n="plan.wilayah">Wilayah awal</span>
+                <button type="button" class="picker" id="wilayah-picker"
+                        aria-haspopup="listbox" aria-expanded="false" aria-labelledby="label-wilayah">
+                  <span class="picker__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor"/></svg>
+                  </span>
+                  <span class="picker__value" id="wilayah-value">Ubud</span>
+                  <svg class="picker__chev" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+                </button>
+                <!-- Kontrol native (hanya layar <640px): select bawaan browser -->
+                <select id="wilayah-native" class="input input--native" aria-labelledby="label-wilayah"></select>
+                <input type="hidden" id="wilayah-awal" name="wilayahAwal" value="ubud" />
+                <div class="picker__panel" id="wilayah-panel" hidden>
+                  <div class="picker__search">
+                    <input type="search" id="wilayah-search" class="input" autocomplete="off"
+                           placeholder="Cari wilayah..." aria-label="Cari wilayah" />
+                  </div>
+                  <div class="picker__list" id="wilayah-list" role="listbox" aria-label="Daftar wilayah"></div>
+                </div>
+              </div>
+              <p class="field__hint" data-i18n="plan.titikAwalDariHint">Pilih salah satu wilayah Bali. Jarak, rute harian, dan harga akomodasi dihitung dari titik ini.</p>
+            </div>
+
+            <!-- (b) Cari nama tempat -->
+            <div class="tabs__panel" id="panel-start-cari" role="tabpanel" aria-labelledby="tab-start-cari" data-start-panel="cari" hidden>
+              <label class="field__label" for="start-search" data-i18n="plan.titikAwalCariLabel">Ketik nama hotel atau tempat</label>
+              <div class="searchbox">
+                <input type="search" id="start-search" class="input"
+                       autocomplete="off" maxlength="80" placeholder="Contoh: Hotel Tugu, Canggu"
+                       role="combobox" aria-expanded="false" aria-controls="start-results"
+                       aria-describedby="start-search-status" />
+                <button type="button" class="btn btn--outline btn--sm" id="start-locate" data-i18n="plan.titikAwalGps">Pakai lokasi saya</button>
+              </div>
+              <p class="field__hint" id="start-search-status" role="status" aria-live="polite"></p>
+              <ul class="results" id="start-results" role="listbox" aria-label="Hasil pencarian tempat"></ul>
+              <p class="field__hint" data-i18n="plan.titikAwalCariHint">Pencarian dibatasi area Bali (OpenStreetMap). Hasilnya dipakai untuk menghitung rute, bukan sebagai Places baru.</p>
+            </div>
+
+            <!-- (c) Klik pin di peta -->
+            <div class="tabs__panel" id="panel-start-peta" role="tabpanel" aria-labelledby="tab-start-peta" data-start-panel="peta" hidden>
+              <div class="pickmap" id="start-map"></div>
+              <p class="field__hint" id="start-map-status" data-i18n="plan.titikAwalPetaHint">Klik peta untuk menandai titik awal. Area pencarian dibatasi Bali.</p>
+            </div>
+          </div>
+
+          <!-- Tanggal berangkat (opsional) - kalender custom -->
+          <div class="field picker-field" id="field-tanggal">
+            <span class="field__label" id="label-tanggal" data-i18n="plan.tanggal">Tanggal berangkat (opsional)</span>
+            <div class="picker-row">
+              <button type="button" class="picker" id="tanggal-picker"
+                      aria-haspopup="dialog" aria-expanded="false" aria-labelledby="label-tanggal">
+                <span class="picker__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 2v2H5a2 2 0 00-2 2v13a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zm12 8v9H5v-9h14z" fill="currentColor"/></svg>
+                </span>
+                <span class="picker__value" id="tanggal-value" data-i18n="plan.tanggalPilih">Pilih tanggal</span>
+                <svg class="picker__chev" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+              </button>
+              <button type="button" class="picker__clear" id="tanggal-clear" hidden data-i18n="plan.tanggalHapus">Hapus</button>
+            </div>
+            <!-- Kontrol native (hanya layar <640px): input tanggal bawaan browser -->
+            <input type="date" id="tanggal-native" class="input input--native" aria-labelledby="label-tanggal" />
+            <input type="hidden" id="tanggal" name="tanggal" value="" />
+            <div class="picker__panel picker__panel--date" id="tanggal-panel" hidden role="dialog" aria-modal="false" aria-labelledby="tanggal-judul">
+              <div class="datepick__head">
+                <button type="button" class="datepick__nav" id="tanggal-prev" aria-label="Bulan sebelumnya">&#8249;</button>
+                <span class="datepick__title" id="tanggal-judul"></span>
+                <button type="button" class="datepick__nav" id="tanggal-next" aria-label="Bulan berikutnya">&#8250;</button>
+              </div>
+              <div class="datepick__week" id="tanggal-hari" aria-hidden="true"></div>
+              <div class="datepick__grid" id="tanggal-grid" role="grid"></div>
+            </div>
+            <p class="field__hint field__hint--accent" id="tanggal-musim" hidden></p>
+            <p class="field__hint" data-i18n="plan.tanggalHint">Dipakai untuk memeriksa hari libur dan musim kunjungan.</p>
+          </div>
+
+          <!-- Budget maksimal (opsional) -->
+          <div class="field" id="field-budget-maks">
+            <label class="field__label" for="budget-maks" data-i18n="plan.budgetMaks">Budget maksimal (opsional)</label>
+            <div class="input-group">
+              <span class="input-group__prefix">Rp</span>
+              <input type="text" id="budget-maks" name="budgetMaks" class="input" inputmode="numeric"
+                     autocomplete="off" placeholder="contoh: 5000000" aria-describedby="budget-maks-setara" />
+            </div>
+            <p class="field__hint field__hint--accent" id="budget-maks-setara" hidden></p>
+            <div class="chips chips--quick" id="budget-maks-cepat" role="group" aria-label="Budget cepat">
+              <button type="button" class="chip chip--quick" data-jumlah="2000000" data-i18n="plan.budgetCepat1">2 jt</button>
+              <button type="button" class="chip chip--quick" data-jumlah="5000000" data-i18n="plan.budgetCepat2">5 jt</button>
+              <button type="button" class="chip chip--quick" data-jumlah="10000000" data-i18n="plan.budgetCepat3">10 jt</button>
+              <button type="button" class="chip chip--quick" data-jumlah="20000000" data-i18n="plan.budgetCepat4">20 jt</button>
+            </div>
+            <p class="field__hint" data-i18n="plan.budgetMaksHint">Kalau diisi, kami memberi tahu bila rencana melebihi jumlah ini.</p>
           </div>
 
           <!-- Catatan tambahan -->
@@ -319,23 +753,84 @@
     </section>
 
     <!-- ================= HASIL ITINERARY ================= -->
-    <!-- Section ini selalu terlihat; sebelum ada hasil ditampilkan empty state. -->
     <section class="results" id="hasil" aria-labelledby="res-title">
       <div class="container">
-        <!-- Kepala + 3 kotak ringkasan: disembunyikan sampai ada hasil,
-             supaya tidak pernah menampilkan "0" atau "Rp 0" yang kosong. -->
-        <div class="results__head" id="res-head" hidden>
-          <div>
-            <p class="section-head__eyebrow" data-i18n="res.eyebrow">Your Itinerary</p>
-            <h2 id="res-title" data-i18n="res.title">Rencana Perjalanan Anda</h2>
-            <p class="results__summary" id="res-summary"></p>
-            <button type="button" class="btn btn--outline btn--sm" id="regenerate-btn" hidden style="margin-top:12px" aria-label="Buat ulang itinerary">Buat ulang</button>
+        <!-- Ringkasan trip -->
+        <div class="trip" id="trip" hidden>
+          <div class="trip__top">
+            <div class="trip__intro">
+              <p class="section-head__eyebrow" data-i18n="res.eyebrow">Your Itinerary</p>
+              <h2 id="res-title" data-i18n="res.title">Rencana Perjalanan Anda</h2>
+              <p class="trip__desc" id="trip-desc"></p>
+            </div>
+            <ul class="trip__facts" id="trip-facts"></ul>
           </div>
-          <div class="results__meta">
-            <div class="meta-box"><span data-i18n="res.days">Hari</span><strong id="res-days">0</strong></div>
-            <div class="meta-box"><span data-i18n="res.places">Tempat</span><strong id="res-places">0</strong></div>
-            <div class="meta-box meta-box--gold"><span data-i18n="res.total">Estimasi Total</span><strong id="res-total">Rp 0</strong></div>
+
+          <!-- Kartu angka budget -->
+          <div class="trip__money" id="trip-money"></div>
+
+          <!-- Peringatan budget / sisa budget -->
+          <div class="budget-alert" id="budget-alert" hidden></div>
+
+          <!-- Info jika narasi AI tidak tersedia -->
+          <p class="trip__notice" id="trip-notice" hidden></p>
+        </div>
+
+        <!-- Layout utama: itinerary di kiri, peta + budget di kanan -->
+        <div class="plan" id="plan" hidden>
+          <div class="plan__main">
+            <div class="daytabs" id="daytabs" role="tablist" aria-label="Pilih hari"></div>
+            <div class="plan__days" id="plan-days"></div>
+            <section class="panel panel--daybudget" id="budget-days" hidden></section>
           </div>
+
+          <aside class="plan__side">
+            <section class="panel panel--map">
+              <header class="panel__head">
+                <h3 data-i18n="res.peta">Peta Rute</h3>
+                <button type="button" class="panel__toggle" data-map-toggle aria-expanded="true" aria-controls="plan-map" data-i18n="res.petaTutup">Sembunyikan</button>
+              </header>
+              <div class="map" id="plan-map"></div>
+              <p class="map__note" id="map-note" hidden></p>
+            </section>
+
+            <section class="panel panel--budget">
+              <header class="panel__head">
+                <h3 data-i18n="res.budget">Rincian Budget</h3>
+              </header>
+              <div class="budget__chart" id="budget-chart"></div>
+              <ul class="budget__legend" id="budget-legend"></ul>
+              <div class="budget__table" id="budget-table"></div>
+              <p class="budget__note" data-i18n="res.budgetNote">Estimasi berdasarkan harga rata-rata, bisa berbeda sesuai musim.</p>
+            </section>
+          </aside>
+        </div>
+
+        <!-- Tips umum trip -->
+        <section class="tips" id="plan-tips" hidden>
+          <h3 data-i18n="res.tipsUmum">Tips Umum Trip</h3>
+          <div class="tips__grid" id="tips-grid"></div>
+        </section>
+
+        <!-- Aksi rencana -->
+        <div class="plan-actions" id="plan-actions" hidden>
+          <button type="button" class="btn btn--primary" data-action="print">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M19 8H5a3 3 0 00-3 3v6h4v4h12v-4h4v-6a3 3 0 00-3-3zM8 19v-4h8v4H8zm10-9H6v2H4v-2a1 1 0 011-1h14a1 1 0 011 1v2h-2v-2z" fill="currentColor"/></svg>
+            <span data-i18n="res.aksiCetak">Cetak / PDF</span>
+          </button>
+          <button type="button" class="btn btn--outline" data-action="copy">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z" fill="currentColor"/></svg>
+            <span data-i18n="res.aksiSalin">Salin rencana</span>
+          </button>
+          <button type="button" class="btn btn--outline" data-action="save">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16a3 3 0 110-6 3 3 0 010 6zm3-10H5V5h10v4z" fill="currentColor"/></svg>
+            <span data-i18n="res.aksiSimpan">Simpan rencana</span>
+          </button>
+          <button type="button" class="btn btn--outline" data-action="regenerate">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M17.65 6.35A8 8 0 106.35 17.65 1 1 0 1 19.65 8h2.1A6 6 0 1112 18a6 6 0 01-4.24-1.76l3.24-3.24H4v7l2.34-2.34A8 8 0 1017.65 6.35z" fill="currentColor"/></svg>
+            <span data-i18n="res.aksiBuatUlang">Buat ulang</span>
+          </button>
+          <span class="plan-actions__status" id="plan-actions-status" role="status"></span>
         </div>
 
         <!-- Empty state: tampil sebelum pengguna menekan tombol submit -->
@@ -373,7 +868,7 @@
               <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2l2.4 6.9H22l-6.2 4.4 2.4 6.9L12 16.8 5.8 20.2l2.4-6.9L2 8.9h7.6z" fill="currentColor"/></svg>
             </span>
             <div>
-              <strong>BaliWise AI</strong>
+              <strong data-i18n="chat.ai">Griska Go AI</strong>
               <span class="chat__status" data-i18n="chat.status">Siap membantu</span>
             </div>
           </div>
@@ -396,8 +891,10 @@
 
     <!-- ================= CTA PENUTUP ================= -->
     <section class="cta-final">
+      <span class="cta-final__blob" aria-hidden="true"></span>
       <div class="container cta-final__inner">
-        <h2 data-i18n="cta.title">Siap mulai libcary dengan lebih tenang?</h2>
+        <p class="cta-final__eyebrow">Griska Go</p>
+        <h2 data-i18n="cta.title">Siap mulai liburan dengan lebih tenang?</h2>
         <p data-i18n="cta.desc">Buat rencana Anda dalam satu menit — lengkap dengan panduan budaya yang membuat Anda dihormati oleh warga lokal.</p>
         <a href="#rencana" class="btn btn--gold btn--lg" data-i18n="cta.btn">Mulai Rencanakan Gratis</a>
       </div>
@@ -408,7 +905,10 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <span class="brand__text brand__text--light">Bali<span class="brand__accent">Wise</span></span>
+        <a href="#hero" class="brand brand--footer" data-brand data-brand-label="AI travel planner">
+          <span class="brand__mark" data-brand-mark></span>
+          <span class="brand__text" data-brand-text>Griska <span class="brand__accent">Go</span></span>
+        </a>
         <p data-i18n="footer.desc">Perencana itinerary Bali berbasis AI dengan panduan budaya &amp; etika di setiap lokasi.</p>
       </div>
       <div class="footer__cols">
@@ -427,12 +927,22 @@
       </div>
     </div>
     <div class="container footer__bottom">
-      <span>© 2026 BaliWise · NAISC 2026</span>
+      <span>© 2026 Griska Go · NAISC 2026</span>
       <span data-i18n="footer.note">Dibuat oleh pelajar SMA/SMK untuk kompetisi NAISC 2026 &middot; Kategori Website.</span>
     </div>
   </footer>
 
-  <script src="js/api.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/brand.js" defer></script>
+  <script src="js/nav.js" defer></script>
+  <script src="js/carousel.js" defer></script>
+  <script src="js/countup.js" defer></script>
+  <script src="js/reveal.js" defer></script>
+  <script src="js/chart.js" defer></script>
+  <script src="js/peta.js" defer></script>
+  <script src="js/hasil.js" defer></script>
+  <script src="js/titikawal.js" defer></script>
+    <script src="js/app.js" defer></script>
 </body>
 </html>

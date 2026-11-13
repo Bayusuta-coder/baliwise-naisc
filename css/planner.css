@@ -1,0 +1,1286 @@
+/* ==========================================================================
+   GRISKA GO - css/planner.css
+   Bagian "Rencanakan": form preferensi, ringkasan trip, itinerary per hari,
+   peta rute, rincian budget, tips umum, dan aksi.
+
+   1. Form preferensi (tambahan)
+   2. Ringkasan trip & kartu budget
+   3. Layout rencana (2 kolom)
+   4. Tab hari
+   5. Timeline aktivitas
+   6. Peta rute
+   7. Rincian budget (donut + tabel)
+   8. Tips umum & aksi
+   9. Cetak / PDF
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. FORM PREFERENSI (TAMBAHAN)
+   -------------------------------------------------------------------------- */
+.loader__step {
+  margin: .15rem 0 .4rem;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--sea-600);
+  letter-spacing: .02em;
+}
+
+/* Tombol "Lewati narasi AI" di dalam loading state */
+.loader__skip {
+  justify-self: center;
+  margin-top: var(--sp-3);
+  color: var(--sea-800);
+  background: var(--white);
+}
+.loader__skip:hover { background: var(--sea-050); border-color: var(--sea-600); }
+
+/* Kerangka (skeleton) itinerary saat sedang memproses */
+.skeleton { display: grid; gap: var(--sp-2); margin-top: var(--sp-3); }
+.skeleton__row {
+  display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--white);
+}
+.skeleton__time, .skeleton__line {
+  display: block;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #ece7de 25%, #f6f2ea 37%, #ece7de 63%);
+  background-size: 400% 100%;
+  animation: skeletonShimmer 1.4s ease infinite;
+}
+.skeleton__time { height: 34px; }
+.skeleton__body { display: grid; gap: .45rem; }
+.skeleton__line { height: 12px; }
+.skeleton__line--title { height: 16px; width: 55%; }
+.skeleton__line--short { width: 35%; }
+@keyframes skeletonShimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton__time, .skeleton__line { animation: none; }
+}
+
+.steppers {
+  display: grid; gap: var(--sp-2);
+}
+.stepper {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  padding: .55rem .75rem;
+  background: var(--cream);
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+}
+.stepper__label { font-size: var(--fs-sm); font-weight: 600; color: var(--ink-2); }
+.stepper__ctrl { display: flex; align-items: center; gap: .4rem; }
+.stepper__btn {
+  width: var(--tap); height: var(--tap);
+  display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 50%;
+  background: var(--white); color: var(--sea-800);
+  font-size: 1.15rem; font-weight: 800; line-height: 1;
+  cursor: pointer;
+  transition: background var(--tr), color var(--tr), transform var(--tr), border-color var(--tr);
+}
+.stepper__btn:hover { background: var(--sea-800); color: #fff; border-color: transparent; }
+.stepper__btn:active { transform: scale(.92); }
+.stepper__value {
+  min-width: 2.2rem; text-align: center;
+  font-size: var(--fs-lg); font-weight: 800; color: var(--sea-800);
+}
+
+.input {
+  width: 100%; min-height: var(--tap);
+  padding: .7rem .9rem;
+  background: var(--cream);
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  transition: border-color var(--tr), background var(--tr);
+}
+.input:focus { border-color: var(--sea-600); background: var(--white); outline: none; }
+.input-group { position: relative; display: flex; align-items: center; }
+.input-group__prefix {
+  position: absolute; left: .9rem;
+  font-size: var(--fs-sm); font-weight: 700; color: var(--ink-3);
+  pointer-events: none;
+}
+.input-group .input { padding-left: 2.4rem; }
+
+/* --------------------------------------------------------------------------
+   2. RINGKASAN TRIP & KARTU BUDGET
+   -------------------------------------------------------------------------- */
+.trip {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-2);
+  padding: clamp(1.1rem, 3vw, 2rem);
+  margin-bottom: var(--sp-4);
+}
+.trip__top {
+  display: grid; gap: var(--sp-3);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px dashed var(--line);
+}
+.trip__intro h2 { margin-bottom: var(--sp-2); }
+.trip__desc { color: var(--ink-2); margin: 0; max-width: 70ch; font-size: var(--fs-sm); }
+
+.trip__facts {
+  display: grid; gap: var(--sp-2);
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+}
+.trip__fact {
+  display: flex; align-items: flex-start; gap: .5rem;
+  padding: .55rem .7rem;
+  background: var(--cream);
+  border-radius: var(--r-md);
+}
+.trip__fact-icon { font-size: 1.05rem; line-height: 1.4; }
+.trip__fact-body { display: grid; min-width: 0; }
+.trip__fact-label {
+  font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.trip__fact-value { font-size: var(--fs-sm); font-weight: 700; color: var(--sea-800); }
+
+.trip__money {
+  display: grid; gap: var(--sp-2);
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  margin-top: var(--sp-4);
+}
+.money {
+  padding: .8rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--cream);
+}
+.money__label {
+  display: block;
+  font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: .15rem;
+}
+.money__value {
+  display: block;
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  font-weight: 800; color: var(--sea-800); letter-spacing: -.02em; line-height: 1.2;
+}
+.money__sub { display: block; font-size: var(--fs-xs); color: var(--ink-3); }
+.money--gold {
+  background: var(--grad-gold);
+  border-color: transparent;
+  box-shadow: var(--sh-gold);
+}
+.money--gold .money__label { color: rgba(58, 39, 8, .72); }
+.money--gold .money__value { color: #33210a; }
+.money--gold .money__sub { color: rgba(58, 39, 8, .68); }
+.money--warn { border-color: #f0c8a0; background: #fdf6ec; }
+.money--warn .money__value { color: var(--gold-700); }
+
+.budget-alert {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--r-lg);
+  font-size: var(--fs-sm);
+}
+.budget-alert--ok {
+  background: var(--trop-050);
+  border-left: 4px solid var(--trop-600);
+  color: var(--trop-700);
+}
+.budget-alert--over {
+  background: #fdf3e6;
+  border-left: 4px solid var(--gold-500);
+  color: var(--gold-700);
+}
+.budget-alert__title { display: block; font-weight: 800; margin-bottom: .3rem; }
+.budget-alert__label { margin: .3rem 0 .2rem; font-weight: 700; }
+.budget-alert__list { display: grid; gap: .3rem; }
+.budget-alert__list li { padding-left: 1rem; position: relative; }
+.budget-alert__list li::before {
+  content: ''; position: absolute; left: 0; top: .55em;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--gold-500);
+}
+.budget-alert__hemat { font-style: normal; font-weight: 800; color: var(--trop-700); margin-left: .3rem; }
+
+.trip__notice {
+  margin: var(--sp-3) 0 0;
+  padding: .6rem .8rem;
+  border-radius: var(--r-md);
+  background: var(--sea-050);
+  color: var(--sea-800);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   3. LAYOUT RENCANA
+   -------------------------------------------------------------------------- */
+.plan {
+  display: grid; gap: var(--sp-4);
+  align-items: start;
+}
+.plan__main { min-width: 0; display: grid; gap: var(--sp-3); }
+.plan__side { min-width: 0; display: grid; gap: var(--sp-3); }
+
+.panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+  overflow: hidden;
+}
+.panel__head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2);
+  padding: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+.panel__head h3 { margin: 0; font-size: var(--fs-base); color: var(--sea-800); }
+.panel__toggle {
+  border: 1px solid var(--line); background: var(--cream);
+  border-radius: var(--r-pill);
+  min-height: 34px; padding: 0 .7rem;
+  font-size: var(--fs-xs); font-weight: 700; color: var(--sea-800);
+  cursor: pointer;
+  transition: background var(--tr), color var(--tr);
+}
+.panel__toggle:hover { background: var(--sea-050); color: var(--sea-700); }
+
+/* --------------------------------------------------------------------------
+   4. TAB HARI
+   -------------------------------------------------------------------------- */
+/* Tab hari: ringkas, satu baris, rata kiri, scrollbar disembunyikan */
+.daytabs {
+  display: flex;
+  gap: .4rem;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: .2rem;
+  scrollbar-width: none;          /* sembunyikan scrollbar, tetap bisa digeser */
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.daytabs::-webkit-scrollbar { width: 0; height: 0; display: none; }
+.daytab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: .4rem .85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  color: var(--sea-800);
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: border-color var(--tr), background var(--tr), color var(--tr),
+              box-shadow var(--tr), transform var(--tr);
+}
+.daytab:hover { border-color: var(--sea-600); transform: translateY(-1px); }
+.daytab.is-active {
+  border-color: transparent;
+  background: var(--sea-700);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(8, 47, 79, .18);
+}
+.daytab__label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: 1.2;
+  color: inherit;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   5. TIMELINE AKTIVITAS
+   -------------------------------------------------------------------------- */
+.daypanel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+  overflow: hidden;
+}
+/* Header hari: SATU warna solid biru tua di seluruh lebar, tanpa gradien */
+.daypanel__head {
+  display: block;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--sea-800);
+  color: #fff;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.daypanel__badge {
+  display: inline-flex; align-items: center;
+  padding: .18rem .55rem; border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, .2);
+  font-size: var(--fs-xs); font-weight: 800;
+  line-height: 1.3;
+}
+.daypanel__title {
+  margin: .35rem 0 0;
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+  max-width: 46ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+/* Keterangan / narasi panjang: di BAWAH header, teks gelap di latar putih */
+.daypanel__note {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--white);
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--line);
+}
+.daypanel__note-text {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.daypanel__cost {
+  margin-left: auto;
+  padding: .25rem .7rem; border-radius: var(--r-pill);
+  background: var(--sea-050);
+  color: var(--sea-800);
+  font-size: var(--fs-xs); font-weight: 800;
+}
+
+.timeline--plan { display: grid; gap: var(--sp-3); padding: var(--sp-4); }
+
+.stop--plan {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--day-color, var(--sea-600));
+  border-radius: var(--r-md);
+  background: var(--white);
+  box-shadow: var(--sh-1);
+  transition: transform var(--tr), box-shadow var(--tr);
+}
+.stop--plan:hover { transform: translateY(-2px); box-shadow: var(--sh-2); }
+.stop--plan .stop__time {
+  display: grid; align-content: start; justify-items: center; gap: .1rem;
+  background: var(--cream);
+  border-radius: var(--r-sm);
+  padding: .45rem .3rem;
+  min-width: 0;
+}
+.stop--plan .stop__time strong { font-size: var(--fs-base); color: var(--sea-800); }
+.stop--plan .stop__time span { font-size: .68rem; color: var(--ink-3); }
+.stop__body { display: grid; gap: .55rem; min-width: 0; }
+.stop__head { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.stop__name { margin: 0; font-size: var(--fs-base); color: var(--sea-800); }
+.stop__cat { display: inline-flex; align-items: center; gap: .25rem; }
+.stop__desc { margin: 0; font-size: var(--fs-sm); color: var(--ink-2); }
+
+.stop__why {
+  display: grid; gap: .15rem;
+  padding: .5rem .7rem;
+  border-radius: var(--r-sm);
+  background: var(--sea-050);
+  border-left: 3px solid var(--sea-500);
+}
+.stop__why-label { font-size: .68rem; font-weight: 800; color: var(--sea-700); text-transform: uppercase; letter-spacing: .04em; }
+.stop__why-text { margin: 0; font-size: var(--fs-xs); color: var(--ink-2); }
+
+.stop__photo { margin: 0; overflow: hidden; border-radius: var(--r-sm); background: var(--cream); }
+.stop__photo img { width: 100%; height: 150px; object-fit: cover; }
+
+.stop__meta { display: grid; gap: .35rem; margin: 0; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+.stop__meta-item { display: grid; }
+.stop__meta dt {
+  font-size: .64rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.stop__meta dd { margin: 0; font-size: var(--fs-xs); color: var(--ink-2); }
+
+.stop__tips {
+  background: var(--gold-050);
+  border-left: 3px solid var(--gold-500);
+  border-radius: var(--r-sm);
+  padding: .6rem .75rem;
+}
+.stop__tips-title { display: block; font-size: .68rem; font-weight: 800; color: var(--gold-700); text-transform: uppercase; letter-spacing: .04em; margin-bottom: .25rem; }
+.stop__tips ul { display: grid; gap: .2rem; }
+.stop__tips li { font-size: var(--fs-xs); color: #6b5316; padding-left: .9rem; position: relative; }
+.stop__tips li::before {
+  content: ''; position: absolute; left: 0; top: .5em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--gold-500);
+}
+.stop__dress { margin: .35rem 0 0; font-size: var(--fs-xs); font-weight: 700; color: var(--gold-700); }
+
+.stop__maps {
+  justify-self: start;
+  display: inline-flex; align-items: center; gap: .35rem;
+  min-height: 36px; padding: 0 .8rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-size: var(--fs-xs); font-weight: 700; color: var(--sea-700);
+  transition: background var(--tr), border-color var(--tr), color var(--tr);
+}
+.stop__maps:hover { background: var(--sea-050); border-color: var(--sea-600); color: var(--sea-800); }
+
+.stop--makan {
+  border-left-color: var(--trop-600);
+  background: linear-gradient(180deg, var(--trop-050), var(--white) 60%);
+}
+.stop--makan .stop__name { color: var(--trop-700); }
+
+/* --------------------------------------------------------------------------
+   6. PETA RUTE
+   -------------------------------------------------------------------------- */
+.map {
+  height: 280px;
+  background: var(--cream);
+}
+.map__note { margin: 0; padding: var(--sp-3); font-size: var(--fs-xs); color: var(--ink-2); }
+.map-marker__dot {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  color: #fff; font-size: .72rem; font-weight: 800;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .3);
+}
+.map-marker__dot::first-line { transform: rotate(45deg); }
+
+/* --------------------------------------------------------------------------
+   7. RINCIAN BUDGET
+   -------------------------------------------------------------------------- */
+.budget__chart { display: grid; place-items: center; padding: var(--sp-3) var(--sp-3) 0; }
+.donut { width: 100%; max-width: 210px; height: auto; }
+.donut__total { font-size: 1.05rem; font-weight: 800; fill: var(--sea-800); }
+.donut__sub { font-size: .62rem; fill: var(--ink-3); }
+
+.budget__legend { display: grid; gap: .3rem; padding: var(--sp-3); }
+.legend__item { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: .5rem; font-size: var(--fs-xs); }
+.legend__dot { width: 10px; height: 10px; border-radius: 3px; }
+.legend__label { color: var(--ink-2); }
+.legend__value { font-weight: 800; color: var(--sea-800); }
+
+.budget__table { padding: 0 var(--sp-3) var(--sp-3); overflow-x: auto; }
+.budget__table--wide { padding: 0 var(--sp-3) var(--sp-3); }
+.budget-table { width: 100%; border-collapse: collapse; font-size: var(--fs-xs); min-width: 320px; }
+.budget-table--compact { min-width: 0; }
+.budget-table--compact th { text-align: left; }
+.budget-table--compact td { text-align: right; }
+.budget-table th, .budget-table td { padding: .4rem .35rem; text-align: right; white-space: nowrap; }
+.budget-table thead th {
+  font-size: .62rem; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--ink-3); border-bottom: 1px solid var(--line);
+}
+.budget-table tbody th { text-align: left; font-weight: 600; color: var(--ink-2); }
+.budget-table tbody tr:nth-child(odd) { background: var(--cream); }
+.budget-table__total { font-weight: 800; color: var(--sea-800); }
+.budget-table tfoot th, .budget-table tfoot td {
+  border-top: 2px solid var(--line);
+  font-weight: 800; color: var(--sea-800);
+  font-size: var(--fs-sm);
+}
+
+/* Rincian budget: kartu bertumpuk untuk layar kecil (<700px). */
+.budget-cards { display: none; }
+.budget-card {
+  background: var(--white);
+  border: 1px solid var(--sea-100);
+  border-radius: var(--r-md);
+  padding: .8rem .9rem;
+  box-shadow: var(--sh-1);
+}
+.budget-card__title {
+  margin: 0 0 .55rem;
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  color: var(--sea-800);
+}
+.budget-card__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .3rem .8rem;
+  margin: 0;
+}
+.budget-card__label {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.budget-card__nilai {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--sea-800);
+}
+.budget-card__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .6rem;
+  margin: .6rem 0 0;
+  padding-top: .5rem;
+  border-top: 1px dashed var(--sea-100);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--sea-800);
+}
+.budget-card__total-nilai { white-space: nowrap; }
+
+/* Kartu total keseluruhan: latar biru tua, teks putih. */
+.budget-card--total {
+  background: var(--sea-800);
+  border-color: var(--sea-800);
+  color: #fff;
+}
+.budget-card--total .budget-card__title,
+.budget-card--total .budget-card__label,
+.budget-card--total .budget-card__nilai,
+.budget-card--total .budget-card__total-label,
+.budget-card--total .budget-card__total-nilai { color: #fff; }
+.budget-card--total .budget-card__total {
+  border-top-color: rgba(255, 255, 255, .3);
+  color: #fff;
+}
+
+@media (max-width: 699px) {
+  /* Tabel disembunyikan, diganti kartu bertumpuk (tanpa scroll horizontal). */
+  .budget__table--wide { display: none; }
+  .budget-cards { display: grid; gap: .7rem; }
+}
+
+@media (min-width: 700px) {
+  /* Tabel tetap: boleh digeser, kolom Kategori menempel di kiri. */
+  .budget__table--wide { overflow-x: auto; }
+  .budget__table--wide .budget-table thead th:first-child,
+  .budget__table--wide .budget-table tbody th,
+  .budget__table--wide .budget-table tfoot th {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--white);
+  }
+  .budget__table--wide .budget-table thead th:first-child { z-index: 3; }
+  .budget__table--wide .budget-table tbody tr:nth-child(odd) th { background: var(--cream); }
+}
+
+/* --------------------------------------------------------------------------
+   8. TIPS UMUM & AKSI
+   -------------------------------------------------------------------------- */
+.tips {
+  margin-top: var(--sp-4);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-1);
+  padding: var(--sp-4);
+}
+.tips h3 { color: var(--sea-800); margin-bottom: var(--sp-3); }
+.tips__grid { display: grid; gap: var(--sp-3); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.tips__box {
+  padding: .9rem 1rem;
+  border-radius: var(--r-md);
+  background: var(--cream);
+  border-top: 3px solid var(--sea-500);
+}
+.tips__title { font-size: var(--fs-sm); color: var(--sea-800); margin-bottom: .4rem; }
+.tips__list { display: grid; gap: .25rem; }
+.tips__list li { font-size: var(--fs-xs); color: var(--ink-2); padding-left: .9rem; position: relative; }
+.tips__list li::before {
+  content: '✓'; position: absolute; left: 0; top: 0;
+  color: var(--trop-600); font-weight: 800;
+}
+
+.plan-actions {
+  position: sticky; bottom: 0; z-index: 40;
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2);
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) 0;
+  background: linear-gradient(180deg, rgba(251, 248, 242, 0), var(--cream) 28%);
+}
+.plan-actions .btn { flex: 1 1 auto; min-width: 9rem; }
+.plan-actions__status { font-size: var(--fs-xs); font-weight: 700; color: var(--ink-3); }
+.plan-actions__status.is-ok { color: var(--trop-700); }
+.plan-actions__status.is-error { color: #b23b34; }
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIF
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .plan { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--sp-4); }
+  .plan__side { position: sticky; top: 96px; }
+  .map { height: 320px; }
+  .stop__photo img { height: 180px; }
+}
+
+@media (max-width: 560px) {
+  .stop--plan { grid-template-columns: 54px minmax(0, 1fr); gap: .6rem; padding: .7rem; }
+  .timeline--plan { padding: var(--sp-2); }
+  .plan-actions { gap: .4rem; }
+  .plan-actions .btn { min-width: 0; font-size: var(--fs-xs); padding: .5rem .6rem; }
+}
+
+/* --------------------------------------------------------------------------
+   10. CETAK / PDF
+   -------------------------------------------------------------------------- */
+@media print {
+  body { background: #fff; }
+  .nav, .hero, .problem, .how, .features, .planner, .chatsec, .cta-final, .footer,
+  .plan-actions, .skip-link, .panel__toggle, .empty-state, .timeline { display: none !important; }
+  .results { padding: 0; background: #fff; }
+  .results .container { max-width: none; padding: 0; }
+  .trip, .daypanel, .panel, .tips { box-shadow: none; border-color: #ccc; break-inside: avoid; }
+  .plan { display: block; }
+  .daypanel[hidden] { display: block !important; }
+  .panel--map { display: none; }
+  .map { height: 220px; }
+  .stop__photo img { height: 130px; }
+  a[href]::after { content: ''; }
+}
+
+/* ============================================================================
+   GRISKA GO - css/planner.css (lanjutan)
+   Gaya untuk: titik awal (tab, ringkasan, pencarian, peta), chip minat bebas,
+   baris "Lainnya", dan badge tag minat.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TITIK AWAL
+   -------------------------------------------------------------------------- */
+.field--start { display: grid; gap: var(--sp-2); }
+
+.field__inline {
+  display: grid; gap: var(--sp-2);
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--sea-050);
+  border: 1px solid var(--sea-100);
+}
+.field__inline .field__label { margin-bottom: 0; }
+.field__inline .field__hint { margin-top: 0; }
+
+.field__sublabel {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.input--num { max-width: 8.5rem; }
+
+/* Tab cara memilih titik awal */
+.tabs {
+  display: flex;
+  gap: .3rem;
+  padding: .25rem;
+  border-radius: var(--r-md);
+  background: var(--sea-050);
+  border: 1px solid var(--sea-100);
+}
+.tabs__tab {
+  flex: 1 1 0;
+  min-height: var(--tap);
+  padding: .45rem .6rem;
+  border: 0;
+  border-radius: calc(var(--r-md) - 3px);
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background var(--tr), color var(--tr);
+}
+.tabs__tab:hover { background: rgba(255, 255, 255, .7); color: var(--sea-800); }
+.tabs__tab.is-active {
+  background: var(--white);
+  color: var(--sea-800);
+  box-shadow: 0 1px 3px rgba(10, 61, 98, .12);
+}
+.tabs__tab:focus-visible { outline: 2px solid var(--sea-600); outline-offset: 1px; }
+
+.tabs__panel { display: grid; gap: var(--sp-2); }
+.tabs__panel[hidden] { display: none; }
+
+/* Ringkasan titik awal terpilih */
+.startpoint {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .55rem .7rem;
+  border-radius: var(--r-md);
+  background: var(--white);
+  border: 1px solid var(--sea-100);
+  box-shadow: 0 1px 2px rgba(10, 61, 98, .06);
+}
+.startpoint[hidden] { display: none; }
+.startpoint__icon { font-size: 1.05rem; line-height: 1; }
+.startpoint__body { display: grid; min-width: 0; flex: 1; }
+.startpoint__name {
+  font-size: var(--fs-sm);
+  color: var(--sea-800);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.startpoint__meta { font-size: var(--fs-xs); color: var(--ink-3); }
+.startpoint__clear {
+  flex: 0 0 auto;
+  min-height: var(--tap);
+  padding: .4rem .8rem;
+  border: 1px solid var(--sea-100);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  color: var(--sea-700);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  cursor: pointer;
+}
+.startpoint__clear:hover { background: var(--sea-050); border-color: var(--sea-600); }
+
+/* Kotak pencarian + tombol GPS */
+.searchbox {
+  display: flex;
+  gap: .5rem;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.searchbox .input { flex: 1 1 12rem; min-width: 0; }
+.searchbox .btn { flex: 0 0 auto; }
+
+/* Status pencarian */
+#start-search-status { margin: 0; min-height: 1rem; }
+#start-search-status.is-ok { color: var(--trop-700); font-weight: 600; }
+#start-search-status.is-error { color: #b4441f; font-weight: 600; }
+
+/* Hasil pencarian */
+.results { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.results__item { margin: 0; }
+.results__btn {
+  width: 100%;
+  min-height: var(--tap);
+  display: grid;
+  gap: .15rem;
+  padding: .55rem .7rem;
+  text-align: left;
+  border: 1px solid var(--sea-100);
+  border-radius: var(--r-md);
+  background: var(--white);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color var(--tr), background var(--tr);
+}
+.results__btn:hover { border-color: var(--sea-600); background: var(--sea-050); }
+.results__btn:focus-visible { outline: 2px solid var(--sea-600); outline-offset: 1px; }
+.results__name { font-size: var(--fs-sm); color: var(--sea-800); }
+.results__addr { font-size: var(--fs-xs); color: var(--ink-3); }
+.results__coord { font-size: var(--fs-xs); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+/* Peta Choosing titik awal */
+.pickmap {
+  width: 100%;
+  height: 260px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--sea-100);
+  overflow: hidden;
+  background: var(--sea-050);
+}
+@media (min-width: 560px) { .pickmap { height: 320px; } }
+
+/* --------------------------------------------------------------------------
+   2. CHIP MINAT BEBAS
+   -------------------------------------------------------------------------- */
+.taglist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.taglist__item {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .2rem .3rem .2rem .6rem;
+  border-radius: var(--r-pill);
+  background: var(--trop-050);
+  color: var(--trop-700);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  max-width: 100%;
+}
+.taglist__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 14rem;
+}
+.taglist__remove {
+  position: relative;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+/* Area sentuh diperluas ke 44x44 px tanpa mengubah tampilan. */
+.taglist__remove::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
+.taglist__remove:hover { background: rgba(0, 0, 0, .08); }
+.taglist__remove:focus-visible { outline: 2px solid var(--sea-600); outline-offset: 1px; }
+
+/* --------------------------------------------------------------------------
+   3. BADGE TAG MINAT DI KARTU AKTIVITAS
+   -------------------------------------------------------------------------- */
+.stop__tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .35rem; }
+.stop__tags .tag { font-size: .68rem; }
+
+/* --------------------------------------------------------------------------
+   4. RESPONSIF (320-430px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 430px) {
+  .tabs { flex-wrap: wrap; }
+  .tabs__tab { flex: 1 1 30%; }
+  .searchbox .btn { flex: 1 1 100%; }
+  .taglist__text { max-width: 9rem; }
+  .results__addr { display: none; }
+}
+
+/* ============================================================================
+   GRISKA GO - css/planner.css (lanjutan)
+   Gaya untuk: input budget maksimal (teks + chip cepat), kalender custom,
+   dan picker wilayah.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. PICKER (tombol + panel) - dipakai wilayah & tanggal
+   -------------------------------------------------------------------------- */
+
+/* Panel picker harus bisa keluar dari kartu form: buang overflow yang
+   memotongnya (overflow:hidden + border-radius akan memotong panel). */
+.picker-field { position: relative; overflow: visible; }
+.planner__form, .planner__form > .field, .planner__form .field--inline { overflow: visible; }
+
+.picker {
+  width: 100%;
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .6rem .85rem;
+  background: var(--cream);
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  color: var(--sea-800);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--tr), background var(--tr);
+}
+.picker:hover { border-color: var(--sea-600); }
+.picker:focus-visible { outline: 2px solid var(--sea-600); outline-offset: 2px; }
+.picker__icon { display: grid; place-items: center; color: var(--sea-600); flex: 0 0 auto; }
+.picker__value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.picker__chev { flex: 0 0 auto; color: var(--ink-3); }
+.picker[aria-expanded="true"] { border-color: var(--sea-600); background: var(--white); }
+.picker[aria-expanded="true"] .picker__chev { transform: rotate(180deg); }
+
+.picker-row { display: flex; align-items: center; gap: .5rem; }
+.picker-row .picker { flex: 1; min-width: 0; }
+.picker__clear {
+  flex: 0 0 auto;
+  min-height: var(--tap);
+  padding: .4rem .8rem;
+  border: 1px solid var(--sea-100);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  color: var(--sea-700);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  cursor: pointer;
+}
+.picker__clear:hover { background: var(--sea-050); border-color: var(--sea-600); }
+.picker__clear[hidden] { display: none; }
+
+/* Panel dropdown (desktop: popup di bawah tombol) */
+.picker__panel {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: min(58vh, 420px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--sea-100);
+  border-radius: var(--r-lg);
+  box-shadow: 0 18px 40px rgba(10, 61, 98, .2);
+  /* Tampil/sembunyi via class .is-open: transisi tunggal, tanpa display. */
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: visibility .18s ease, transform .18s ease;
+}
+.picker__panel.is-open {
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Kontrol native browser (select wilayah & input tanggal):
+   hanya dipakai di layar <640px, jadi disembunyikan di layar besar. */
+.input--native { display: none; }
+
+/* Latar gelap HANYA di layar <640px (bottom sheet): tanpa blur,
+   z-index 999 di bawah panel (1000). */
+.picker__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, .4);
+}
+.picker__backdrop[hidden] { display: none; pointer-events: none; }
+
+@media (min-width: 640px) {
+  /* Desktop: tanpa overlay sama sekali (panel = popup biasa). */
+  .picker__backdrop { display: none; }
+}
+
+/* Tombol "Tutup" (bottom sheet di layar kecil) */
+.picker__tutup {
+  display: none;
+  width: 100%;
+  min-height: var(--tap);
+  margin-top: .5rem;
+  padding: .6rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--sea-050);
+  color: var(--sea-800);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.picker__search { padding: .7rem .7rem .4rem; border-bottom: 1px solid var(--sea-050); }
+.picker__search .input { min-height: var(--tap); }
+.picker__list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: .4rem;
+  scrollbar-width: thin;
+}
+.picker__group {
+  margin: .5rem .5rem .25rem;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.picker__empty { margin: .8rem .6rem; font-size: var(--fs-sm); color: var(--ink-3); }
+
+.picker__item {
+  width: 100%;
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .5rem .55rem;
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--tr);
+}
+.picker__item:hover { background: var(--sea-050); }
+.picker__item:focus-visible { outline: 2px solid var(--sea-600); outline-offset: -2px; }
+.picker__item.is-active { background: var(--sea-050); color: var(--sea-800); }
+.picker__item-icon {
+  flex: 0 0 auto;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--sea-050);
+  color: var(--sea-700);
+}
+.picker__item.is-active .picker__item-icon { background: var(--grad-gold); color: #3a2708; }
+.picker__item-body { display: grid; min-width: 0; gap: .05rem; }
+.picker__item-name { font-size: var(--fs-sm); font-weight: 700; color: var(--sea-800); }
+.picker__item-desc {
+  font-size: .68rem;
+  color: var(--ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.picker__item-check { margin-left: auto; font-weight: 800; color: var(--sea-700); }
+
+/* --------------------------------------------------------------------------
+   2. KALENDER CUSTOM
+   -------------------------------------------------------------------------- */
+.picker__panel--date { padding: .6rem; }
+
+.datepick__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .4rem;
+  margin-bottom: .5rem;
+}
+.datepick__title {
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  color: var(--sea-800);
+  text-align: center;
+}
+.datepick__nav {
+  width: var(--tap);
+  height: var(--tap);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--sea-700);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--tr), border-color var(--tr);
+}
+.datepick__nav:hover { background: var(--sea-050); border-color: var(--sea-600); }
+
+/* Dua dropdown custom: Bulan & Tahun */
+.datepick__selects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  flex: 1;
+  min-width: 0;
+}
+.datepick__select { position: relative; min-width: 0; }
+.datepick__select-btn {
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .35rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  color: var(--sea-800);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.datepick__select-btn:hover { border-color: var(--sea-600); }
+.datepick__select-btn:focus-visible { outline: 2px solid var(--sea-600); outline-offset: 2px; }
+.datepick__select-label { overflow: hidden; text-overflow: ellipsis; }
+.datepick__select-chev { color: var(--ink-3); font-size: .8rem; }
+.datepick__select-panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 9rem;
+  max-height: 220px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: .3rem;
+  background: var(--white);
+  border: 1px solid var(--sea-100);
+  border-radius: var(--r-md);
+  box-shadow: 0 12px 28px rgba(10, 61, 98, .22);
+  scrollbar-width: thin;
+}
+.datepick__select-panel[hidden] { display: none; }
+.datepick__select-item {
+  width: 100%;
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  padding: .45rem .6rem;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.datepick__select-item:hover:not(:disabled) { background: var(--sea-050); color: var(--sea-800); }
+.datepick__select-item.is-active { background: var(--grad-gold); color: #33210a; }
+.datepick__select-item:disabled { opacity: .38; cursor: not-allowed; }
+
+.datepick__week,
+.datepick__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 2px;
+}
+.datepick__dayname {
+  padding: .25rem 0;
+  text-align: center;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.datepick__cell {
+  min-height: var(--tap);
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--tr), color var(--tr);
+}
+.datepick__cell:hover:not(:disabled) { background: var(--sea-050); color: var(--sea-800); }
+.datepick__cell:disabled { color: var(--ink-3); opacity: .32; cursor: not-allowed; }
+.datepick__cell.is-selected {
+  background: var(--grad-gold);
+  color: #33210a;
+  box-shadow: 0 4px 10px rgba(232, 163, 61, .35);
+}
+.datepick__cell--kosong { pointer-events: none; }
+.datepick__cell:focus-visible { outline: 2px solid var(--sea-600); outline-offset: -2px; }
+
+/* --------------------------------------------------------------------------
+   3. BUDGET MAKSIMAL
+   -------------------------------------------------------------------------- */
+.field__hint--accent { color: var(--sea-700); font-weight: 700; }
+
+.chips--quick { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: var(--sp-2); }
+.chip--quick {
+  flex: 0 0 auto;
+  min-height: var(--tap);
+  padding: .4rem .8rem;
+  border: 1px solid var(--sea-100);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  color: var(--sea-700);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--tr), border-color var(--tr), color var(--tr);
+}
+.chip--quick:hover { background: var(--sea-050); border-color: var(--sea-600); color: var(--sea-800); }
+.chip--quick:focus-visible { outline: 2px solid var(--sea-600); outline-offset: 2px; }
+
+/* --------------------------------------------------------------------------
+   4. RESPONSIF (mobile <640px: bottom sheet)
+   -------------------------------------------------------------------------- */
+@media (max-width: 639px) {
+  /* Di layar kecil pakai kontrol bawaan browser:
+     <select> wilayah + <input type="date">, tanpa panel custom. */
+  #field-wilayah .picker,
+  #field-tanggal .picker,
+  #tanggal-clear,
+  .picker__panel { display: none; }
+  .picker__backdrop { display: none; }
+  .input--native {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    font-size: 16px;            /* cegah zoom otomatis di iOS */
+    padding: .6rem .8rem;
+    color: var(--sea-800);
+    background: var(--cream);
+    border: 2px solid var(--line);
+    border-radius: var(--r-md);
+  }
+  .input--native:focus { border-color: var(--sea-600); background: var(--white); outline: none; }
+
+  /* Bottom sheet: menempel di bawah layar, lebar penuh, sudut atas bulat. */
+  .picker__panel {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    max-height: 70vh;
+    max-height: 70dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 22px 22px 0 0;
+    border-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    transform: translateY(100%);
+    transition: transform .22s ease, visibility .22s ease;
+  }
+  .picker__panel.is-open { transform: translateY(0); }
+  .picker__panel--date { padding: .75rem; }
+  .picker__tutup { display: block; }
+  /* Item wilayah bisa disentuh nyaman: min 48px. */
+  .picker__item { min-height: 48px; }
+  .datepick__cell { min-height: var(--tap); }
+  .datepick__select-panel {
+    max-height: 200px;
+    min-width: 7.5rem;
+  }
+}

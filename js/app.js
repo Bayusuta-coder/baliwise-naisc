@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- *  BALIWISE - js/app.js
+ *  GRISKA GO - js/app.js
  * ----------------------------------------------------------------------------
  *  Seluruh logika antarmuka:
  *   1. Multi bahasa (Indonesia / English) + teks AI mengikuti bahasa.
@@ -8,6 +8,9 @@
  *   3. Panggilan API + loading state + penanganan error yang ramah.
  *   4. Render itinerary per hari dalam bentuk kartu timeline.
  *   5. Chat lanjutan yang mengingat itinerary.
+ *
+ *  Kamus bahasa berada di js/i18n.js; komponen tampilan (logo, navbar,
+ *  carousel, count-up, reveal) berada di file masing-masing.
  * ============================================================================
  */
 
@@ -15,294 +18,9 @@
   'use strict';
 
   /* =====================================================================
-     A. KAMUS BAHASA (i18n)
+     A. KAMUS BAHASA (i18n) - dimuat dari js/i18n.js
      ===================================================================== */
-  const i18n = {
-    id: {
-      'skip': 'Langsung ke form rencana',
-      'nav.how': 'Cara Kerja',
-      'nav.features': 'Fitur',
-      'nav.planner': 'Rencanakan',
-      'nav.result': 'Hasil Rencana',
-      'nav.cta': 'Mulai Rencanakan',
-
-      'hero.pill': 'Powered by AI · Guide budaya otomatis',
-      'hero.title': 'Rencanakan Liburan Bali, Tanpa Lagi Bingung.',
-      'hero.desc': 'BaliWise menyusun itinerary harian sesuai durasi, budget, dan minat Anda — lengkap dengan tips budaya & etika di setiap lokasi, supaya Anda tidak salah adat.',
-      'hero.cta1': 'Mulai Rencanakan',
-      'hero.cta2': 'Lihat Cara Kerja',
-      'hero.stat1': 'Destinasi terverifikasi',
-      'hero.stat2': 'Bahasa (ID & EN)',
-      'hero.stat3': 'Hari itinerary',
-      'hero.cardTag': 'Rekomendasi AI',
-      'hero.cardTitle': 'Uluwatu · Sunset & Tari Kechak',
-      'hero.badge': 'Tips etika per lokasi',
-
-      'problem.eyebrow': 'The Problem',
-      'problem.title': 'Wisatawan bingung merencanakan perjalanan di Bali',
-      'problem.p1.title': 'Ribuan tempat, waktu terbatas',
-      'problem.p1.text': 'Bali punya ratusan atraksi. Pengunjung sering kehabisan waktu di jalan atau keliling bolak-balik tanpa rencana.',
-      'problem.p2.title': 'Budget meleset di tengah jalan',
-      'problem.p2.text': 'Tanpa estimasi biaya per hari, pengeluaran membengkak karena transportasi, tiket, dan makan sering di luar dugaan.',
-      'problem.p3.title': 'Tidak paham adat & etika lokal',
-      'problem.p3.text': 'Banyak tourists tidak tahu aturan beribadah, dress code di pura, hingga cara terima kasih di Bali agar tidak membuat warga lokal tersinggung.',
-
-      'how.eyebrow': 'How It Works',
-      'how.title': 'Tiga langkah, rencana siap pakai',
-      'how.s1.title': 'Isi preferensi',
-      'how.s1.text': 'Pilih durasi, budget, minat, gaya perjalanan, dan wilayah awal. Cukup 30 detik.',
-      'how.s2.title': 'AI menyusun itinerary',
-      'how.s2.text': 'AI memilih tempat nyata dari katalog 28 destinasi, menghitung biaya, dan menambahkan tips etika per lokasi.',
-      'how.s3.title': 'Tanya & ubah bebas',
-      'how.s3.text': 'Chat lanjutan mengingat rencana Anda. Minta ubah hari, tambah tempat, atau sesuaikan budget kapan saja.',
-
-      'feat.eyebrow': 'Fitur Utama',
-      'feat.title': 'Dibuat untuk traveler, bukan untuk agent',
-      'feat.f1.title': 'Grounded, bukan karangan',
-      'feat.f1.text': 'AI dibatasi hanya boleh merekomendasikan tempat dari data/destinasi.json. Tempat yang tidak dikenal otomatis dibuang.',
-      'feat.f2.title': 'Tips budaya di tiap lokasi',
-      'feat.f2.text': 'Setiap kartu memuat etika spesifik: pakai sarong, alur beribadah, aturan snorkeling, hingga cara menawar di pasar.',
-      'feat.f3.title': 'Estimasi biaya transparan',
-      'feat.f3.text': 'Rincian biaya per kegiatan dan total harian, siap dibandingkan dengan budget yang Anda tetapkan.',
-      'feat.f4.title': 'Timeline visual',
-      'feat.f4.text': 'Rencana ditampilkan sebagai kartu per hari dengan jam, tempat, aktivitas, biaya, dan tips — mudah dipindai.',
-      'feat.f5.title': 'Chat yang mengingat',
-      'feat.f5.text': 'AI menyimpan konteks itinerary selama percakapan, jadi permintaan "ganti hari 2 jadi lebih santai" langsung dieksekusi.',
-      'feat.f6.title': 'Bilingual penuh',
-      'feat.f6.text': 'Antarmuka dan hasil AI mengikuti pilihan bahasa: Bahasa Indonesia atau English, tanpa kehilangan isi.',
-
-      'plan.title': 'Susun Rencana Liburan Anda',
-      'plan.desc': 'Isi preferensi di samping. AI akan menyusun rencana per hari lengkap dengan jam, aktivitas, estimasi biaya, dan tips budaya.',
-      'plan.note1': '28 destinasi nyata Bali (bukan hasil karangan AI)',
-      'plan.note2': 'Tips adat & etika untuk setiap lokasi',
-      'plan.note3': 'Bisa chatting untuk revisi kapan saja',
-      'plan.durasi': 'Durasi perjalanan',
-      'plan.durasiHint': 'Pilih jumlah hari (1-7 hari).',
-      'plan.budget': 'Budget',
-      'plan.b1': 'Hemat',
-      'plan.b2': 'Menengah',
-      'plan.b3': 'Mewah',
-      'plan.minat': 'Minat perjalanan',
-      'plan.minatReq': '(pilih minimal 1)',
-      'plan.m1': 'Pantai',
-      'plan.m2': 'Budaya',
-      'plan.m3': 'Kuliner',
-      'plan.m4': 'Alam',
-      'plan.m5': 'Belanja',
-      'plan.gaya': 'Gaya perjalanan',
-      'plan.g1': 'Santai',
-      'plan.g2': 'Padat',
-      'plan.wilayah': 'Wilayah awal',
-      'plan.catatan': 'Catatan tambahan',
-      'plan.optional': '(opsional)',
-      'plan.submit': 'Susun Itinerary dengan AI',
-      'plan.submitBusy': 'AI sedang menyusun rencana...',
-      'plan.disclaimer': 'Rencana ini adalah saran. Selalu konfirmasi harga, jam buka, dan aturan terbaru ke sumber resmi.',
-      'plan.errDurasi': 'Pilih durasi perjalanan (1-7 hari).',
-      'plan.errMinat': 'Pilih minimal satu minat perjalanan.',
-      'plan.errWilayah': 'Pilih wilayah awal.',
-
-      'res.eyebrow': 'Your Itinerary',
-      'res.title': 'Rencana Perjalanan Anda',
-      'res.days': 'Hari',
-      'res.places': 'Tempat',
-      'res.total': 'Estimasi Total',
-      'res.emptyTitle': 'Belum ada rencana',
-      'res.emptyText': 'Isi preferensi di atas, lalu tekan "Susun Itinerary dengan AI". Rencana per hari beserta tips budaya akan muncul di sini.',
-      'res.regenerate': 'Buat ulang dalam {lang}',
-      'res.changed': 'Itinerary diperbarui oleh AI.',
-
-      'chat.title': 'Tanya atau Ubah Rencana',
-      'chat.desc': 'AI mengingat itinerary Anda. Contoh: "ganti hari 2 jadi lebih santai", "tambah aktivitas snorkeling", "turunkan budget jadi hemat".',
-      'chat.s1': 'Ganti hari 2 jadi lebih santai',
-      'chat.s2': 'Turunkan budget jadi hemat',
-      'chat.s3': 'Tambahkan aktivitas belanja di hari 3',
-      'chat.status': 'Siap membantu',
-      'chat.statusBusy': 'Sedang thinking...',
-      'chat.label': 'Tulis pesan',
-      'chat.placeholder': 'Tulis permintaan Anda (maks 300 karakter)',
-      'chat.empty': 'Contoh: "Tambahkan sunset di Pantai Seminyak di hari 1".',
-      'chat.send': 'Kirim',
-      'chat.errEmpty': 'Tulis pesan terlebih dahulu.',
-      'chat.errLong': 'Pesan maksimal 300 karakter.',
-      'chat.rebuild': 'Itinerary sudah diperbarui di atas.',
-      'chat.you': 'Anda',
-      'chat.ai': 'BaliWise AI',
-
-      'cta.title': 'Siang mulai liburan dengan lebih tenang?',
-      'cta.desc': 'Buat rencana Anda dalam satu menit — lengkap dengan panduan budaya yang membuat Anda dihormati oleh warga lokal.',
-      'cta.btn': 'Mulai Rencanakan Gratis',
-
-      'footer.desc': 'Perencana itinerary Bali berbasis AI dengan panduan budaya & etika di setiap lokasi.',
-      'footer.navTitle': 'Navigasi',
-      'footer.techTitle': 'Teknologi',
-      'footer.note': 'Dibuat oleh pelajar SMA/SMK untuk kompetisi NAISC 2026 · Kategori Website.',
-
-      /* --- teks dinamis (dibuat lewat JS) --- */
-      'load.title': 'AI sedang menyusun rencana...',
-      'load.hint': 'Menganalisis preferensi Anda, memilih destinasi yang sesuai, dan menghitung estimasi biaya.',
-      'load.step1': 'Menentukan hari & budget',
-      'load.step2': 'Memilih destinasi nyata',
-      'load.step3': 'Menambahkan tips budaya',
-      'day.label': 'Hari {n}',
-      'stop.tips': 'Tips Budaya & Etika',
-      'stop.transport': 'Transportasi',
-      'stop.duration': 'Durasi',
-      'stop.free': 'Gratis',
-      'stop.min': 'mnt',
-      'kategori.pantai': 'Pantai',
-      'kategori.budaya': 'Budaya',
-      'kategori.kuliner': 'Kuliner',
-      'kategori.alam': 'Alam',
-      'kategori.belanja': 'Belanja',
-      'err.title': 'Terjadi masalah',
-      'err.default': 'Terjadi kesalahan, silakan coba lagi.',
-      'err.raw': 'Lihat jawaban mentah dari AI',
-      'plan.retry': 'Coba Lagi'
-    },
-
-    en: {
-      'skip': 'Skip to the planner form',
-      'nav.how': 'How It Works',
-      'nav.features': 'Features',
-      'nav.planner': 'Planner',
-      'nav.result': 'My Itinerary',
-      'nav.cta': 'Start Planning',
-
-      'hero.pill': 'Powered by AI · Automatic culture guide',
-      'hero.title': 'Plan Your Bali Trip, Without the Guesswork.',
-      'hero.desc': 'BaliWise builds a day-by-day itinerary that matches your duration, budget, and interests — complete with cultural and etiquette tips for every single location, so you never offend a local.',
-      'hero.cta1': 'Start Planning',
-      'hero.cta2': 'See How It Works',
-      'hero.stat1': 'Verified destinations',
-      'hero.stat2': 'Languages (ID & EN)',
-      'hero.stat3': 'Itinerary days',
-      'hero.cardTag': 'AI pick',
-      'hero.cardTitle': 'Uluwatu · Sunset & Kechak Dance',
-      'hero.badge': 'Etiquette tips per location',
-
-      'problem.eyebrow': 'The Problem',
-      'problem.title': 'Travellers struggle to plan a Bali trip',
-      'problem.p1.title': 'Endless places, limited time',
-      'problem.p1.text': 'Bali has hundreds of attractions. Travellers often waste time on the road or criss-cross the island with no clear plan.',
-      'problem.p2.title': 'Budget overruns mid-trip',
-      'problem.p2.text': 'Without a daily cost estimate, transport, tickets, and food expenses regularly exceed expectations.',
-      'problem.p3.title': 'Unaware of local customs',
-      'problem.p3.text': 'Many tourists do not know temple dress codes, worship etiquette, or how to say thank you in Bali without upsetting locals.',
-
-      'how.eyebrow': 'How It Works',
-      'how.title': 'Three steps to a ready-to-use plan',
-      'how.s1.title': 'Set your preferences',
-      'how.s1.text': 'Pick duration, budget, interests, travel style, and starting area. It only takes 30 seconds.',
-      'how.s2.title': 'AI builds the itinerary',
-      'how.s2.text': 'The AI picks real places from a catalogue of 28 destinations, calculates costs, and adds etiquette tips for each stop.',
-      'how.s3.title': 'Ask and refine freely',
-      'how.s3.text': 'The follow-up chat remembers your plan. Ask to change a day, add a place, or adjust the budget any time.',
-
-      'feat.eyebrow': 'Key Features',
-      'feat.title': 'Built for travellers, not travel agents',
-      'feat.f1.title': 'Grounded, never invented',
-      'feat.f1.text': 'The AI may only recommend places listed in data/destinasi.json. Unknown locations are filtered out automatically.',
-      'feat.f2.title': 'Culture tips at every stop',
-      'feat.f2.text': 'Each card carries specific etiquette: wear a sarong, follow worship flow, snorkeling rules, and how to bargain at markets.',
-      'feat.f3.title': 'Transparent cost estimates',
-      'feat.f3.text': 'Per-activity cost and daily totals, ready to compare against the budget you set.',
-      'feat.f4.title': 'Visual timeline',
-      'feat.f4.text': 'The plan is shown as cards per day with time, place, activity, cost, and tips — easy to skim.',
-      'feat.f5.title': 'A chat that remembers',
-      'feat.f5.text': 'The AI keeps the itinerary in context, so "make day 2 more relaxed" is executed immediately.',
-      'feat.f6.title': 'Fully bilingual',
-      'feat.f6.text': 'Both the interface and the AI output follow your language choice: Indonesian or English, with nothing lost.',
-
-      'plan.title': 'Build Your Travel Plan',
-      'plan.desc': 'Fill in the preferences. The AI will produce a per-day plan with times, activities, cost estimates, and culture tips.',
-      'plan.note1': '28 real Bali destinations (not AI inventions)',
-      'plan.note2': 'Customs and etiquette for every location',
-      'plan.note3': 'Chat with the AI to revise it any time',
-      'plan.durasi': 'Trip duration',
-      'plan.durasiHint': 'Choose the number of days (1-7).',
-      'plan.budget': 'Budget',
-      'plan.b1': 'Budget',
-      'plan.b2': 'Mid-range',
-      'plan.b3': 'Luxury',
-      'plan.minat': 'Travel interests',
-      'plan.minatReq': '(pick at least 1)',
-      'plan.m1': 'Beaches',
-      'plan.m2': 'Culture',
-      'plan.m3': 'Food',
-      'plan.m4': 'Nature',
-      'plan.m5': 'Shopping',
-      'plan.gaya': 'Travel style',
-      'plan.g1': 'Relaxed',
-      'plan.g2': 'Packed',
-      'plan.wilayah': 'Starting area',
-      'plan.catatan': 'Extra notes',
-      'plan.optional': '(optional)',
-      'plan.submit': 'Build My Itinerary with AI',
-      'plan.submitBusy': 'AI is building your plan...',
-      'plan.disclaimer': 'This plan is a suggestion. Always confirm prices, opening hours, and current rules with official sources.',
-      'plan.errDurasi': 'Please pick a trip duration (1-7 days).',
-      'plan.errMinat': 'Please pick at least one travel interest.',
-      'plan.errWilayah': 'Please pick a starting area.',
-
-      'res.eyebrow': 'Your Itinerary',
-      'res.title': 'Your Travel Plan',
-      'res.days': 'Days',
-      'res.places': 'Places',
-      'res.total': 'Estimated Total',
-      'res.emptyTitle': 'No plan yet',
-      'res.emptyText': 'Fill in your preferences above, then press "Build My Itinerary with AI". Your day-by-day plan with culture tips will appear here.',
-      'res.regenerate': 'Rebuild in {lang}',
-      'res.changed': 'The AI updated your itinerary.',
-
-      'chat.title': 'Ask or Edit the Plan',
-      'chat.desc': 'The AI remembers your itinerary. For example: "make day 2 more relaxed", "add a snorkeling activity", "switch to a budget plan".',
-      'chat.s1': 'Make day 2 more relaxed',
-      'chat.s2': 'Switch to a budget plan',
-      'chat.s3': 'Add a shopping stop on day 3',
-      'chat.status': 'Ready to help',
-      'chat.statusBusy': 'Thinking...',
-      'chat.label': 'Type your message',
-      'chat.placeholder': 'Type your request (max 300 characters)',
-      'chat.empty': 'Example: "add a sunset at Seminyak Beach on day 1".',
-      'chat.send': 'Send',
-      'chat.errEmpty': 'Please type a message first.',
-      'chat.errLong': 'Messages are limited to 300 characters.',
-      'chat.rebuild': 'The itinerary above has been updated.',
-      'chat.you': 'You',
-      'chat.ai': 'BaliWise AI',
-
-      'cta.title': 'Ready to travel with more peace of mind?',
-      'cta.desc': 'Build your plan in one minute — complete with a culture guide that makes you respected by locals.',
-      'cta.btn': 'Start Planning Free',
-
-      'footer.desc': 'An AI-powered Bali itinerary planner with cultural and etiquette guidance for every location.',
-      'footer.navTitle': 'Navigation',
-      'footer.techTitle': 'Technology',
-      'footer.note': 'Built by high school students for the NAISC 2026 competition - Website category.',
-
-      'load.title': 'AI is building your plan...',
-      'load.hint': 'Analysing your preferences, selecting matching destinations, and calculating cost estimates.',
-      'load.step1': 'Setting days and budget',
-      'load.step2': 'Picking real destinations',
-      'load.step3': 'Adding culture tips',
-      'day.label': 'Day {n}',
-      'stop.tips': 'Cultural & Etiquette Tips',
-      'stop.transport': 'Getting there',
-      'stop.duration': 'Duration',
-      'stop.free': 'Free',
-      'stop.min': 'min',
-      'kategori.pantai': 'Beach',
-      'kategori.budaya': 'Culture',
-      'kategori.kuliner': 'Food',
-      'kategori.alam': 'Nature',
-      'kategori.belanja': 'Shopping',
-      'err.title': 'Something went wrong',
-      'err.default': 'Something went wrong. Please try again.',
-      'err.raw': 'View the raw AI response',
-      'plan.retry': 'Try Again'
-    }
-  };
+  const I18n = window.BaliWiseI18n;
 
   /* =====================================================================
      B. STATE APLIKASI
@@ -313,8 +31,15 @@
     itinerary: null,          // itinerary yang sedang tampil
     preferensi: null,         // preferensi terakhir (untuk membuat ulang)
     chatHistory: [],          // [{ role: 'user'|'assistant', text }]
-    sedangProses: false
+    sedangProses: false,
+    minatBebas: [],          // minat bebas yang diketik traveler (maks 5)
+    titikAwal: null          // { nama, lat, lng } atau null (pakai dropdown)
   };
+
+  /* Timer teks progres saat memproses rencana. */
+  let loaderTimer = null;
+  /* Token permintaan: mencegah respons lama menimpa hasil baru. */
+  let tokenPermintaan = 0;
 
   /* =====================================================================
      C. UTILITAS
@@ -324,16 +49,7 @@
 
   /** Mengambil teks terjemahan, dengan placeholder {n} yang bisa diganti. */
   function t(kunci, vars) {
-    const paket = i18n[state.bahasa] || i18n.id;
-    let teks = paket[kunci];
-    if (teks === undefined) teks = i18n.id[kunci];
-    if (teks === undefined) return kunci;
-    if (vars) {
-      Object.keys(vars).forEach((v) => {
-        teks = teks.split('{' + v + '}').join(vars[v]);
-      });
-    }
-    return teks;
+    return I18n.get(kunci, vars);
   }
 
   /** Format Rupiah: 75000 -> "Rp 75.000" */
@@ -353,14 +69,14 @@
   /* ---- Penyimpanan bahasa (dengan try/catch, localStorage bisa diblokir) ---- */
   function simpanBahasa(bahasa) {
     try {
-      window.localStorage.setItem('baliwise.bahasa', bahasa);
+      window.localStorage.setItem('griska-go.bahasa', bahasa);
     } catch (_) {
       /* localStorage tidak tersedia (mode private / iframe) -> abaikan, bukan error fatal */
     }
   }
   function bacaBahasa() {
     try {
-      const v = window.localStorage.getItem('baliwise.bahasa');
+      const v = window.localStorage.getItem('griska-go.bahasa');
       return (v === 'id' || v === 'en') ? v : null;
     } catch (_) {
       return null;
@@ -373,14 +89,26 @@
 
   /** Menerjemahkan seluruh elemen yang punya atribut data-i18n. */
   function terjemahkanUI() {
+    I18n.setBahasa(state.bahasa);
+
     $$('[data-i18n]').forEach((el) => {
       const teks = t(el.getAttribute('data-i18n'));
-      // Jangan Sentuh elemen yang butuh HTML (mis. <span> di dalam <p>)
+      // Jangan sentuh elemen yang butuh HTML (mis. <span> di dalam <p>)
       if (el.children.length === 0) el.textContent = teks;
       else {
         // Ganti hanya teks node pertama agar format/icon tetap aman.
         el.firstChild && (el.firstChild.nodeType === 3 ? el.firstChild.nodeValue = teks : (el.textContent = teks));
       }
+    });
+
+    // Atribut alt untuk gambar (mis. slide carousel).
+    $$('[data-i18n-alt]').forEach((el) => {
+      el.setAttribute('alt', t(el.getAttribute('data-i18n-alt')));
+    });
+
+    // Atribut aria-label yang perlu ikut berbahasa (mis. label navigasi).
+    $$('[data-i18n-aria-label]').forEach((el) => {
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria-label')));
     });
 
     // Update atribut yang berisi teks dinamis.
@@ -394,8 +122,8 @@
 
     document.documentElement.lang = state.bahasa;
     document.title = state.bahasa === 'en'
-      ? 'BaliWise — AI-Powered Bali Itinerary Planner'
-      : 'BaliWise — Perencana Itinerary Bali Berbasis AI';
+      ? 'Griska Go — AI-Powered Bali Itinerary Planner'
+      : 'Griska Go — Perencana Itinerary Bali Berbasis AI';
   }
 
   /** Mengganti bahasa aplikasi (+ hasil AI kalau itinerary sudah ada). */
@@ -412,11 +140,24 @@
 
     terjemahkanUI();
 
+    // Teks dinamis komponen form ikut berbahasa.
+    perbaruiLabelTanggal();
+    gambarWilayah('');
+    gambarWilayahNative();
+
+    // Render ulang hasil itinerary agar ikut berbahasa.
+    if (state.itinerary && window.GriskaHasil) {
+      renderItinerary(state.itinerary, state.budget, state.metaRencana);
+    }
+
     // Render ulang itinerary agar nama tempat ikut mengikuti bahasa.
     if (state.itinerary) renderItinerary(state.itinerary);
 
     // Tampilkan tombol "buat ulang" bila bahasa hasil AI berbeda dengan bahasa UI.
     perbaruiTombolRegenerate();
+
+    // Kabari komponen lain (carousel, dsb) bahwa bahasa berganti.
+    document.dispatchEvent(new CustomEvent('griskago:bahasa', { detail: { bahasa: bahasa } }));
   }
 
   /* =====================================================================
@@ -424,28 +165,67 @@
      ===================================================================== */
   function bacaPreferensi() {
     const durasiEl = $('input[name="durasi"]:checked');
-    const minat = $$('input[name="minat"]:checked').map((el) => el.value);
     const budgetEl = $('input[name="budget"]:checked');
     const gayaEl = $('input[name="gaya"]:checked');
     const wilayah = $('#wilayah-awal');
     const catatan = $('#catatan');
+    const turisEl = $('input[name="touristType"]:checked');
+    const transportEl = $('input[name="transport"]:checked');
+    const akomodasiEl = $('input[name="akomodasi"]:checked');
+    const tanggal = $('#tanggal');
+    const maks = $('#budget-maks');
+    const durasiJumlah = $('#durasi-jumlah');
+    const biayaTransport = $('#biaya-transport');
+    const biayaAkomodasi = $('#biaya-akomodasi');
+
+    // Durasi: tombol 1-7, atau "Lainnya" (8-14 hari).
+    let durasi = durasiEl ? Number(durasiEl.value) : null;
+    if (durasiEl && durasiEl.value === 'lainnya') {
+      durasi = durasiJumlah ? parseInt(durasiJumlah.value, 10) : NaN;
+    }
+
+    // Minat: kategori + preset + teks bebas (chip).
+    const minat = $$('input[name="minat"]:checked').map((el) => el.value);
 
     return {
-      durasi: durasiEl ? Number(durasiEl.value) : null,
+      durasi: durasi,
       budget: budgetEl ? budgetEl.value : 'menengah',
       minat: minat,
+      minatTeks: state.minatBebas.slice(),
       gaya: gayaEl ? gayaEl.value : 'padat',
       wilayahAwal: wilayah ? wilayah.value : '',
-      catatan: catatan ? catatan.value.trim().slice(0, 300) : ''
+      titikAwal: state.titikAwal,
+      catatan: catatan ? catatan.value.trim().slice(0, 300) : '',
+      traveler: {
+        dewasa: Number(($('#traveler-dewasa-input') || {}).value || 1),
+        anak: Number(($('#traveler-anak-input') || {}).value || 0)
+      },
+      touristType: turisEl ? turisEl.value : 'domestik',
+      transport: transportEl ? transportEl.value : 'motor',
+      akomodasi: akomodasiEl ? akomodasiEl.value : 'hotel',
+      biayaTransportHarian: biayaTransport ? Number(biayaTransport.value || 0) : 0,
+      biayaAkomodasiMalam: biayaAkomodasi ? Number(biayaAkomodasi.value || 0) : 0,
+      tanggal: tanggal ? tanggal.value : '',
+      budgetMaks: maks ? angkaDariTeks(maks.value) : 0
     };
   }
 
   /** Validasi sebelum memanggil server. Mengembalikan pesan error atau null. */
   function validasiForm(p) {
-    if (!p.durasi || p.durasi < 1 || p.durasi > 7) return t('plan.errDurasi');
-    if (!p.minat || p.minat.length === 0) return t('plan.errMinat');
-    if (!p.wilayahAwal) return t('plan.errWilayah');
+    if (!p.durasi || !Number.isInteger(p.durasi) || p.durasi < 1 || p.durasi > 14) return t('plan.errDurasi');
+    // Minimal satu minat: kategori, preset, atau teks bebas.
+    const adaMinat = (p.minat && p.minat.length > 0) || (p.minatTeks && p.minatTeks.length > 0);
+    if (!adaMinat) return t('plan.errMinat');
+    if (!p.wilayahAwal && !p.titikAwal) return t('plan.errWilayah');
     if (p.catatan && p.catatan.length > 300) return t('chat.errLong');
+    if (!p.traveler || p.traveler.dewasa < 1) return t('plan.errTraveler');
+    if (p.traveler.dewasa > 20) return t('plan.errTraveler');
+    if (p.traveler.anak < 0 || p.traveler.anak > 10) return t('plan.errTraveler');
+    if (p.traveler.dewasa + p.traveler.anak > 30) return t('plan.errTraveler');
+    if (p.budgetMaks && p.budgetMaks < 0) return t('plan.errBudgetMaks');
+    if (p.transport === 'lainnya' && !(p.biayaTransportHarian > 0)) return t('plan.errBiayaTransport');
+    if (p.akomodasi === 'lainnya' && !(p.biayaAkomodasiMalam > 0)) return t('plan.errBiayaAkomodasi');
+    if (p.minatTeks && p.minatTeks.length > 5) return t('plan.errMinatBebas');
     return null;
   }
 
@@ -460,6 +240,76 @@
     box.hidden = false;
     box.textContent = pesan;
     box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* =====================================================================
+     E2. CHIP MINAT BEBAS (teks yang diketik traveler)
+     ===================================================================== */
+
+  /**
+   * Pola upaya prompt injection (identik dengan proteksi server).
+   * Kalau terdeteksi, teks TIDAK dikirim sama sekali.
+   */
+  const POLA_INJEKSI = [
+    /\b(ignore|abaikan|lupakan|discard|forget)\b[^.!?\n]{0,60}?\b(instruksi|instructions?|perintah|aturan|sistem|system|prompt)\b/i,
+    /\b(system|assistant|user)\s*:/i,
+    /\b(you are|anda adalah|kamu adalah|act as|bertingkah|pretend)\b/i,
+    /\b(ignore all|abaikan semua|tambahkan|add|tambah)\b[^.!?\n]{0,40}?\b(ke itinerary|to the itinerary|hotel|resort|destinasi|place)\b/i
+  ];
+
+  /** Menambah minat bebas (maks 5, tiap 100 karakter). */
+  function tambahMinatBebas(teks) {
+    const bersih = String(teks || '').replace(/[\u0000-\u001f\u007f]/g, ' ')
+      .replace(/\s+/g, ' ').trim().slice(0, 100);
+    if (!bersih) return false;
+    // Upaya memberi instruksi ke AI -> ditolak dengan pesan ramah.
+    if (POLA_INJEKSI.some(function (pola) { return pola.test(bersih); })) {
+      tampilkanError(t('plan.minatBebasDitolak'));
+      return false;
+    }
+    if (state.minatBebas.length >= 5) {
+      tampilkanError(t('plan.errMinatBebas'));
+      return false;
+    }
+    if (state.minatBebas.indexOf(bersih) >= 0) return false;
+    state.minatBebas.push(bersih);
+    gambarChipMinatBebas();
+    tampilkanError(null);
+    return true;
+  }
+
+  /** Menggambar daftar chip minat bebas (dapat dihapus). */
+  function gambarChipMinatBebas() {
+    const daftar = $('#minat-bebas-list');
+    if (!daftar) return;
+    daftar.textContent = '';
+
+    state.minatBebas.forEach(function (teks, i) {
+      const li = document.createElement('li');
+      li.className = 'taglist__item';
+
+      const label = document.createElement('span');
+      label.className = 'taglist__text';
+      label.textContent = teks;
+      li.appendChild(label);
+
+      const hapus = document.createElement('button');
+      hapus.type = 'button';
+      hapus.className = 'taglist__remove';
+      hapus.setAttribute('aria-label', t('plan.minatBebasHapus', { teks: teks }));
+      hapus.textContent = '\u00d7';
+      hapus.addEventListener('click', function () {
+        state.minatBebas.splice(i, 1);
+        gambarChipMinatBebas();
+      });
+      li.appendChild(hapus);
+
+      daftar.appendChild(li);
+    });
+
+    const counter = $('#minat-bebas-count');
+    const input = $('#minat-bebas');
+    if (counter) counter.textContent = String(input ? input.value.length : 0);
   }
 
   /* =====================================================================
@@ -550,42 +400,25 @@
     return blok;
   }
 
-  /** Render seluruh itinerary ke section hasil. */
-  function renderItinerary(itinerary) {
-    const timeline = $('#timeline');
-    const hasilSection = $('#hasil');
-    if (!timeline || !hasilSection) return;
+  /**
+   * Menampilkan hasil itinerary (ringkasan, timeline, peta, budget, tips).
+   * Data sudah lengkap dari server: rencana + rincian budget.
+   */
+  function renderItinerary(itinerary, budget, meta) {
+    if (!itinerary) return;
+    state.itinerary = itinerary;
+    state.budget = budget || null;
+    state.metaRencana = meta || null;
 
-    timeline.textContent = '';
-
-    if (!itinerary || !itinerary.hari || !itinerary.hari.length) {
-      timeline.appendChild(buatEl('p', 'alert alert--info', t('err.title')));
-      return;
+    if (window.GriskaHasil) {
+      window.GriskaHasil.render(itinerary, budget || state.budget, Object.assign({}, meta, {
+        bahasa: state.bahasa,
+        gaya: (state.preferensi || {}).gaya,
+        tanggal: (state.preferensi || {}).tanggal
+      }));
     }
 
-    // Hasil sudah ada: tampilkan kepala + 3 kotak ringkasan, sembunyikan empty state.
-    const head = $('#res-head');
-    const empty = $('#res-empty');
-    if (head) head.hidden = false;
-    if (empty) empty.hidden = true;
-
-    // Ringkasan & angka ringkas
-    const ringkas = $('#res-summary');
-    if (ringkas) ringkas.textContent = itinerary.ringkasan || '';
-
-    const totalTempat = itinerary.hari.reduce((n, h) => n + (h.jadwal ? h.jadwal.length : 0), 0);
-    const elHari = $('#res-days');
-    const elTempat = $('#res-places');
-    const elTotal = $('#res-total');
-    if (elHari) elHari.textContent = itinerary.hari.length;
-    if (elTempat) elTempat.textContent = totalTempat;
-    if (elTotal) elTotal.textContent = rupiah(itinerary.totalEstimasi);
-
-    itinerary.hari.forEach((hari) => timeline.appendChild(renderHari(hari)));
-
-    hasilSection.hidden = false;
-
-    // Munculkan juga panel chat (hanya setelah ada rencana).
+    // Panel chat muncul setelah ada rencana.
     const chatSection = $('#chat');
     if (chatSection) chatSection.hidden = false;
 
@@ -624,7 +457,13 @@
     loader.setAttribute('aria-live', 'polite');
 
     loader.appendChild(buatEl('div', 'loader__ring'));
-    loader.appendChild(buatEl('p', 'loader__text', t('load.title')));
+
+    // Teks progres: berganti bertahap supaya traveler tahu prosesnya jalan.
+    const judul = buatEl('p', 'loader__text', t('load.title'));
+    loader.appendChild(judul);
+
+    const langkah = buatEl('p', 'loader__step', t('load.step1'));
+    loader.appendChild(langkah);
 
     const dots = buatEl('p', 'loader__dots');
     dots.appendChild(buatEl('span'));
@@ -634,19 +473,49 @@
 
     loader.appendChild(buatEl('p', 'loader__hint', t('load.hint')));
 
+    // Tombol "Lewati narasi AI": traveler tidak perlu menunggu AI menulis cerita.
+    const skip = buatEl('button', 'btn btn--outline btn--sm loader__skip');
+    skip.type = 'button';
+    skip.setAttribute('data-action', 'skip-narasi');
+    skip.appendChild(buatEl('span', null, t('load.skip')));
+    loader.appendChild(skip);
+
+    // Kerangka (skeleton) itinerary supaya layout tidak "melompat" saat hasil muncul.
+    const skeleton = buatEl('div', 'skeleton');
+    for (let i = 0; i < 3; i++) {
+      const baris = buatEl('div', 'skeleton__row');
+      baris.appendChild(buatEl('span', 'skeleton__time'));
+      const isi = buatEl('div', 'skeleton__body');
+      isi.appendChild(buatEl('span', 'skeleton__line skeleton__line--title'));
+      isi.appendChild(buatEl('span', 'skeleton__line'));
+      isi.appendChild(buatEl('span', 'skeleton__line skeleton__line--short'));
+      baris.appendChild(isi);
+      skeleton.appendChild(baris);
+    }
+    loader.appendChild(skeleton);
+
     timeline.appendChild(loader);
     hasilSection.hidden = false;
     $('#chat').hidden = true;
 
     // Auto scroll ke area hasil.
     setTimeout(() => hasilSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+
+    // Berhenti saat hasil sudah tampil.
+    window.clearInterval(loaderTimer);
+    let tahap = 0;
+    const daftarLangkah = ['load.step1', 'load.step2', 'load.step3'];
+    loaderTimer = window.setInterval(() => {
+      tahap = (tahap + 1) % daftarLangkah.length;
+      langkah.textContent = t(daftarLangkah[tahap]);
+    }, 1600);
   }
 
   /* =====================================================================
      H. ALUR PEMBUATAN ITINERARY
      ===================================================================== */
-  async function buatItinerary() {
-    if (state.sedangProses) return;
+  async function buatItinerary(tanpaNarasi) {
+    if (state.sedangProses && !tanpaNarasi) return;
 
     const preferensi = bacaPreferensi();
     const error = validasiForm(preferensi);
@@ -661,23 +530,48 @@
     setLoadingForm(true);
     tampilkanLoading();
 
-    const hasil = await window.BaliWiseApi.buatItinerary(preferensi, state.bahasa);
+    // Token permintaan: respons yang sudah basi (mis. dari permintaan lama
+    // yang dibatalkan) diabaikan supaya tidak menimpa hasil yang lebih baru.
+    const token = ++tokenPermintaan;
+
+    const hasil = await window.BaliWiseApi.buatItinerary(preferensi, state.bahasa, !!tanpaNarasi);
+
+    if (token !== tokenPermintaan) return;   // permintaan lain sudah menggantikannya
 
     state.sedangProses = false;
     setLoadingForm(false);
+    window.clearInterval(loaderTimer);
+    loaderTimer = null;
 
     if (!hasil.ok) {
+      // Server sudah-mortens: error di sini berarti masalah lain (mis. validasi).
       tampilkanGagal(hasil.message, hasil.rawText);
       return;
     }
 
     state.itinerary = hasil.itinerary;
+    state.budget = hasil.budget || null;
     state.bahasaItinerary = state.bahasa;
     state.chatHistory = [];
 
-    renderItinerary(state.itinerary);
+    renderItinerary(state.itinerary, hasil.budget, hasil.meta);
     bersihkanChat();
+    tampilkanCatatanJujur(hasil.meta);
     setTimeout(() => $('#hasil').scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  }
+
+  /**
+   * "Lewati narasi AI": traveler tidak mau menunggu cerita dari AI.
+   * Permintaan yang sedang jalan dibatalkan, lalu rencana dihitung ulang
+   * TANPA narasi (rencana, rute, dan budget tetap lengkap).
+   */
+  function lewatiNarasiAI() {
+    if (!state.preferensi) return;
+    tokenPermintaan += 1;                 // buang respons yang sedang jalan
+    if (window.BaliWiseApi && window.BaliWiseApi.batalkan) window.BaliWiseApi.batalkan();
+    state.sedangProses = false;
+    setLoadingForm(false);
+    buatItinerary(true);
   }
 
   /** Menonaktifkan form saat proses berjalan. */
@@ -737,6 +631,23 @@
 
     if (hasilSection) hasilSection.hidden = false;
     setTimeout(() => hasilSection.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+  }
+
+  /**
+   * Menampilkan catatan jujur dari server (mis. minat bebas yang tidak ada
+   * di katalog). Tidak pernah menampilkan tempat karangan.
+   */
+  function tampilkanCatatanJujur(meta) {
+    const kotak = $('#trip-notice');
+    if (!kotak) return;
+    const catatan = meta && Array.isArray(meta.catatan) ? meta.catatan.filter(Boolean) : [];
+    if (!catatan.length) {
+      kotak.hidden = true;
+      kotak.textContent = '';
+      return;
+    }
+    kotak.hidden = false;
+    kotak.textContent = catatan.join(' ');
   }
 
   /* =====================================================================
@@ -825,7 +736,8 @@
       teks,
       state.itinerary,
       state.chatHistory.slice(0, -1), // riwayat tanpa pesan yang baru saja dikirim
-      state.bahasa
+      state.bahasa,
+      state.preferensi
     );
 
     if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
@@ -839,11 +751,12 @@
     const balasan = hasil.balasan;
     let teksTampil = balasan.reply || '';
 
-    // Jika AI mengembalikan itinerary baru, render ulang.
+    // Jika AI mengembalikan itinerary baru, render ulang (budget dihitung server).
     if (balasan.itinerary) {
       state.itinerary = balasan.itinerary;
+      state.budget = hasil.budget || null;
       state.bahasaItinerary = state.bahasa;
-      renderItinerary(state.itinerary);
+      renderItinerary(state.itinerary, hasil.budget, { bahasa: state.bahasa, narasiAI: true });
       if (balasan.perubahan && balasan.perubahan.length) {
         teksTampil += (teksTampil ? '\n' : '') + t('chat.rebuild');
       }
@@ -856,6 +769,816 @@
     if (state.chatHistory.length > 20) {
       state.chatHistory = state.chatHistory.slice(-20);
     }
+  }
+
+  /* =====================================================================
+     K. KOMPONEN FORM: BUDGET MAKS, KALENDER CUSTOM, PICKER WILAYAH
+     ===================================================================== */
+
+  /* ---------- Util angka & rupiah ---------- */
+
+  /** Ambil angka dari teks (semua non-digit dibuang). */
+  function angkaDariTeks(teks) {
+    return Number(String(teks || '').replace(/\D/g, '')) || 0;
+  }
+
+  /** Format angka dengan pemisah ribuan titik: 19900000 -> 19.900.000 */
+  function formatRibuan(angka) {
+    return String(angka === undefined || angka === null ? '' : angka)
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  /** Bentuk ringkasan budget: "19,9 juta" (ID) / "19.9 million" (EN). */
+  function ringkasRupiah(angka) {
+    const en = state.bahasa === 'en';
+    const n = Number(angka) || 0;
+    const desimal = function (x) {
+      return x.toFixed(1).replace('.0', '').replace('.', en ? '.' : ',');
+    };
+    if (n >= 1e9) return desimal(n / 1e9) + (en ? ' billion' : ' miliar');
+    if (n >= 1e6) return desimal(n / 1e6) + (en ? ' million' : ' juta');
+    if (n >= 1e3) return Math.round(n / 1e3) + (en ? ' thousand' : ' ribu');
+    return String(n);
+  }
+
+  /* ---------- Panel yang bisa dibuka (buka-tutup bersama) ---------- */
+
+  /* Panel yang sedang terbuka: { id, el, tombol } */
+  const panelTerbuka = { id: null, el: null, tombol: null };
+
+  /* Dropdown kecil (bulan & tahun) yang sedang terbuka. */
+  const dropdownTerbuka = { el: null, tombol: null };
+
+  /* Latar gelap untuk bottom sheet di layar kecil. */
+  let backdropKalender = null;
+
+  /* Handler "tutup saat klik di luar": dipasang SETELAH panel terbuka
+     (setTimeout 0) dan dicopot saat panel tertutup, tidak berulang. */
+  let klikLuarHandler = null;
+
+  /** Membuat (sekali) latar gelap di luar panel. */
+  function ambilBackdrop() {
+    if (!backdropKalender) {
+      backdropKalender = document.createElement('div');
+      backdropKalender.className = 'picker__backdrop';
+      backdropKalender.id = 'picker-backdrop';
+      backdropKalender.hidden = true;
+      document.body.appendChild(backdropKalender);
+    }
+    return backdropKalender;
+  }
+
+  function tutupDropdown() {
+    if (!dropdownTerbuka.el) return;
+    dropdownTerbuka.el.hidden = true;
+    if (dropdownTerbuka.tombol) dropdownTerbuka.tombol.setAttribute('aria-expanded', 'false');
+    dropdownTerbuka.el = null;
+    dropdownTerbuka.tombol = null;
+  }
+
+  /** Pasang (sekali) handler klik di document yang menutup panel. */
+  function pasangKlikLuar() {
+    if (klikLuarHandler) return;
+    klikLuarHandler = function (e) {
+      // Dropdown kecil (bulan/tahun) yang sedang terbuka.
+      if (dropdownTerbuka.el) {
+        const wrap = dropdownTerbuka.el.parentNode;
+        if (wrap && wrap.contains(e.target)) return;
+        tutupDropdown();
+      }
+      if (!panelTerbuka.id) { copotKlikLuar(); return; }
+      const panel = panelTerbuka.el;
+      const tombol = panelTerbuka.tombol;
+      // Abaikan klik di dalam tombol pembuka atau di dalam panel.
+      if (panel && (e.target === panel || panel.contains(e.target))) return;
+      if (tombol && (e.target === tombol || tombol.contains(e.target))) return;
+      tutupPanel();
+    };
+    document.addEventListener('click', klikLuarHandler);
+  }
+
+  /** Copot handler klik di luar (dipanggil saat panel tertutup). */
+  function copotKlikLuar() {
+    if (!klikLuarHandler) return;
+    document.removeEventListener('click', klikLuarHandler);
+    klikLuarHandler = null;
+  }
+
+  function tutupPanel() {
+    copotKlikLuar();
+    tutupDropdown();
+    if (!panelTerbuka.id) return;
+    if (panelTerbuka.el) panelTerbuka.el.classList.remove('is-open');
+    if (panelTerbuka.tombol) panelTerbuka.tombol.setAttribute('aria-expanded', 'false');
+    if (backdropKalender) backdropKalender.hidden = true;
+    panelTerbuka.id = null;
+    panelTerbuka.el = null;
+    panelTerbuka.tombol = null;
+  }
+
+  function bukaPanel(idPanel, idTombol, sebelumBuka) {
+    // Sudah terbuka: jangan render ulang / buka ulang (cegah kedip).
+    if (panelTerbuka.id === idPanel) return;
+    tutupPanel();
+    const panel = $('#' + idPanel);
+    const tombol = $('#' + idTombol);
+    if (!panel || !tombol) return;
+    if (sebelumBuka) sebelumBuka();
+    panel.hidden = false;              /* lepas atribut awal HTML (sekali) */
+    panel.classList.add('is-open');   /* tampil/sembunyi via class */
+    tombol.setAttribute('aria-expanded', 'true');
+    panelTerbuka.id = idPanel;
+    panelTerbuka.el = panel;
+    panelTerbuka.tombol = tombol;
+    // Latar gelap hanya untuk layar kecil (<640px) tempat panel jadi
+    // bottom sheet; di desktop panel adalah popup biasa tanpa overlay.
+    if (window.matchMedia('(max-width: 639px)').matches) {
+      ambilBackdrop().hidden = false;
+    }
+    // Pasang "tutup saat klik di luar" SETELAH event click tombol selesai.
+    window.setTimeout(pasangKlikLuar, 0);
+  }
+
+  /**
+   * Tombol pemicu panel: HANYA satu event "click" (tanpa pointerup/
+   * touchstart/mousedown), dengan stopPropagation agar handler
+   * "tutup saat klik di luar" tidak langsung menutupnya kembali.
+   */
+  function pasangTombolPanel(tombol, idPanel, sebelumBuka) {
+    tombol.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (panelTerbuka.id === idPanel) tutupPanel();
+      else bukaPanel(idPanel, tombol.id, sebelumBuka);
+    });
+  }
+
+  /* ---------- 1. BUDGET MAKSIMAL ---------- */
+
+  function initBudgetMaks() {
+    const input = $('#budget-maks');
+    const setara = $('#budget-maks-setara');
+    const chipWrap = $('#budget-maks-cepat');
+    if (!input) return;
+
+    const perbarui = function () {
+      const n = angkaDariTeks(input.value);
+      if (!setara) return;
+      if (!n) {
+        setara.hidden = true;
+        setara.textContent = '';
+        return;
+      }
+      setara.hidden = false;
+      setara.textContent = t('plan.budgetMaksSetara', { nilai: ringkasRupiah(n) });
+    };
+
+    input.addEventListener('input', function () {
+      const kursorAwal = input.selectionStart;
+      const digitSebelum = String(input.value.slice(0, kursorAwal).replace(/\D/g, '')).length;
+      const angka = input.value.replace(/\D/g, '');
+      const baru = formatRibuan(angka);
+      input.value = baru;
+      // Kursor dikembalikan ke digit yang sama, jadi tidak "loncat".
+      let pos = 0;
+      let seen = 0;
+      while (pos < baru.length && seen < digitSebelum) {
+        if (/\d/.test(baru[pos])) seen += 1;
+        pos += 1;
+      }
+      try { input.setSelectionRange(pos, pos); } catch (e) { /* abaikan */ }
+      perbarui();
+    });
+
+    if (chipWrap) {
+      $$('button[data-jumlah]', chipWrap).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          input.value = formatRibuan(btn.getAttribute('data-jumlah') || '0');
+          perbarui();
+          input.focus();
+        });
+      });
+    }
+
+    perbarui();
+  }
+
+  /* ---------- 2. KALENDER CUSTOM ---------- */
+
+  let kalenderBulan = null;
+
+  function kalenderLocale() {
+    return state.bahasa === 'en' ? 'en-GB' : 'id-ID';
+  }
+
+  function kalenderHariAwal() {
+    return state.bahasa === 'en' ? 0 : 1;
+  }
+
+  /** Nama bulan 0-11 sesuai bahasa. */
+  function namaBulan(bln) {
+    const id = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+      'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const en = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+      'August', 'September', 'October', 'November', 'December'];
+    return state.bahasa === 'en' ? en[bln] : id[bln];
+  }
+
+  function tanggalDariIso(iso) {
+    const teks = String(iso || '');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(teks)) return null;
+    const bagian = teks.split('-').map(Number);
+    return new Date(bagian[0], bagian[1] - 1, bagian[2]);
+  }
+
+  function isoDariTanggal(d) {
+    const bulan = String(d.getMonth() + 1).padStart(2, '0');
+    const hari = String(d.getDate()).padStart(2, '0');
+    return d.getFullYear() + '-' + bulan + '-' + hari;
+  }
+
+  function formatTanggalPanjang(iso) {
+    const d = tanggalDariIso(iso);
+    if (!d) return '';
+    return d.toLocaleDateString(kalenderLocale(), {
+      weekday: 'long', day: 'numeric', month: 'short', year: 'numeric'
+    });
+  }
+
+  /** Info musim: kemarau Apr-Okt, hujan Nov-Mar. */
+  function infoMusim(tgl) {
+    const bulan = tgl.getMonth();
+    const kemarau = bulan >= 3 && bulan <= 9;
+    return kemarau ? t('plan.tanggalMusimKemarau') : t('plan.tanggalMusimHujan');
+  }
+
+  function kalenderBulanTampil() {
+    if (!kalenderBulan) {
+      const now = new Date();
+      kalenderBulan = new Date(now.getFullYear(), now.getMonth(), 1);
+    }
+    return kalenderBulan;
+  }
+
+  /** Tahun yang boleh dipilih: tahun ini sampai +3. */
+  function kalenderTahunOpsi() {
+    const now = new Date();
+    const daftar = [];
+    for (let i = 0; i < 4; i++) daftar.push(now.getFullYear() + i);
+    return daftar;
+  }
+
+  /** Buat dropdown custom (bulan / tahun) yang bisa disentuh. */
+  function buatDropdownOpsi(konfigurasi) {
+    const wrap = document.createElement('div');
+    wrap.className = 'datepick__select';
+
+    const tombol = document.createElement('button');
+    tombol.type = 'button';
+    tombol.className = 'datepick__select-btn';
+    tombol.setAttribute('aria-haspopup', 'listbox');
+    tombol.setAttribute('aria-expanded', 'false');
+    tombol.setAttribute('aria-label', konfigurasi.labelAria);
+
+    const label = document.createElement('span');
+    label.className = 'datepick__select-label';
+    tombol.appendChild(label);
+
+    const chev = document.createElement('span');
+    chev.className = 'datepick__select-chev';
+    chev.setAttribute('aria-hidden', 'true');
+    chev.textContent = '\u25be';
+    tombol.appendChild(chev);
+
+    const panel = document.createElement('div');
+    panel.className = 'datepick__select-panel';
+    panel.hidden = true;
+    panel.setAttribute('role', 'listbox');
+
+    wrap.appendChild(tombol);
+    wrap.appendChild(panel);
+
+    const gambar = function () {
+      panel.textContent = '';
+      konfigurasi.opsi().forEach(function (o) {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'datepick__select-item' + (o.aktif ? ' is-active' : '');
+        item.setAttribute('role', 'option');
+        item.setAttribute('aria-selected', o.aktif ? 'true' : 'false');
+        item.textContent = o.teks;
+        item.disabled = !!o.nonaktif;
+        item.addEventListener('click', function () {
+          if (item.disabled) return;
+          konfigurasi.pilih(o.nilai);
+          tutupDropdown();
+        });
+        panel.appendChild(item);
+      });
+    };
+
+    tombol.addEventListener('pointerup', function (e) {
+      e.stopPropagation();
+      const akanBuka = panel.hidden;
+      tutupDropdown();
+      if (!akanBuka) return;
+      gambar();
+      panel.hidden = false;
+      tombol.setAttribute('aria-expanded', 'true');
+      dropdownTerbuka.el = panel;
+      dropdownTerbuka.tombol = tombol;
+    });
+    tombol.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+
+    return {
+      wrap: wrap,
+      tombol: tombol,
+      setLabel: function (teks) { label.textContent = teks; },
+      gambar: gambar
+    };
+  }
+
+  function gambarKalender() {
+    const judul = $('#tanggal-judul');
+    const barisHari = $('#tanggal-hari');
+    const grid = $('#tanggal-grid');
+    if (!judul || !grid) return;
+
+    const bulan = kalenderBulanTampil();
+
+    // Dua dropdown custom (Bulan & Tahun) menggantikan teks "November 2026".
+    if (!judul.querySelector('.datepick__select')) {
+      judul.textContent = '';
+      judul.className = 'datepick__selects';
+      if (dropdownBulan) judul.appendChild(dropdownBulan.wrap);
+      if (dropdownTahun) judul.appendChild(dropdownTahun.wrap);
+    }
+    if (dropdownBulan) dropdownBulan.setLabel(namaBulan(bulan.getMonth()));
+    if (dropdownTahun) dropdownTahun.setLabel(String(bulan.getFullYear()));
+
+    // Nama hari (Senin/Minggu, mengikuti bahasa).
+    if (barisHari) {
+      barisHari.textContent = '';
+      const acuan = new Date(2024, 0, 7);            // 7 Januari 2024 = Minggu
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(acuan);
+        d.setDate(acuan.getDate() - acuan.getDay() + kalenderHariAwal() + i);
+        barisHari.appendChild(buatEl('span', 'datepick__dayname',
+          d.toLocaleDateString(kalenderLocale(), { weekday: 'short' })));
+      }
+    }
+
+    // Grid tanggal.
+    grid.textContent = '';
+    const pertama = new Date(bulan.getFullYear(), bulan.getMonth(), 1);
+    const geser = (pertama.getDay() - kalenderHariAwal() + 7) % 7;
+    const jumlahHari = new Date(bulan.getFullYear(), bulan.getMonth() + 1, 0).getDate();
+    const hariIni = new Date();
+    hariIni.setHours(0, 0, 0, 0);
+    const input = $('#tanggal');
+    const terpilih = tanggalDariIso(input ? input.value : '');
+
+    for (let i = 0; i < geser; i++) {
+      grid.appendChild(buatEl('span', 'datepick__cell datepick__cell--kosong'));
+    }
+
+    for (let d = 1; d <= jumlahHari; d++) {
+      const tgl = new Date(bulan.getFullYear(), bulan.getMonth(), d);
+      const dipilih = !!terpilih && terpilih.getTime() === tgl.getTime();
+      const cell = buatEl('button', 'datepick__cell' + (dipilih ? ' is-selected' : ''));
+      cell.type = 'button';
+      cell.textContent = String(d);
+      cell.disabled = tgl.getTime() < hariIni.getTime();
+      cell.setAttribute('aria-label',
+        tgl.toLocaleDateString(kalenderLocale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
+      if (dipilih) cell.setAttribute('aria-current', 'date');
+      cell.addEventListener('click', (function (iso) {
+        return function () { pilihTanggal(iso); };
+      })(isoDariTanggal(tgl)));
+      grid.appendChild(cell);
+    }
+  }
+
+  function pilihTanggal(iso) {
+    terapkanTanggal(iso);
+    tutupPanel();
+  }
+
+  function perbaruiLabelTanggal() {
+    const input = $('#tanggal');
+    const nilai = $('#tanggal-value');
+    const hapus = $('#tanggal-clear');
+    const musim = $('#tanggal-musim');
+    if (!input) return;
+    const d = tanggalDariIso(input.value);
+    if (nilai) {
+      nilai.textContent = d ? formatTanggalPanjang(input.value) : t('plan.tanggalPilih');
+    }
+    if (hapus) hapus.hidden = !d;
+    if (musim) {
+      musim.hidden = !d;
+      musim.textContent = d ? infoMusim(d) : '';
+    }
+    // Sinkron dengan input tanggal native (dipakai di layar kecil).
+    const native = $('#tanggal-native');
+    if (native) {
+      native.min = isoHariIni();
+      if (native.value !== (input.value || '')) native.value = input.value || '';
+    }
+  }
+
+  /* Dropdown bulan & tahun (dibuat sekali, dipakai bersama). */
+  let dropdownBulan = null;
+  let dropdownTahun = null;
+
+  function initKalender() {
+    const tombol = $('#tanggal-picker');
+    const panel = $('#tanggal-panel');
+    const input = $('#tanggal');
+    const hapus = $('#tanggal-clear');
+    if (!tombol || !panel || !input) return;
+
+    // Tombol "Tutup" untuk bottom sheet di layar kecil.
+    if (!panel.querySelector('.picker__tutup')) {
+      const tutup = document.createElement('button');
+      tutup.type = 'button';
+      tutup.className = 'picker__tutup';
+      tutup.textContent = t('plan.tanggalTutup');
+      tutup.addEventListener('click', function () {
+        tutupPanel();
+        tombol.focus();
+      });
+      panel.appendChild(tutup);
+    }
+
+    // Dropdown bulan.
+    dropdownBulan = buatDropdownOpsi({
+      labelAria: t('plan.tanggalPilihBulan'),
+      opsi: function () {
+        const bulan = kalenderBulanTampil();
+        const now = new Date();
+        const daftar = [];
+        for (let m = 0; m < 12; m++) {
+          // Bulan yang seluruhnya sudah lewat tidak bisa dipilih.
+          const lewat = bulan.getFullYear() === now.getFullYear() && m < now.getMonth();
+          daftar.push({
+            nilai: m,
+            teks: namaBulan(m),
+            aktif: m === bulan.getMonth(),
+            nonaktif: lewat
+          });
+        }
+        return daftar;
+      },
+      pilih: function (m) {
+        const b = kalenderBulanTampil();
+        kalenderBulan = new Date(b.getFullYear(), m, 1);
+        gambarKalender();
+      }
+    });
+
+    // Dropdown tahun.
+    dropdownTahun = buatDropdownOpsi({
+      labelAria: t('plan.tanggalPilihTahun'),
+      opsi: function () {
+        const bulan = kalenderBulanTampil();
+        const daftar = [];
+        kalenderTahunOpsi().forEach(function (y) {
+          daftar.push({
+            nilai: y,
+            teks: String(y),
+            aktif: y === bulan.getFullYear(),
+            nonaktif: false
+          });
+        });
+        return daftar;
+      },
+      pilih: function (y) {
+        const b = kalenderBulanTampil();
+        kalenderBulan = new Date(y, b.getMonth(), 1);
+        gambarKalender();
+      }
+    });
+
+    pasangTombolPanel(tombol, 'tanggal-panel', function () {
+      kalenderBulan = null;
+      gambarKalender();
+    });
+
+    const prev = $('#tanggal-prev');
+    const next = $('#tanggal-next');
+    if (prev) {
+      prev.addEventListener('click', function () {
+        const b = kalenderBulanTampil();
+        kalenderBulan = new Date(b.getFullYear(), b.getMonth() - 1, 1);
+        gambarKalender();
+      });
+    }
+    if (next) {
+      next.addEventListener('click', function () {
+        const b = kalenderBulanTampil();
+        kalenderBulan = new Date(b.getFullYear(), b.getMonth() + 1, 1);
+        gambarKalender();
+      });
+    }
+
+    if (hapus) {
+      hapus.addEventListener('click', function () {
+        terapkanTanggal('');
+        tutupPanel();
+      });
+    }
+
+    // Input tanggal native (hanya dipakai di layar <640px).
+    const native = $('#tanggal-native');
+    if (native) {
+      native.min = isoHariIni();
+      native.value = input.value || '';
+      native.addEventListener('change', function () {
+        terapkanTanggal(native.value);
+      });
+    }
+
+    perbaruiLabelTanggal();
+  }
+
+  /* ---------- 3. PICKER WILAYAH ---------- */
+
+  const DAFTAR_WILAYAH = [
+    {
+      grup: 'plan.wilayahGrupTengah',
+      zona: [
+        { id: 'ubud', nama: 'Ubud', desc: 'plan.wilayahDescUbud' },
+        { id: 'gianyar', nama: 'Gianyar', desc: 'plan.wilayahDescGianyar' },
+        { id: 'klungkung', nama: 'Klungkung', desc: 'plan.wilayahDescKlungkung' },
+        { id: 'bedugul', nama: 'Bedugul', desc: 'plan.wilayahDescBedugul' },
+        { id: 'tabsan', nama: 'Tabanan', desc: 'plan.wilayahDescTabanan' }
+      ]
+    },
+    {
+      grup: 'plan.wilayahGrupSelatan',
+      zona: [
+        { id: 'kuta', nama: 'Kuta', desc: 'plan.wilayahDescKuta' },
+        { id: 'seminyak', nama: 'Seminyak', desc: 'plan.wilayahDescSeminyak' },
+        { id: 'canggu', nama: 'Canggu', desc: 'plan.wilayahDescCanggu' },
+        { id: 'uluwatu', nama: 'Uluwatu', desc: 'plan.wilayahDescUluwatu' },
+        { id: 'nusa-dua', nama: 'Nusa Dua', desc: 'plan.wilayahDescNusaDua' },
+        { id: 'sanur', nama: 'Sanur', desc: 'plan.wilayahDescSanur' },
+        { id: 'denpasar', nama: 'Denpasar', desc: 'plan.wilayahDescDenpasar' }
+      ]
+    },
+    {
+      grup: 'plan.wilayahGrupTimur',
+      zona: [
+        { id: 'nusa-penida', nama: 'Nusa Penida', desc: 'plan.wilayahDescNusaPenida' },
+        { id: 'amed', nama: 'Amed', desc: 'plan.wilayahDescAmed' },
+        { id: 'lovina', nama: 'Lovina', desc: 'plan.wilayahDescLovina' }
+      ]
+    }
+  ];
+
+  const IKON_WILAYAH = {
+    ubud: 'M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z',
+    gianyar: 'M12 2L2 7l10 5 8-4v6c0 1.7-3.6 3-8 3s-8-1.3-8-3V7l-2-1v12c0 3.3 4.5 5 10 5s10-1.7 10-5V6z',
+    klungkung: 'M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z',
+    bedugul: 'M12 2c-4 3-7 7-7 11a7 7 0 0014 0c0-4-3-8-7-11zm0 4c2.5 2.4 4.5 5 4.5 7a4.5 4.5 0 01-9 0c0-2 2-4.6 4.5-7z',
+    tabsan: 'M4 18h16v2H4zm0-6h16v2H4zm0-6h16v2H4z',
+    kuta: 'M2 18c2-4 4-6 7-6s5 2 7 6M8 12a3 3 0 106 0 3 3 0 00-6 0',
+    seminyak: 'M12 3a9 9 0 109 9 9 9 0 00-9-9zm0 2a7 7 0 100 14A7 7 0 0012 5z',
+    canggu: 'M3 17c1.5-3 3.5-4.5 6-4.5S13.5 14 15 17M4 20h16',
+    uluwatu: 'M3 20h18L12 4z',
+    'nusa-dua': 'M12 3l3 6 6 1-4.5 4.5L18 21l-6-3-6 3 1.5-6.5L3 10l6-1z',
+    sanur: 'M4 18c3-5 6-7 8-7s5 2 8 7M4 21h16',
+    denpasar: 'M4 21V9l8-6 8 6v12M9 21v-6h6v6',
+    'nusa-penida': 'M4 20l6-12 4 7 3-5 3 10z',
+    amed: 'M3 17c2-3 4-4 6-4s4 1 6 4M12 9a2 2 0 100-4 2 2 0 000 4z',
+    lovina: 'M2 16c2-3 3-4 5-4s4 1 6 4M15 8a3 3 0 103 3 3 3 0 00-3-3'
+  };
+
+  function cariZona(id) {
+    let ketemu = null;
+    DAFTAR_WILAYAH.forEach(function (grup) {
+      grup.zona.forEach(function (z) {
+        if (z.id === id) ketemu = z;
+      });
+    });
+    return ketemu;
+  }
+
+  function gambarWilayah(kunci) {
+    const daftar = $('#wilayah-list');
+    const input = $('#wilayah-awal');
+    if (!daftar || !input) return;
+
+    const saring = String(kunci || '').toLowerCase().trim();
+    daftar.textContent = '';
+    let jumlah = 0;
+
+    DAFTAR_WILAYAH.forEach(function (grup) {
+      const cocok = grup.zona.filter(function (z) {
+        if (!saring) return true;
+        return z.nama.toLowerCase().indexOf(saring) >= 0 ||
+          t(z.desc).toLowerCase().indexOf(saring) >= 0;
+      });
+      if (!cocok.length) return;
+      jumlah += cocok.length;
+
+      daftar.appendChild(buatEl('p', 'picker__group', t(grup.grup)));
+
+      cocok.forEach(function (z) {
+        const dipilih = input.value === z.id;
+        const item = buatEl('button', 'picker__item' + (dipilih ? ' is-active' : ''));
+        item.type = 'button';
+        item.setAttribute('role', 'option');
+        item.setAttribute('aria-selected', dipilih ? 'true' : 'false');
+        item.setAttribute('data-wilayah', z.id);
+
+        const ikon = buatEl('span', 'picker__item-icon');
+        ikon.setAttribute('aria-hidden', 'true');
+        ikon.insertAdjacentHTML('afterbegin',
+          '<svg viewBox="0 0 24 24" width="15" height="15"><path d="' +
+          (IKON_WILAYAH[z.id] || IKON_WILAYAH.ubud) + '" fill="currentColor"/></svg>');
+        item.appendChild(ikon);
+
+        const isi = buatEl('span', 'picker__item-body');
+        isi.appendChild(buatEl('strong', 'picker__item-name', z.nama));
+        isi.appendChild(buatEl('span', 'picker__item-desc', t(z.desc)));
+        item.appendChild(isi);
+
+        if (dipilih) {
+          const cek = buatEl('span', 'picker__item-check', '\u2713');
+          cek.setAttribute('aria-hidden', 'true');
+          item.appendChild(cek);
+        }
+
+        item.addEventListener('click', function () { pilihWilayah(z.id); });
+        daftar.appendChild(item);
+      });
+    });
+
+    if (!jumlah) {
+      daftar.appendChild(buatEl('p', 'picker__empty', t('plan.wilayahCariKosong')));
+    }
+  }
+
+  function pilihWilayah(id) {
+    terapkanWilayah(id);
+    tutupPanel();
+  }
+
+  function initWilayah() {
+    const tombol = $('#wilayah-picker');
+    const input = $('#wilayah-awal');
+    const cari = $('#wilayah-search');
+    const panel = $('#wilayah-panel');
+    if (!tombol || !input) return;
+
+    // Tombol "Tutup" untuk bottom sheet di layar kecil.
+    if (panel && !panel.querySelector('.picker__tutup')) {
+      const tutup = document.createElement('button');
+      tutup.type = 'button';
+      tutup.className = 'picker__tutup';
+      tutup.textContent = t('plan.tanggalTutup');
+      tutup.addEventListener('click', function () {
+        tutupPanel();
+        tombol.focus();
+      });
+      panel.appendChild(tutup);
+    }
+
+    pasangTombolPanel(tombol, 'wilayah-panel', function () {
+      if (cari) cari.value = '';
+      gambarWilayah('');
+      // Tanpa auto-focus: di layar sentuh keyboard yang muncul otomatis
+      // menggeser panel dan membuat daftar sulit dipilih. Keyboard hanya
+      // muncul bila pengguna mengetuk kolom pencarian sendiri.
+    });
+
+    if (cari) {
+      cari.addEventListener('input', function () {
+        gambarWilayah(cari.value);
+      });
+      cari.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          tutupPanel();
+          tombol.focus();
+        }
+      });
+    }
+
+    const nilai = $('#wilayah-value');
+    const z = cariZona(input.value);
+    if (nilai) nilai.textContent = z ? z.nama : input.value;
+
+    // <select> native (hanya dipakai di layar <640px).
+    const native = $('#wilayah-native');
+    if (native) {
+      gambarWilayahNative();
+      native.addEventListener('change', function () {
+        if (native.value) terapkanWilayah(native.value);
+      });
+    }
+  }
+
+  /* ---------- 4. MODE NATIVE (LAYAR <640px) ---------- */
+
+  /* true bila layar kecil: pakai <select> & <input type="date"> bawaan. */
+  const mediaNative = window.matchMedia('(max-width: 639px)');
+
+  function modeNative() {
+    return mediaNative.matches;
+  }
+
+  /** Hapus latar gelap dari DOM sepenuhnya (tidak ada overlay tersisa). */
+  function hapusBackdrop() {
+    if (!backdropKalender) return;
+    if (backdropKalender.parentNode) backdropKalender.parentNode.removeChild(backdropKalender);
+    backdropKalender = null;
+  }
+
+  /** ISO hari ini (YYYY-MM-DD) untuk atribut min. */
+  function isoHariIni() {
+    const now = new Date();
+    const bulan = String(now.getMonth() + 1).padStart(2, '0');
+    const hari = String(now.getDate()).padStart(2, '0');
+    return now.getFullYear() + '-' + bulan + '-' + hari;
+  }
+
+  /** Bangun <select> wilayah native dengan <optgroup> per wilayah. */
+  function gambarWilayahNative() {
+    const select = $('#wilayah-native');
+    if (!select) return;
+    const hidden = $('#wilayah-awal');
+    const nilai = hidden ? hidden.value : 'ubud';
+    select.textContent = '';
+    DAFTAR_WILAYAH.forEach(function (grup) {
+      const og = document.createElement('optgroup');
+      og.label = t(grup.grup);
+      grup.zona.forEach(function (z) {
+        const opt = document.createElement('option');
+        opt.value = z.id;
+        opt.textContent = z.nama;
+        if (z.id === nilai) opt.selected = true;
+        og.appendChild(opt);
+      });
+      select.appendChild(og);
+    });
+    select.value = nilai;
+  }
+
+  /** Terapkan nilai wilayah ke input tersembunyi + select native. */
+  function terapkanWilayah(id) {
+    const input = $('#wilayah-awal');
+    const nilai = $('#wilayah-value');
+    if (!input) return;
+    input.value = id;
+    // Beri tahu komponen lain (mis. membersihkan titik di peta).
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    const z = cariZona(id);
+    if (nilai) nilai.textContent = z ? z.nama : id;
+    const native = $('#wilayah-native');
+    if (native && native.value !== id) native.value = id;
+    gambarWilayah('');
+  }
+
+  /** Terapkan tanggal ke input tersembunyi + input native. */
+  function terapkanTanggal(iso) {
+    const input = $('#tanggal');
+    if (!input) return;
+    input.value = iso || '';
+    perbaruiLabelTanggal();
+  }
+
+  /** Terapkan mode sesuai lebar layar (native vs picker custom). */
+  function terapkanModeForm() {
+    if (modeNative()) {
+      // Panel custom ditutup & latar gelap dihapus total dari DOM.
+      if (panelTerbuka.id) tutupPanel();
+      hapusBackdrop();
+    }
+    const sel = $('#wilayah-native');
+    const hidden = $('#wilayah-awal');
+    if (sel && hidden) sel.value = hidden.value;
+    const tgl = $('#tanggal-native');
+    const tglHidden = $('#tanggal');
+    if (tgl) {
+      tgl.min = isoHariIni();
+      if (tglHidden) tgl.value = tglHidden.value || '';
+    }
+  }
+
+  /** Dengarkan perubahan lebar layar (resize / rotasi). */
+  function dengarkanModeForm() {
+    const jalankan = function () { terapkanModeForm(); };
+    if (typeof mediaNative.addEventListener === 'function') {
+      mediaNative.addEventListener('change', jalankan);
+    } else if (typeof mediaNative.addListener === 'function') {
+      mediaNative.addListener(jalankan);
+    }
+    // Cadangan: beberapa browser tidak memicu event "change" matchMedia.
+    window.addEventListener('resize', jalankan);
+    terapkanModeForm();
   }
 
   /* =====================================================================
@@ -876,22 +1599,6 @@
     $$('.lang-toggle__btn').forEach((btn) => {
       btn.addEventListener('click', () => setBahasa(btn.getAttribute('data-lang')));
     });
-
-    /* --- Menu burger (mobile) --- */
-    const burger = $('#burger');
-    const drawer = $('#nav-drawer');
-    if (burger && drawer) {
-      burger.addEventListener('click', () => {
-        const terbuka = burger.getAttribute('aria-expanded') === 'true';
-        burger.setAttribute('aria-expanded', terbuka ? 'false' : 'true');
-        drawer.hidden = terbuka;
-      });
-      // Tutup menu setelah link diklik.
-      $$('a', drawer).forEach((a) => a.addEventListener('click', () => {
-        burger.setAttribute('aria-expanded', 'false');
-        drawer.hidden = true;
-      }));
-    }
 
     /* --- Form rencana --- */
     const form = $('#plan-form');
@@ -942,38 +1649,224 @@
       buatItinerary();
     });
 
-    /* --- Animasi muncul saat scroll --- */
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      $$('.card, .step, .hero__card').forEach((el, i) => {
-        el.classList.add('reveal');
-        el.style.transitionDelay = (i % 3) * 70 + 'ms';
-        observer.observe(el);
+
+    /* --- Stepper jumlah traveler --- */
+    $$('[data-stepper]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const jenis = btn.getAttribute('data-stepper');
+        const langkah = Number(btn.getAttribute('data-step')) || 0;
+        const input = $('#traveler-' + jenis + '-input');
+        const output = $('#traveler-' + jenis);
+        if (!input || !output) return;
+
+        const minimum = jenis === 'anak' ? 0 : 1;
+        const maksimum = jenis === 'anak' ? 10 : 20;
+        let nilai = Math.max(minimum, Math.min(maksimum, (Number(input.value) || 0) + langkah));
+        input.value = String(nilai);
+        output.textContent = String(nilai);
+      });
+    });
+
+    /* --- Komponen "Titik awal" (3 cara: daftar, pencarian, peta) --- */
+    if (window.GriskaTitikAwal) {
+      window.GriskaTitikAwal.init(null, function () {
+        state.titikAwal = window.GriskaTitikAwal.getTitik();
       });
     }
 
-    /* --- Efek navbar saat scroll --- */
-    const nav = $('#nav');
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 12);
-        ticking = false;
+    /* --- Pulihkan state dari rencana tersimpan (bila ada) --- */
+    const tersimpanRencana = bacaTersimpan();
+    if (tersimpanRencana && tersimpanRencana.preferensi) {
+      pulihkanStateForm(tersimpanRencana.preferensi);
+    }
+
+    /* --- Baris "Lainnya" (durasi, transport, akomodasi) --- */
+    const sinkronBarisLainnya = function () {
+      const pairs = [
+        ['durasi', '#durasi-baris'],
+        ['transport', '#transport-baris'],
+        ['akomodasi', '#akomodasi-baris']
+      ];
+      pairs.forEach(function (p) {
+        const radios = $$('input[name="' + p[0] + '"]');
+        let radio = null;
+        radios.forEach(function (el) { if (el.checked) radio = el; });
+        const baris = $(p[1]);
+        if (!baris) return;
+        const aktif = !!radio && radio.value === 'lainnya';
+        baris.hidden = !aktif;
       });
-    }, { passive: true });
+    };
+    $$('input[name="durasi"], input[name="transport"], input[name="akomodasi"]').forEach(function (el) {
+      el.addEventListener('change', sinkronBarisLainnya);
+    });
+    sinkronBarisLainnya();
+
+    /* --- Input minat bebas + chip --- */
+    const inputBebas = $('#minat-bebas');
+    const tombolBebas = $('#minat-bebas-add');
+    const counterBebas = $('#minat-bebas-count');
+    if (inputBebas && counterBebas) {
+      inputBebas.addEventListener('input', function () {
+        counterBebas.textContent = String(inputBebas.value.length);
+      });
+    }
+    const tambahBebas = function () {
+      if (!inputBebas) return;
+      if (tambahMinatBebas(inputBebas.value)) {
+        inputBebas.value = '';
+        if (counterBebas) counterBebas.textContent = '0';
+        tampilkanError(null);
+      }
+    };
+    if (tombolBebas) tombolBebas.addEventListener('click', tambahBebas);
+    if (inputBebas) {
+      inputBebas.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          tambahBebas();
+        }
+      });
+    }
+    gambarChipMinatBebas();
+
+    /* --- Komponen form: budget maks, kalender, picker wilayah --- */
+    initBudgetMaks();
+    initKalender();
+    initWilayah();
+
+    /* --- Mode native (<640px): select wilayah + input tanggal --- */
+    dengarkanModeForm();
+
+    /* --- Panel (wilayah & tanggal): tutup dengan Esc. Penutupan saat
+       klik di luar dipasang dinamis saat panel terbuka (pasangKlikLuar). --- */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !panelTerbuka.id) return;
+      const tombol = $('#' + panelTerbuka.id.replace('-panel', '-picker'));
+      tutupPanel();
+      if (tombol) tombol.focus();
+    });
+
+    /* --- Akomodasi mengikuti level budget --- */
+    const sinkronAkomodasi = function () {
+      const budget = $('input[name="budget"]:checked');
+      if (!budget) return;
+      const rewrite = budget.value === 'hemat' ? 'hostel' : (budget.value === 'mewah' ? 'villa' : 'hotel');
+      const target = $('input[name="akomodasi"][value="' + rewrite + '"]');
+      const sekarang = $('input[name="akomodasi"]:checked');
+      if (!target || !sekarang) return;
+      // Hanya mengubah bila pengguna belum memilih manual.
+      if (sekarang.dataset.manual === '1') return;
+      target.checked = true;
+    };
+    $$('input[name="budget"]').forEach(function (el) {
+      el.addEventListener('change', sinkronAkomodasi);
+    });
+    $$('input[name="akomodasi"]').forEach(function (el) {
+      el.addEventListener('change', function () { el.dataset.manual = '1'; });
+    });
+    sinkronAkomodasi();
+
+    /* --- Tombol "Lewati narasi AI" (di dalam loading state) --- */
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest ? e.target.closest('[data-action="skip-narasi"]') : null;
+      if (btn) lewatiNarasiAI();
+    });
+
+    /* --- Tombol "Buat ulang" pada hasil itinerary --- */
+    document.addEventListener('griska-go:buat-ulang', function () {
+      if (state.preferensi) buatItinerary();
+    });
 
     /* --- Log ke console untuk kebutuhan demo/presentasi --- */
-    console.log('%cBaliWise', 'color:#0A3D62;font-size:18px;font-weight:800', '- Perencana itinerary Bali berbasis AI (NAISC 2026)');
+    console.log('%cGriska Go', 'color:#0A3D62;font-size:18px;font-weight:800', '- Perencana itinerary Bali berbasis AI (NAISC 2026)');
   }
+
+  /* =====================================================================
+     K. STATE PLAN & PENYIMPANAN
+     ===================================================================== */
+
+  /**
+   * Memulihkan state form dari rencana yang tersimpan.
+   * Dipakai supaya "Simpan rencana" benar-benar berguna: titik awal,
+   * minat bebas, dan biaya "lainnya" ikut kembali.
+   */
+  function pulihkanStateForm(pref) {
+    if (!pref) return;
+
+    // Minat (kategori + preset).
+    if (Array.isArray(pref.minat)) {
+      $$('input[name="minat"]').forEach(function (el) {
+        el.checked = pref.minat.indexOf(el.value) >= 0;
+      });
+    }
+
+    // Minat bebas -> chip.
+    if (Array.isArray(pref.minatTeks)) {
+      state.minatBebas = pref.minatTeks.slice(0, 5);
+      gambarChipMinatBebas();
+    }
+
+    // Titik awal.
+    if (pref.titikAwal && window.GriskaTitikAwal) {
+      window.GriskaTitikAwal.setTitik(pref.titikAwal);
+      state.titikAwal = window.GriskaTitikAwal.getTitik();
+    }
+
+    // Opsi "lainnya" + biayanya.
+    if (pref.transport) {
+      const t = $('input[name="transport"][value="' + pref.transport + '"]');
+      if (t) { t.checked = true; t.dispatchEvent(new Event('change', { bubbles: true })); }
+    }
+    if (pref.akomodasi) {
+      const a = $('input[name="akomodasi"][value="' + pref.akomodasi + '"]');
+      if (a) { a.checked = true; a.dispatchEvent(new Event('change', { bubbles: true })); }
+    }
+    if (pref.biayaTransportHarian) {
+      const b = $('#biaya-transport');
+      if (b) b.value = String(pref.biayaTransportHarian);
+    }
+    if (pref.biayaAkomodasiMalam) {
+      const c = $('#biaya-akomodasi');
+      if (c) c.value = String(pref.biayaAkomodasiMalam);
+    }
+
+    // Durasi (termasuk opsi "lainnya").
+    if (pref.durasi) {
+      const lainnya = $('input[name="durasi"][value="lainnya"]');
+      if (lainnya && pref.durasi > 7) {
+        lainnya.checked = true;
+        lainnya.dispatchEvent(new Event('change', { bubbles: true }));
+        const dj = $('#durasi-jumlah');
+        if (dj) dj.value = String(pref.durasi);
+      } else {
+        const d = $('input[name="durasi"][value="' + pref.durasi + '"]');
+        if (d) { d.checked = true; d.dispatchEvent(new Event('change', { bubbles: true })); }
+      }
+    }
+
+    // Traveler.
+    const dd = $('#traveler-dewasa-input');
+    const da = $('#traveler-anak-input');
+    if (dd && pref.traveler) dd.value = String(pref.traveler.dewasa || 2);
+    if (da && pref.traveler) da.value = String(pref.traveler.anak || 0);
+  }
+
+  /** Membaca rencana tersimpan dari localStorage (jika ada). */
+  function bacaTersimpan() {
+    try {
+      const raw = window.localStorage.getItem('griska-go.rencana');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  /* Jaga-jaga agar state bisa dibaca modul lain (mis. "Simpan rencana"). */
+  window.GriskaApp = {
+    getMeta: function () { return state.metaRencana || null; },
+    getPreferensi: function () { return state.preferensi; },
+    pulihkanStateForm: pulihkanStateForm,
+    bacaTersimpan: bacaTersimpan
+  };
 
   // Jalankan setelah DOM siap.
   if (document.readyState === 'loading') {

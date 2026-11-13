@@ -16,7 +16,23 @@
   /* Endpoint serverless function. Vercel otomatis memetakan /api/chat
    * ke file api/chat.js, jadi tidak perlu konfigurasi tambahan. */
   const ENDPOINT = '/api/chat';
-  const TIMEOUT_MS = 70000; // timeout di sisi browser (server punya timeout sendiri)
+  // Batas waktu di sisi browser. Server punya anggaran waktu sendiri
+  // (50 detik) dan selalu mengembalikan rencana walau AI lambat, jadi
+  // batas browser ini dibuat sedikit lebih besar dari anggaran server.
+  const TIMEOUT_MS = 68000;
+
+  // Controllerpermintaan yang sedang berjalan (dipakai tombol "Lewati narasi").
+  let controllerAktif = null;
+
+  /** Membatalkan permintaan yang sedang berjalan. */
+  function batalkan() {
+    if (controllerAktif) {
+      try { controllerAktif.abort(); } catch (_) { /* abaikan */ }
+      controllerAktif = null;
+      return true;
+    }
+    return false;
+  }
 
   /**
    * Pesan error yang ramah untuk pengguna (bukan dump teknis).
@@ -76,6 +92,7 @@
     }
 
     const controller = new AbortController();
+    controllerAktif = controller;
     const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
     try {
@@ -110,6 +127,7 @@
       return { ok: false, code: 'NETWORK', message: pesanError('NETWORK', payload.bahasa) };
     } finally {
       clearTimeout(timer);
+      if (controllerAktif === controller) controllerAktif = null;
     }
   }
 
@@ -122,7 +140,7 @@
    * @param {object} preferensi - { durasi, budget, minat[], gaya, wilayahAwal, catatan }
    * @param {string} bahasa - 'id' | 'en'
    */
-  async function buatItinerary(preferensi, bahasa) {
+  async function buatItinerary(preferensi, bahasa, tanpaNarasi) {
     const hasil = await post({
       action: 'generate',
       bahasa: bahasa || 'id',
@@ -131,14 +149,29 @@
       minat: preferensi.minat,
       gaya: preferensi.gaya,
       wilayahAwal: preferensi.wilayahAwal,
-      catatan: preferensi.catatan || ''
+      catatan: preferensi.catatan || '',
+      traveler: preferensi.traveler || { dewasa: 1, anak: 0 },
+      touristType: preferensi.touristType || 'domestik',
+      transport: preferensi.transport || 'motor',
+      akomodasi: preferensi.akomodasi || 'hotel',
+      tanggal: preferensi.tanggal || '',
+      budgetMaks: preferensi.budgetMaks || 0,
+      // Titik awal bebas (pin di peta / hasil pencarian / GPS).
+      titikAwal: preferensi.titikAwal || null,
+      // Minat bebas (teks yang diketik traveler, dipetakan AI ke tag).
+      minatTeks: preferensi.minatTeks || [],
+      // Biaya opsi "lainnya" (dipakai langsung di perhitungan budget).
+      biayaTransportHarian: preferensi.biayaTransportHarian || 0,
+      biayaAkomodasiMalam: preferensi.biayaAkomodasiMalam || 0,
+      // true = jangan panggil AI sama sekali (rencana dari kode).
+      tanpaNarasi: !!tanpaNarasi
     });
 
     if (!hasil.ok) {
       return { ok: false, code: hasil.code, message: hasil.message || pesanError(hasil.code, bahasa) };
     }
 
-    // Server sudah mengembalikan { ok, itinerary, meta }.
+    // Server mengembalikan { ok, itinerary, budget, meta }.
     if (!hasil.data.ok || !hasil.data.itinerary) {
       return {
         ok: false,
@@ -148,7 +181,12 @@
       };
     }
 
-    return { ok: true, itinerary: hasil.data.itinerary, meta: hasil.data.meta };
+    return {
+      ok: true,
+      itinerary: hasil.data.itinerary,
+      budget: hasil.data.budget || null,
+      meta: hasil.data.meta || null
+    };
   }
 
   /**
@@ -158,13 +196,15 @@
    * @param {Array} riwayat - riwayat percakapan [{ role, text }]
    * @param {string} bahasa - 'id' | 'en'
    */
-  async function kirimChat(pesan, itinerary, riwayat, bahasa) {
+  async function kirimChat(pesan, itinerary, riwayat, bahasa, preferensi) {
     const hasil = await post({
       action: 'chat',
       bahasa: bahasa || 'id',
       pesan: String(pesan || '').slice(0, 300),
       itinerary: itinerary || null,
-      riwayat: riwayat || []
+      riwayat: riwayat || [],
+      // Preferensi dipakai server untuk menghitung ulang budget setelah revisi.
+      preferensi: preferensi || null
     });
 
     if (!hasil.ok) {
@@ -175,10 +215,52 @@
       return { ok: false, code: 'INVALID_AI_OUTPUT', message: pesanError('INVALID_AI_OUTPUT', bahasa) };
     }
 
-    return { ok: true, balasan: hasil.data.balasan, meta: hasil.data.meta };
+    return {
+      ok: true,
+      balasan: hasil.data.balasan,
+      budget: hasil.data.budget || null,
+      meta: hasil.data.meta || null
+    };
+  }
+
+  /**
+   * Mencari nama tempat (hotel, restoran, cafe) untuk titik awal.
+   * Disebut ke /api/chat action=geocode supaya header User-Agent benar
+   * dan permintaan dibatasi ke area Bali.
+   *
+   * @param {string} kueri - teks yang diketik traveler
+   * @returns {Promise<{ok: boolean, hasil?: Array, pesan?: string, message?: string}>}
+   */
+  async function cariTempat(kueri) {
+    const q = String(kueri || '').replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, 80);
+    if (q.length < 3) return { ok: true, hasil: [] };
+
+    const hasil = await post({ action: 'geocode', q: q });
+
+    if (!hasil.ok) {
+      return {
+        ok: false,
+        hasil: [],
+        pesan: hasil.message || pesanError('NETWORK', 'id'),
+        message: hasil.message || pesanError('NETWORK', 'id')
+      };
+    }
+    if (!hasil.data || !hasil.data.ok) {
+      return {
+        ok: false,
+        hasil: [],
+        pesan: (hasil.data && hasil.data.message) || pesanError('SERVER_ERROR', 'id'),
+        message: (hasil.data && hasil.data.message) || pesanError('SERVER_ERROR', 'id')
+      };
+    }
+    return {
+      ok: true,
+      hasil: hasil.data.hasil || [],
+      pesan: hasil.data.pesan || ''
+    };
   }
 
   // Ekspor sebagai objek global (vanilla JS, tanpa modul).
-  global.BaliWiseApi = { buatItinerary, kirimChat, pesanError };
+  global.BaliWiseApi = { buatItinerary, kirimChat, cariTempat, pesanError, batalkan };
 
 })(window);

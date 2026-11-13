@@ -1,11 +1,17 @@
 {
   "meta": {
-    "nama": "BaliWise",
-    "versi": "1.0.0",
-    "catatan": "Data acuan (ground truth) untuk AI. Semua harga dalam Rupiah (IDR) per orang dewasa. Jam buka dan harga bersifat indikatif serta dapat berubah, jadi selalu konfirmasi ke sumber resmi atau loket sebelum berangkat. AI WAJIB hanya merekomendasikan nama tempat yang ada di daftar ini.",
-    "wilayahTersedia": ["Denpasar", "Badung", "Gianyar", "Ubud", "Tabanan", "Klungkung", "Karangasem", "Buleleng"],
-    "wilayahMulai": ["Denpasar", "Ubud", "Kuta", "Seminyak", "Sanur", "Tabanan", "Klungkung", "Buleleng", "Gianyar"],
-    "kategoriTersedia": ["pantai", "budaya", "kuliner", "alam", "belanja"]
+    "nama": "Griska Go",
+    "versi": "2.0.0",
+    "catatan": "Data acuan (ground truth) untuk AI. Semua harga dalam Rupiah (IDR). Harga tiket: nilai \"hargaTiketLokal\" berlaku untuk wisatawan domestic, \"hargaTiketTuris\" untuk wisatawan mancanegara (umumnya lebih tinggi). Jam buka, harga, dan jam buka bersifat indikatif serta dapat berubah, jadi selalu konfirmasi ke sumber resmi atau loket sebelum berangkat. AI WAJIB hanya merekomendasikan nama tempat yang ada di daftar ini.",
+    "zonaTersedia": [],
+    "kategoriTersedia": [
+      "pantai",
+      "budaya",
+      "kuliner",
+      "alam",
+      "belanja"
+    ],
+    "sumber": "Data disusun dari informasi tourist spot resmi Bali dan OpenStreetMap (koordinat WGS84)."
   },
   "destinasi": [
     {
@@ -13,16 +19,50 @@
       "nama": "Pura Tanah Lot",
       "namaEn": "Tanah Lot Temple",
       "wilayah": "Tabanan",
+      "zona": "tabsan",
       "kategori": "budaya",
+      "tags": [
+        "spiritual",
+        "pura",
+        "sunset",
+        "sejarah",
+        "romantis",
+        "fotografi"
+      ],
+      "alamat": "Jl. Goa Lempeh, Pecatu, Tabanan, Bali",
+      "lat": -8.6212,
+      "lng": 115.0873,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pura%20Tanah%20Lot%20Jl.%20Goa%20Lempeh%20Bali",
       "hargaTiket": 75000,
+      "hargaTiketLokal": 75000,
+      "hargaTiketTuris": 90000,
       "jamBuka": "07.00 - 19.00",
       "durasiMenit": 120,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 75000,
+        "mewah": 160000
+      },
+      "dressCode": "Wajib sarung dan sabuk (disediakan di gerbang)",
+      "dressCodeEn": "Sarong and sash are required (provided at the entrance)",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pura yang berdiri di atas tebing laut di Tabanan dengan laut lepas sebagai latar belakang. Ikon turisme Bali yang paling dikenali dan paling ramai saat matahari terbenam.",
       "tipsEtika": [
         "Wajib mengenakan sarong dan sabuk yang tersedia di gerbang masuk.",
         "Naik ke pura utama hanya diperbolehkan bagi pengunjung yang mendapat izin dari pemangku pura.",
         "Tidak berdiri di tepi tebing tanpa pengaman dan tidak meludah ke bawah.",
         "Buang sampah pada tempatnya dan jaga kebersihan pura."
+      ],
+      "tipsEtikaEn": [
+        "A sarong and sash are provided at the entrance and must be worn.",
+        "Only visitors granted permission by the temple keeper may enter the main shrine.",
+        "Do not stand on the unguarded cliff edge and never spit over the edge.",
+        "Dispose of rubbish in the bins and keep the temple clean."
       ],
       "catatanAI": "Selalu sarong. Cocok untuk golden hour jam 17.00-18.30. Sering dipilih sebagai salah satu tempat utama."
     },
@@ -31,16 +71,49 @@
       "nama": "Pura Uluwatu",
       "namaEn": "Uluwatu Temple",
       "wilayah": "Badung",
+      "zona": "uluwatu",
       "kategori": "budaya",
+      "tags": [
+        "spiritual",
+        "pura",
+        "sunset",
+        "sejarah",
+        "fotografi"
+      ],
+      "alamat": "Jl. Raya Uluwatu, Pecatu, Badung, Bali",
+      "lat": -8.8291,
+      "lng": 115.0849,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pura%20Uluwatu%20Jl.%20Raya%20Uluwatu%20Bali",
       "hargaTiket": 50000,
+      "hargaTiketLokal": 50000,
+      "hargaTiketTuris": 70000,
       "jamBuka": "06.00 - 19.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 40000,
+        "menengah": 85000,
+        "mewah": 180000
+      },
+      "dressCode": "Wajib sarung, busana menutup kaki dan bahu",
+      "dressCodeEn": "Sarong required, shoulders and knees covered",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pura di ujung tebing berketinggian sekitar 70 meter di atas Samudra Hindia dengan panorama tebing dramatis dan Tari Kechak pada sore hari.",
       "tipsEtika": [
         "Pakai sarong dan busana menutup kaki serta bahu.",
         "Berhati-hati di turunan curam menuju area pura.",
         "Tidak duduk di sisi tebing tanpa pagar pengaman.",
         "Menghormati prosesi sakral yang sedang berlangsung dan tidak melintasinya."
+      ],
+      "tipsEtikaEn": [
+        "Wear a sarong and clothing that covers legs and shoulders.",
+        "Be careful on the steep descent towards the temple grounds.",
+        "Do not sit on the cliff edge where there is no railing.",
+        "Respect any sacred ceremony in progress and never walk across it."
       ],
       "catatanAI": "Lokasi paling ikonik di Badung. Cocok dikombinasikan dengan Tari Kechak pada hari yang sama."
     },
@@ -49,10 +122,36 @@
       "nama": "Tari Kechak Uluwatu",
       "namaEn": "Kechak Fire Dance",
       "wilayah": "Badung",
+      "zona": "uluwatu",
       "kategori": "budaya",
+      "tags": [
+        "sunset",
+        "spiritual",
+        "sejarah",
+        "romantis"
+      ],
+      "alamat": "Pura Uluwatu, Jl. Raya Uluwatu, Badung, Bali",
+      "lat": -8.8291,
+      "lng": 115.0851,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Tari%20Kechak%20Uluwatu%20Pura%20Uluwatu%20Bali",
       "hargaTiket": 100000,
+      "hargaTiketLokal": 100000,
+      "hargaTiketTuris": 120000,
       "jamBuka": "14.00 - 21.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "malam",
+      "waktuTerbaikEn": "evening",
+      "makan": {
+        "hemat": 40000,
+        "menengah": 85000,
+        "mewah": 180000
+      },
+      "dressCode": "Busana sopan; penutup bahu dan lutut",
+      "dressCodeEn": "Modest dress covering shoulders and knees",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pertunjukan tarian tradisional Bali dengan penabuh baret berapi dan kelompok penari yang membacakan Kakawin Ramayana di theater beratap terbuka menghadap laut.",
       "tipsEtika": [
         "Datang minimal 30 menit sebelum pertunjukan untuk mendapat kursi.",
@@ -60,23 +159,65 @@
         "Tidak memasuki area penabuh api.",
         "Tidak bersuara ribut karena beberapa bagian pertunjukan bersifat sakral."
       ],
-      "catatanAI": "Ada dua jadwal, yaitu 15.00 dan 19.00. Cocok untuk sore hari di area Uluwatu."
+      "tipsEtikaEn": [
+        "Arrive at least 30 minutes before the show to secure a seat.",
+        "Do not use flash photography during the performance.",
+        "Never enter the area of the fire drummers.",
+        "Keep noise down as parts of the performance are sacred."
+      ],
+      "catatanAI": "Ada dua jadwal, yaitu 15.00 dan 19.00. Cocok untuk sore hari di area Uluwatu.",
+      "jamKhusus": [
+        "15.00",
+        "19.00"
+      ]
     },
     {
       "id": "garuda-wisnu-kencana",
       "nama": "Garuda Wisnu Kencana (GWK)",
       "namaEn": "Garuda Wisnu Kencana Cultural Park",
       "wilayah": "Badung",
+      "zona": "nusa-dua",
       "kategori": "budaya",
+      "tags": [
+        "sejarah",
+        "spiritual",
+        "pura",
+        "keluarga"
+      ],
+      "alamat": "Jl. Raya Widyawara, Nusa Dua, Badung, Bali",
+      "lat": -8.5136,
+      "lng": 115.187,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Garuda%20Wisnu%20Kencana%20(GWK)%20Jl.%20Raya%20Widyawara%20Bali",
       "hargaTiket": 130000,
+      "hargaTiketLokal": 130000,
+      "hargaTiketTuris": 160000,
       "jamBuka": "09.00 - 18.00",
       "durasiMenit": 150,
+      "waktuTerbaik": "siang",
+      "waktuTerbaikEn": "midday",
+      "makan": {
+        "hemat": 45000,
+        "menengah": 95000,
+        "mewah": 200000
+      },
+      "dressCode": "Busana sopan; tidak bercelana pendek di area suci",
+      "dressCodeEn": "Modest dress; no shorts in the sacred area",
+      "keramaian": "sedang",
+      "intensitas": "padat",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Taman budaya dengan patung Garuda raksasa dan pertunjukan Mahabharata di luar ruang. Salah satu tujuan sightseeing utama di Bali.",
       "tipsEtika": [
         "Gunakan transporter yang disediakan untuk mobilitas di dalam taman.",
         "Tidak memanjat atau memeluk struktur bangunan suci.",
         "Ikuti arahan pemandu selama pertunjukan.",
         "Gunakan air minum yang disediakan dan jangan membuang sampah."
+      ],
+      "tipsEtikaEn": [
+        "Use the shuttle carts provided to move around the park.",
+        "Do not climb or hug any sacred structure.",
+        "Follow the guide instructions during the show.",
+        "Use the provided drinking water and do not litter."
       ],
       "catatanAI": "Sekitar 1 jam perjalanan dari Kuta atau Ubud. Cocok untuk hari ke-2 atau ke-3."
     },
@@ -85,16 +226,48 @@
       "nama": "Pura Agung Besakih",
       "namaEn": "Besakih Temple",
       "wilayah": "Klungkung",
+      "zona": "klungkung",
       "kategori": "budaya",
+      "tags": [
+        "spiritual",
+        "pura",
+        "sejarah",
+        "trekking"
+      ],
+      "alamat": "Jl. Raya Besakih, Klungkung, Bali",
+      "lat": -8.475,
+      "lng": 115.35,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pura%20Agung%20Besakih%20Jl.%20Raya%20Besakih%20Bali",
       "hargaTiket": 60000,
+      "hargaTiketLokal": 60000,
+      "hargaTiketTuris": 75000,
       "jamBuka": "07.00 - 19.00",
       "durasiMenit": 120,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 150000
+      },
+      "dressCode": "Wajib sarung; warna tertentu disediakan di gerbang",
+      "dressCodeEn": "Sarong required; specific colours are provided at the entrance",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Kompleks pura tertua di Bali dengan candi utama berundak di kaki Gunung Agung, dijaga ketat oleh para pemangku desa.",
       "tipsEtika": [
         "Wajib sarong, warna tertentu disediakan di gerbang masuk.",
         "Tidak memotret di halaman utama saat persembahan berlangsung.",
         "Tidak melewati orang yang sedang beribadah.",
         "Berhati-hati saat berada di area berundak yang licin."
+      ],
+      "tipsEtikaEn": [
+        "A sarong is mandatory; specific colours are handed out at the gate.",
+        "Do not photograph the main courtyard while an offering is underway.",
+        "Never walk in front of someone praying.",
+        "Walk carefully on the steep, slippery terraces."
       ],
       "catatanAI": "Paling sakral di Bali. Perjalanan dari Bali selatan cukup jauh, sehingga dahulukan pagi hari."
     },
@@ -103,16 +276,48 @@
       "nama": "Pura Tirta Empul",
       "namaEn": "Tirta Empul Temple",
       "wilayah": "Tabanan",
+      "zona": "tabsan",
       "kategori": "budaya",
+      "tags": [
+        "spiritual",
+        "pura",
+        "sejarah",
+        "keluarga"
+      ],
+      "alamat": "Jl. Tirta Empul, Tampaksiring, Tabanan, Bali",
+      "lat": -8.4157,
+      "lng": 115.3153,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pura%20Tirta%20Empul%20Jl.%20Tirta%20Empul%20Bali",
       "hargaTiket": 45000,
+      "hargaTiketLokal": 45000,
+      "hargaTiketTuris": 60000,
       "jamBuka": "08.00 - 18.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 30000,
+        "menengah": 65000,
+        "mewah": 140000
+      },
+      "dressCode": "Wajib sarung; busana menutup lutut",
+      "dressCodeEn": "Sarong required; knees covered",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pura suci air suci tempat umat Hindu Bali menjalankan sembahy purification dengan deretan air mancur suci yang mengalir ke hilir.",
       "tipsEtika": [
         "Gunakan sarong yang disediakan dan busana menutup lutut.",
         "Ikuti urutan prosesi dan jangan menyela barisan.",
         "Jangan mengambil air suci tanpa izin.",
         "Pengunjung yang tidak berpakaian seragam harus mengikuti instruksi pemandu."
+      ],
+      "tipsEtikaEn": [
+        "Use the provided sarong and keep your knees covered.",
+        "Follow the queue in order and never cut in.",
+        "Do not take holy water without permission.",
+        "Visitors not in temple attire must follow the guide instructions."
       ],
       "catatanAI": "Sangat berdekatan dengan Jatiluwih, sehingga mudah digabung dalam satu hari."
     },
@@ -121,16 +326,48 @@
       "nama": "Sawah Terasering Jatiluwih",
       "namaEn": "Jatiluwih Rice Terraces",
       "wilayah": "Tabanan",
+      "zona": "tabsan",
       "kategori": "alam",
+      "tags": [
+        "sawah",
+        "trekking",
+        "fotografi",
+        "yoga"
+      ],
+      "alamat": "Jl. Raya Jatiluwih, Tabanan, Bali",
+      "lat": -8.3475,
+      "lng": 115.25,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Sawah%20Terasering%20Jatiluwih%20Jl.%20Raya%20Jatiluwih%20Bali",
       "hargaTiket": 20000,
+      "hargaTiketLokal": 20000,
+      "hargaTiketTuris": 25000,
       "jamBuka": "07.00 - 18.00",
       "durasiMenit": 120,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 25000,
+        "menengah": 50000,
+        "mewah": 120000
+      },
+      "dressCode": "Tidak ada dress code; gunakan sepatu berjalan yang nyaman",
+      "dressCodeEn": "No dress code; wear comfortable walking shoes",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Sawah berundak yang diakui UNESCO sebagai Warisan Dunia, dengan hamparan hijau yang melengkung mengikuti kontur lereng.",
       "tipsEtika": [
         "Tidak memanjat atau melangkahi pematang sawah.",
         "Tidak berhenti di pematang sempit yang menjadi jalur para petani.",
         "Tidak memetik padi dan tidak membuang sampah.",
         "Gunakan jalur setapak yang telah ditentukan."
+      ],
+      "tipsEtikaEn": [
+        "Never climb over or step across the rice-field ridges.",
+        "Do not stop on narrow ridges used by local farmers.",
+        "Do not pick rice plants and do not litter.",
+        "Stick to the marked footpaths."
       ],
       "catatanAI": "Terlihat terbaik pagi hari sebelum jam 10.00 atau pada sore hari. Cocok untuk fotografi."
     },
@@ -139,16 +376,48 @@
       "nama": "Pura Ulun Danu Beratan",
       "namaEn": "Ulun Danu Beratan Temple",
       "wilayah": "Tabanan",
+      "zona": "bedugul",
       "kategori": "alam",
+      "tags": [
+        "spiritual",
+        "pura",
+        "yoga",
+        "fotografi"
+      ],
+      "alamat": "Jl. Raya Bedugul, Tabanan, Bali",
+      "lat": -8.275,
+      "lng": 115.13,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pura%20Ulun%20Danu%20Beratan%20Jl.%20Raya%20Bedugul%20Bali",
       "hargaTiket": 25000,
+      "hargaTiketLokal": 25000,
+      "hargaTiketTuris": 30000,
       "jamBuka": "06.00 - 18.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 30000,
+        "menengah": 60000,
+        "mewah": 130000
+      },
+      "dressCode": "Wajib sarung sebelum naik ke area pura",
+      "dressCodeEn": "Sarong required before entering the temple area",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pura mengambang di tepi Danau Beratan yang sejuk di kaki Gunung Batu dan Gunung Agung, dikelilingi kabut dan taman aromatik.",
       "tipsEtika": [
         "Wajib memakai sarong sebelum naik ke area pura.",
         "Berhati-hati saat berjalan di tepi danau dan pada tangga yang licin.",
         "Gunakan perahu yang disediakan bila diminta menyeberang.",
         "Jaga kebersihan kawasan pura dan danaunya."
+      ],
+      "tipsEtikaEn": [
+        "Wear a sarong before stepping onto the temple platform.",
+        "Walk carefully along the lake edge and on slippery steps.",
+        "Use the provided boats if you are asked to cross.",
+        "Keep the temple and lake area clean."
       ],
       "catatanAI": "Sangat dingin sehingga perlu jaket, dan sering berkabut. Cocok untuk kombinasi alam dan budaya dalam satu hari."
     },
@@ -157,16 +426,48 @@
       "nama": "Tirta Gangga",
       "namaEn": "Tirta Gangga Water Palace",
       "wilayah": "Karangasem",
+      "zona": "amed",
       "kategori": "alam",
+      "tags": [
+        "spiritual",
+        "pura",
+        "yoga",
+        "fotografi"
+      ],
+      "alamat": "Jl. Tirta Gangga, Purwakerti, Abang, Karangasem, Bali",
+      "lat": -8.4133,
+      "lng": 115.45,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Tirta%20Gangga%20Jl.%20Tirta%20Gangga%20Bali",
       "hargaTiket": 15000,
+      "hargaTiketLokal": 15000,
+      "hargaTiketTuris": 25000,
       "jamBuka": "08.00 - 17.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 25000,
+        "menengah": 50000,
+        "mewah": 120000
+      },
+      "dressCode": "Berpakaian sopan; menutup bahu dan lutut",
+      "dressCodeEn": "Modest dress covering shoulders and knees",
+      "keramaian": "rendah",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Taman air suci di lereng Gunung Agung dengan kolam bertingkat, air jatuh dari mata air, dan dinding tebing batu yang ditumbuhi akar pohon besar.",
       "tipsEtika": [
         "Berpakaian sopan dan menutup bahu serta lutut.",
         "Tidak melompat atau berenang di kolam suci.",
         "Tidak memetik tanaman dan tidak berdiri di dekat mata air.",
         "Jaga kebersihan air kolam dan buang sampah pada tempatnya."
+      ],
+      "tipsEtikaEn": [
+        "Dress modestly, covering shoulders and knees.",
+        "Never jump or swim in the holy pools.",
+        "Do not pick plants or stand close to the water source.",
+        "Keep the pools clean and throw rubbish in the bins."
       ],
       "catatanAI": "Tenang dan jarang ramai, cocok untuk merilekskan diri. Sekitar 1,5 jam dari Klungkung."
     },
@@ -175,16 +476,47 @@
       "nama": "Goa Gajah (Gua Gajah)",
       "namaEn": "Elephant Cave",
       "wilayah": "Gianyar",
+      "zona": "gianyar",
       "kategori": "budaya",
+      "tags": [
+        "spiritual",
+        "pura",
+        "sejarah"
+      ],
+      "alamat": "Jl. Raya Goa Gajah, Tampaksiring, Gianyar, Bali",
+      "lat": -8.4478,
+      "lng": 115.3494,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Goa%20Gajah%20(Gua%20Gajah)%20Jl.%20Raya%20Goa%20Gajah%20Bali",
       "hargaTiket": 30000,
+      "hargaTiketLokal": 30000,
+      "hargaTiketTuris": 40000,
       "jamBuka": "08.00 - 18.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 30000,
+        "menengah": 60000,
+        "mewah": 130000
+      },
+      "dressCode": "Wajib sarong (dipinjamkan di loket)",
+      "dressCodeEn": "Sarong required (available for loan at the ticket desk)",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Gua batu berukir abad ke-9 dengan kolam suci di depannya, dikelilingi taman rimbun dan patung-patung. Nama Gua Gajah berasal dari ukiran seekor gajah.",
       "tipsEtika": [
         "Gunakan sarong yang dipinjamkan di loket.",
         "Tidak memanjat atau menyentuh relief batu kuno.",
         "Tidak memberi makan monyet secara langsung.",
         "Tidak membawa makanan dan minuman beralkohol ke area pura."
+      ],
+      "tipsEtikaEn": [
+        "Use the sarong lent at the ticket desk.",
+        "Do not climb on or touch the ancient stone reliefs.",
+        "Never feed the monkeys directly.",
+        "Do not bring food or alcohol into the temple area."
       ],
       "catatanAI": "Dekat dengan Ubud. Cocok untuk mengisi pagi hari."
     },
@@ -193,16 +525,47 @@
       "nama": "Campuhan Ridge Walk",
       "namaEn": "Campuhan Ridge Walk",
       "wilayah": "Gianyar",
+      "zona": "gianyar",
       "kategori": "alam",
+      "tags": [
+        "trekking",
+        "sunrise",
+        "fotografi"
+      ],
+      "alamat": "Jl. Raya Sanggingan, Ubud, Gianyar, Bali",
+      "lat": -8.487,
+      "lng": 115.258,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Campuhan%20Ridge%20Walk%20Jl.%20Raya%20Sanggingan%20Bali",
       "hargaTiket": 0,
+      "hargaTiketLokal": 0,
+      "hargaTiketTuris": 0,
       "jamBuka": "06.00 - 18.00",
       "durasiMenit": 75,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 25000,
+        "menengah": 55000,
+        "mewah": 120000
+      },
+      "dressCode": "Tidak ada dress code; pakai sepatu lari",
+      "dressCodeEn": "No dress code; wear running shoes",
+      "keramaian": "rendah",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Jalan setapak sepanjang punggungan bukit di antara Ubud dan Payangan dengan panorama lembah yang hijau, cocok untuk jalan santai dan lari pagi.",
       "tipsEtika": [
         "Tidak memetik tanaman dan tidak keluar dari jalur setapak.",
         "Gunakan sepatu nyaman dan bawa air minum.",
         "Waspada terhadap licin saat hujan.",
         "Jaga kebersihan jalur yang dipakai warga."
+      ],
+      "tipsEtikaEn": [
+        "Do not pick plants and stay on the marked trail.",
+        "Wear comfortable shoes and bring drinking water.",
+        "Slippery after rain, take care.",
+        "Keep the path used by locals clean."
       ],
       "catatanAI": "Gratis dan dekat Ubud. Cocok untuk pengisi pagi hari."
     },
@@ -211,16 +574,46 @@
       "nama": "Air Terjun Tegenungan",
       "namaEn": "Tegenungan Waterfall",
       "wilayah": "Gianyar",
+      "zona": "gianyar",
       "kategori": "alam",
+      "tags": [
+        "air-terjun",
+        "fotografi"
+      ],
+      "alamat": "Jl. Raya Tegallalang, Gianyar, Bali",
+      "lat": -8.4313,
+      "lng": 115.3286,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Air%20Terjun%20Tegenungan%20Jl.%20Raya%20Tegallalang%20Bali",
       "hargaTiket": 25000,
+      "hargaTiketLokal": 25000,
+      "hargaTiketTuris": 30000,
       "jamBuka": "08.00 - 17.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 25000,
+        "menengah": 55000,
+        "mewah": 120000
+      },
+      "dressCode": "Siap terkena percikan; siapkan pakaian kering",
+      "dressCodeEn": "Expect to get wet; bring a dry change of clothes",
+      "keramaian": "tinggi",
+      "intensitas": "padat",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Airfalls setinggi sekitar 15 meter yang jatuh ke kolam alami, dikelilingi vegetasi tropis lebat.",
       "tipsEtika": [
         "Tidak melompat dari batu lompat yang tidak diizinkan.",
         "Tidak masuk ke kolam saat air keruh atau setelah hujan deras.",
         "Simpan barang berharga agar tidak hilang.",
         "Jaga kebersihan area dan jangan merusak tanaman."
+      ],
+      "tipsEtikaEn": [
+        "Do not jump from the restricted rocks.",
+        "Do not enter the pool when the water is murky or after heavy rain.",
+        "Keep valuables secure.",
+        "Keep the area clean and do not damage plants."
       ],
       "catatanAI": "Sangat ramai sekitar jam 10.00-15.00. Disarankan datang pagi atau sore."
     },
@@ -229,16 +622,48 @@
       "nama": "Sacred Monkey Forest Sanctuary",
       "namaEn": "Sacred Monkey Forest Sanctuary",
       "wilayah": "Gianyar",
+      "zona": "ubud",
       "kategori": "alam",
+      "tags": [
+        "spiritual",
+        "pura",
+        "sejarah",
+        "keluarga"
+      ],
+      "alamat": "Jl. Monkey Forest, Ubud, Gianyar, Bali",
+      "lat": -8.5186,
+      "lng": 115.258,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Sacred%20Monkey%20Forest%20Sanctuary%20Jl.%20Monkey%20Forest%20Bali",
       "hargaTiket": 120000,
+      "hargaTiketLokal": 120000,
+      "hargaTiketTuris": 150000,
       "jamBuka": "08.00 - 18.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 150000
+      },
+      "dressCode": "Wajib sarung; rapikan aksesori longgar",
+      "dressCodeEn": "Sarong required; tie back loose accessories",
+      "keramaian": "tinggi",
+      "intensitas": "padat",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Hutan suci penanggungan kera liar di antara tiga pura tua dengan akar beringin agung, patung berwarna, dan lembah di bawahnya.",
       "tipsEtika": [
         "Jangan membawa makanan terbuka; simpan tas, kacamata, dan botol di dalam tas.",
         "Jangan menatap mata monyet secara langsung.",
         "Jangan menyentuh, menggoda, atau memberi makan monyet.",
         "Gunakan sarong saat memasuki area pura."
+      ],
+      "tipsEtikaEn": [
+        "Do not carry open food; keep bags, glasses and bottles inside your bag.",
+        "Never stare directly into the monkeys eyes.",
+        "Do not touch, tease or feed the monkeys.",
+        "Wear a sarong when entering the temple areas."
       ],
       "catatanAI": "Berada di jantung Ubud dan populer tinggi. Perlu datang pagi agar antrean lebih singkat."
     },
@@ -247,16 +672,48 @@
       "nama": "Puri Saren Ubud (Istana Ubud)",
       "namaEn": "Ubud Palace",
       "wilayah": "Ubud",
+      "zona": "ubud",
       "kategori": "budaya",
+      "tags": [
+        "sejarah",
+        "kerajinan",
+        "spiritual",
+        "pura"
+      ],
+      "alamat": "Jl. Raya Ubud, Ubud, Gianyar, Bali",
+      "lat": -8.5069,
+      "lng": 115.2625,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Puri%20Saren%20Ubud%20(Istana%20Ubud)%20Jl.%20Raya%20Ubud%20Bali",
       "hargaTiket": 10000,
+      "hargaTiketLokal": 10000,
+      "hargaTiketTuris": 15000,
       "jamBuka": "09.00 - 18.00",
       "durasiMenit": 60,
+      "waktuTerbaik": "siang",
+      "waktuTerbaikEn": "midday",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 150000
+      },
+      "dressCode": "Berpakaian sopan; lepas alas kaki di area pura",
+      "dressCodeEn": "Modest dress; remove shoes inside the temple area",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Kediaman resmi keluarga kerajaan Bali yang masih tinggal di sana, dengan gapura candi, arca bergaya Bali klasik, dan pertunjukan Tari Legong.",
       "tipsEtika": [
         "Berpakaian sopan dan tidak memakai alas kaki di area pura.",
         "Tidak memasuki ruang privat saat pertunjukan berlangsung.",
         "Tidak memotret tanpa izin.",
         "Hormati warga yang tinggal di kompleks."
+      ],
+      "tipsEtikaEn": [
+        "Dress modestly and remove shoes in the temple area.",
+        "Do not enter private rooms while a performance is running.",
+        "Ask permission before taking photos.",
+        "Respect the residents living inside the complex."
       ],
       "catatanAI": "Sangat dekat dengan Pasar Ubud sehingga bisa digabung dalam setengah hari."
     },
@@ -265,16 +722,47 @@
       "nama": "Museum Gajah Ubud",
       "namaEn": "Elephant Museum Ubud",
       "wilayah": "Ubud",
+      "zona": "ubud",
       "kategori": "budaya",
+      "tags": [
+        "sejarah",
+        "kerajinan",
+        "keluarga"
+      ],
+      "alamat": "Jl. Raya Ubud No. 35, Ubud, Bali",
+      "lat": -8.5189,
+      "lng": 115.2622,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Museum%20Gajah%20Ubud%20Jl.%20Raya%20Ubud%20No.%2035%20Bali",
       "hargaTiket": 60000,
+      "hargaTiketLokal": 60000,
+      "hargaTiketTuris": 80000,
       "jamBuka": "09.00 - 18.00",
       "durasiMenit": 75,
+      "waktuTerbaik": "siang",
+      "waktuTerbaikEn": "midday",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 150000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "rendah",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Museum yang memamerkan ratusan artefak, diorama, dan koleksi dari berbagai suku di Nusantara dan Asia Tenggara.",
       "tipsEtika": [
         "Minta izin sebelum memotret koleksi atau diorama.",
         "Jangan menyentuh barang pajangan.",
         "Datang pada jam operasional agar tidak terburu-buru.",
         "Jaga kebersihan ruang museum."
+      ],
+      "tipsEtikaEn": [
+        "Ask permission before photographing exhibits.",
+        "Do not touch the exhibits.",
+        "Come during opening hours so you are not rushed.",
+        "Keep the museum clean."
       ],
       "catatanAI": "Cocok saat hujan atau untuk kegiatan edukatif. Dekat dengan Ubud Palace."
     },
@@ -283,16 +771,45 @@
       "nama": "Warung Babi Guling Ibu Oka",
       "namaEn": "Ibu Oka Warung",
       "wilayah": "Ubud",
+      "zona": "ubud",
       "kategori": "kuliner",
+      "tags": [
+        "kuliner-lokal"
+      ],
+      "alamat": "Jl. Suweta, Ubud, Gianyar, Bali",
+      "lat": -8.5107,
+      "lng": 115.2617,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Warung%20Babi%20Guling%20Ibu%20Oka%20Jl.%20Suweta%20Bali",
       "hargaTiket": 50000,
+      "hargaTiketLokal": 50000,
+      "hargaTiketTuris": 55000,
       "jamBuka": "09.00 - 21.00",
       "durasiMenit": 60,
-      "deskripsi": "Warung legendaris di Ubud yang menyajikan babi guling Bali dengan lawar, sambal matah, dan sayur lalapan.", 
+      "waktuTerbaik": "makan",
+      "waktuTerbaikEn": "lunch",
+      "makan": {
+        "hemat": 50000,
+        "menengah": 55000,
+        "mewah": 90000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Warung legendaris di Ubud yang menyajikan babi guling Bali dengan lawar, sambal matah, dan sayur lalapan.",
       "tipsEtika": [
         "Antre dengan sabar sesuai nomor.",
         "Tidak memotret orang lokal tanpa izin.",
         "Siapkan uang pembayaran pas agar tidak kehabisan kembalian.",
         "Makan dengan tangan kanan."
+      ],
+      "tipsEtikaEn": [
+        "Queue patiently according to your number.",
+        "Do not photograph locals without permission.",
+        "Bring exact payment as change may be limited.",
+        "Eat with your right hand."
       ],
       "catatanAI": "Ikon kuliner wajib saat berada di Ubud. Antrean panjang, sarankan makan siang di luar jam makan."
     },
@@ -301,16 +818,47 @@
       "nama": "Pantai Jimbaran dan Seafood Grill",
       "namaEn": "Jimbaran Bay Beach and Seafood",
       "wilayah": "Badung",
+      "zona": "uluwatu",
       "kategori": "kuliner",
+      "tags": [
+        "sunset",
+        "kuliner-lokal",
+        "romantis"
+      ],
+      "alamat": "Jl. Raya Uluwatu No. 1, Jimbaran, Badung, Bali",
+      "lat": -8.7786,
+      "lng": 115.1636,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pantai%20Jimbaran%20dan%20Seafood%20Grill%20Jl.%20Raya%20Uluwatu%20No.%201%20Bali",
       "hargaTiket": 150000,
+      "hargaTiketLokal": 150000,
+      "hargaTiketTuris": 175000,
       "jamBuka": "11.00 - 23.00",
       "durasiMenit": 120,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 90000,
+        "menengah": 150000,
+        "mewah": 320000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pantai dengan panorama matahari terbenam dan seafood table lengkap dengan metode memanggang arang di tepi laut.",
       "tipsEtika": [
         "Pesan seafood grill dan tanyakan harga per porsi sebelum dimasak.",
         "Siapkan tip sekitar 10-15 persen jika layanan memancing.",
         "Datang sebelum sunset untuk mendapat tempat di tepi laut.",
         "Buang tulang dan sisa makanan ke tempat yang disediakan, bukan ke pasir."
+      ],
+      "tipsEtikaEn": [
+        "Ask the price per portion before the seafood is grilled.",
+        "Keep 10-15 percent for a tip if the staff asks for one.",
+        "Arrive before sunset for a table on the sand.",
+        "Put fish bones and leftovers in the bins, not in the sand."
       ],
       "catatanAI": "Harga seafood per porsi bisa lebih mahal, jelaskan sebagai estimasi kepada pengguna."
     },
@@ -319,16 +867,47 @@
       "nama": "Pasar Badung",
       "namaEn": "Badung Market",
       "wilayah": "Denpasar",
+      "zona": "denpasar",
       "kategori": "belanja",
+      "tags": [
+        "pasar",
+        "kuliner-lokal",
+        "kerajinan"
+      ],
+      "alamat": "Jl. Pasar Badung, Denpasar, Bali",
+      "lat": -8.6561,
+      "lng": 115.212,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pasar%20Badung%20Jl.%20Pasar%20Badung%20Bali",
       "hargaTiket": 0,
+      "hargaTiketLokal": 0,
+      "hargaTiketTuris": 0,
       "jamBuka": "07.00 - 19.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 25000,
+        "menengah": 50000,
+        "mewah": 110000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "tinggi",
+      "intensitas": "padat",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pasar tradisional terbesar di Bali dengan tiga lantai, deretan warung, serta Menara yang ikonik.",
       "tipsEtika": [
         "Tawar harga dengan sopan dan jangan memaksa.",
         "Pantau dompet dan tas karena kondisinya sangat ramai.",
         "Hindari membeli barang terlarang untuk dibawa keluar Bali.",
         "Gunakan uang tunai karena sebagian besar warung tidak menerima kartu."
+      ],
+      "tipsEtikaEn": [
+        "Bargain politely and never be pushy.",
+        "Watch your wallet and bag; it gets very crowded.",
+        "Avoid buying items that are illegal to take out of Bali.",
+        "Carry cash as most stalls do not take cards."
       ],
       "catatanAI": "Tawar harga cukup lazim di sini. Cocok digabung dengan Sanur atau Denpasar di hari yang sama."
     },
@@ -337,16 +916,46 @@
       "nama": "Pasar Seni Ubud",
       "namaEn": "Ubud Art Market",
       "wilayah": "Ubud",
+      "zona": "ubud",
       "kategori": "belanja",
+      "tags": [
+        "pasar",
+        "kerajinan"
+      ],
+      "alamat": "Jl. Raya Ubud, Ubud, Gianyar, Bali",
+      "lat": -8.5067,
+      "lng": 115.2633,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pasar%20Seni%20Ubud%20Jl.%20Raya%20Ubud%20Bali",
       "hargaTiket": 0,
+      "hargaTiketLokal": 0,
+      "hargaTiketTuris": 0,
       "jamBuka": "08.00 - 18.00",
       "durasiMenit": 60,
+      "waktuTerbaik": "sore",
+      "waktuTerbaikEn": "late afternoon",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 150000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Deretan warung kerajinan dan galeri di sepanjang jalan raya yang menjual topeng, hasil anyaman, lukisan, dan kain tenun dengan harga yang bisa ditawar.",
       "tipsEtika": [
         "Tawar dengan ramah, harga awal biasanya bisa turun 30-50 persen.",
         "Periksa kualitas dan keaslian sebelum membeli.",
         "Hindari membeli barang duplikat dari luar negeri.",
         "Bayar dengan uang tunai dan simpan struk."
+      ],
+      "tipsEtikaEn": [
+        "Negotiate politely; the first price often drops by 30-50 percent.",
+        "Check quality and authenticity before buying.",
+        "Avoid mass-produced copies of items from abroad.",
+        "Pay in cash and keep the receipt."
       ],
       "catatanAI": "Sangat dekat dari Ubud Palace. Cocok di sore hari setelah makan siang."
     },
@@ -355,16 +964,46 @@
       "nama": "Pasare Betis (Pasar Tradisional)",
       "namaEn": "Pasare Betis Traditional Market",
       "wilayah": "Gianyar",
+      "zona": "gianyar",
       "kategori": "belanja",
+      "tags": [
+        "pasar",
+        "kuliner-lokal"
+      ],
+      "alamat": "Jl. Raya Gianyar No. 15, Gianyar, Bali",
+      "lat": -8.4553,
+      "lng": 115.3375,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pasare%20Betis%20(Pasar%20Tradisional)%20Jl.%20Raya%20Gianyar%20No.%2015%20Bali",
       "hargaTiket": 0,
+      "hargaTiketLokal": 0,
+      "hargaTiketTuris": 0,
       "jamBuka": "06.00 - 17.00",
       "durasiMenit": 60,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "early morning",
+      "makan": {
+        "hemat": 20000,
+        "menengah": 45000,
+        "mewah": 100000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pasar tradisional tertua di Bali yang dibangun dengan sistem atap bertingkat dan meta jaring khas Bali, berisi rempah, sayur, dan hasil bumi harian.",
       "tipsEtika": [
         "Tawar secukupnya dan hormati harga yang sudah ditentukan penjual.",
         "Datang pagi paling pagi untuk mendapat barang segar.",
         "Gunakan uang tunai kecil.",
         "Di jalur sempit, beri jalan kepada orang lain."
+      ],
+      "tipsEtikaEn": [
+        "Negotiate lightly and respect the seller final price.",
+        "Come very early in the morning for fresh produce.",
+        "Bring small denominations.",
+        "Give way to others in the narrow aisles."
       ],
       "catatanAI": "Buka paling pagi. Cocok dikombinasikan dengan Tegenungan atau Campuhan."
     },
@@ -373,16 +1012,47 @@
       "nama": "Pantai Kuta",
       "namaEn": "Kuta Beach",
       "wilayah": "Badung",
+      "zona": "kuta",
       "kategori": "pantai",
+      "tags": [
+        "surfing",
+        "sunset",
+        "nightlife"
+      ],
+      "alamat": "Jl. Pantai Kuta, Kuta, Badung, Bali",
+      "lat": -8.7197,
+      "lng": 115.1684,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pantai%20Kuta%20Jl.%20Pantai%20Kuta%20Bali",
       "hargaTiket": 0,
+      "hargaTiketLokal": 0,
+      "hargaTiketTuris": 0,
       "jamBuka": "24 jam",
       "durasiMenit": 90,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 180000
+      },
+      "dressCode": "Tidak ada dress code; pakai sunscreen",
+      "dressCodeEn": "No dress code; use sunscreen",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pantai ikonik dengan hamparan pasir panjang, ombak yang cocok untuk selancar, sunset yang ikonik, dan deretan beach club.",
       "tipsEtika": [
         "Jangan membawa barang yang tidak digunakan ke area pantai.",
         "Waspadai pickpocket di area ramai dan simpan dompet di hotel.",
         "Tidak masuk ke area privat beach vendor tanpa izin.",
         "Pakai sunscreen karena matahari Bali sangat terik."
+      ],
+      "tipsEtikaEn": [
+        "Do not bring unused items onto the beach.",
+        "Watch out for pickpockets in the crowds and keep your wallet at the hotel.",
+        "Do not enter a vendor area without permission.",
+        "Use sunscreen, the sun in Bali is intense."
       ],
       "catatanAI": "Gratis masuk. Berisiko tinggi kehilangan barang di area yang sangat ramai."
     },
@@ -391,16 +1061,47 @@
       "nama": "Pantai Seminyak",
       "namaEn": "Seminyak Beach",
       "wilayah": "Badung",
+      "zona": "seminyak",
       "kategori": "pantai",
+      "tags": [
+        "sunset",
+        "nightlife",
+        "spa"
+      ],
+      "alamat": "Jl. Pantai Seminyak, Seminyak, Badung, Bali",
+      "lat": -8.69,
+      "lng": 115.157,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pantai%20Seminyak%20Jl.%20Pantai%20Seminyak%20Bali",
       "hargaTiket": 0,
+      "hargaTiketLokal": 0,
+      "hargaTiketTuris": 0,
       "jamBuka": "24 jam",
       "durasiMenit": 90,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 40000,
+        "menengah": 80000,
+        "mewah": 200000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pantai dengan suasana lebih kalem daripada Kuta, deretan butik dan beach club, serta sunset yang banyak dicari fotografer.",
       "tipsEtika": [
         "Pilih tempat duduk yang tarifnya jelas dan mintalah bill sebelum duduk.",
         "Jaga kebersihan pantai, terutama setelah keluar dari beach club.",
         "Hindari berenang di area dengan arus puncak setelah pasang surut.",
         "Simpan barang berharga saat ramai."
+      ],
+      "tipsEtikaEn": [
+        "Choose a seat with a clear price and ask for the bill first.",
+        "Keep the beach clean, especially after leaving a beach club.",
+        "Avoid swimming where currents peak after high tide.",
+        "Keep valuables secure when it is crowded."
       ],
       "catatanAI": "Cocok untuk sore hari dan makan malam di Seminyak."
     },
@@ -409,16 +1110,45 @@
       "nama": "Pantai Padang Padang",
       "namaEn": "Padang Padang Beach",
       "wilayah": "Badung",
+      "zona": "uluwatu",
       "kategori": "pantai",
+      "tags": [
+        "surfing"
+      ],
+      "alamat": "Jl. Padang Padang, Pecatu, Badung, Bali",
+      "lat": -8.795,
+      "lng": 115.165,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pantai%20Padang%20Padang%20Jl.%20Padang%20Padang%20Bali",
       "hargaTiket": 10000,
+      "hargaTiketLokal": 10000,
+      "hargaTiketTuris": 15000,
       "jamBuka": "07.00 - 19.00",
       "durasiMenit": 90,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 30000,
+        "menengah": 60000,
+        "mewah": 140000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "sedang",
+      "intensitas": "padat",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Pantai dengan celah sempit dikelilingi tebing batu yang membentuk Hidden Cove, populer di kalangan pencinta bodyboarding.",
       "tipsEtika": [
         "Bayar tiket masuk resmi yang tertera, jangan percaya orang yang meminta bayaran di jalan.",
         "Tidak memanjat untuk melewati tiket resmi.",
         "Hindari berenang saat ombak besar.",
         "Bawa hand sanitizer."
+      ],
+      "tipsEtikaEn": [
+        "Pay the official entrance fee; ignore people collecting money on the path.",
+        "Do not climb over the official ticket gate.",
+        "Avoid swimming when the waves are big.",
+        "Bring a hand sanitizer."
       ],
       "catatanAI": "Jalan masuk sempit dan menanjak. Cocok untuk anak muda."
     },
@@ -427,16 +1157,46 @@
       "nama": "Nusa Penida (Pantai Kelingking)",
       "namaEn": "Nusa Penida Island and Kelingking Beach",
       "wilayah": "Klungkung",
+      "zona": "nusa-penida",
       "kategori": "pantai",
+      "tags": [
+        "snorkeling",
+        "fotografi"
+      ],
+      "alamat": "Nusa Penida, Klungkung, Bali",
+      "lat": -8.734,
+      "lng": 115.533,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Nusa%20Penida%20(Pantai%20Kelingking)%20Nusa%20Penida%20Bali",
       "hargaTiket": 35000,
+      "hargaTiketLokal": 35000,
+      "hargaTiketTuris": 50000,
       "jamBuka": "08.00 - 17.00",
       "durasiMenit": 300,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 150000
+      },
+      "dressCode": "Wajib life jacket di kapal; pakai alas kaki empuk",
+      "dressCodeEn": "Life jacket mandatory on the boat; wear closed shoes",
+      "keramaian": "tinggi",
+      "intensitas": "padat",
+      "biayaAktivitas": 150000,
+      "butuhHariPenuh": false,
       "deskripsi": "Pulau ikonik di tenggara Bali dengan Kelingking Beach yang membentuk siluet T-Rex di tepi tebing, Crystal Bay yang jernih, dan Broken Beach.",
       "tipsEtika": [
         "Gunakan fast boat resmi dari Sanur.",
         "Wajib memakai helm dan life jacket selama perjalanan.",
         "Tidak berdiri di tepi tebing Kelingking karena dapat rapuh.",
         "Datang paling awal agar tidak kena macet dan kehabisan waktu."
+      ],
+      "tipsEtikaEn": [
+        "Use the official fast boat departing from Sanur.",
+        "A helmet and life jacket are mandatory during the crossing.",
+        "Never stand on the Kelingking cliff edge; it is fragile.",
+        "Leave early to avoid traffic and running out of time."
       ],
       "catatanAI": "Butuh satu hari penuh. Fast boat berangkat sekitar jam 08.00 dan pulang jam 15.00-16.00. Jangan dijadwalkan di hari yang sama dengan kunjungan lain yang jauh."
     },
@@ -445,16 +1205,47 @@
       "nama": "Nusa Lembongan",
       "namaEn": "Nusa Lembongan",
       "wilayah": "Klungkung",
+      "zona": "nusa-penida",
       "kategori": "pantai",
+      "tags": [
+        "snorkeling",
+        "romantis",
+        "pantai-sepi"
+      ],
+      "alamat": "Nusa Lembongan, Klungkung, Bali",
+      "lat": -8.68,
+      "lng": 115.445,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Nusa%20Lembongan%20Nusa%20Lembongan%20Bali",
       "hargaTiket": 30000,
+      "hargaTiketLokal": 30000,
+      "hargaTiketTuris": 45000,
       "jamBuka": "08.00 - 17.00",
       "durasiMenit": 240,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 30000,
+        "menengah": 60000,
+        "mewah": 140000
+      },
+      "dressCode": "Wajib life jacket di kapal",
+      "dressCodeEn": "Life jacket mandatory on the boat",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 100000,
+      "butuhHariPenuh": false,
       "deskripsi": "Pulau kecil yang tenang dengan Snorkeling Reef, dermaga pemuatan, dan suasana jauh dari keramaian.",
       "tipsEtika": [
         "Gunakan boat resmi dari Sanur dengan jadwal yang jelas.",
         "Simpan kamera dan peta di kotak berair saat snorkeling.",
         "Jangan melukai karang atau ikan saat snorkeling.",
         "Jaga kebersihan pantai."
+      ],
+      "tipsEtikaEn": [
+        "Take the official boat from Sanur and check the return schedule.",
+        "Keep cameras and maps in a waterproof case while snorkelling.",
+        "Never touch or damage coral or fish.",
+        "Keep the beach clean."
       ],
       "catatanAI": "Lebih tenang dan lebih mudah dijangkau daripada Nusa Penida. Cocok untuk pasangan atau liburan santai."
     },
@@ -463,16 +1254,47 @@
       "nama": "Pantai Sanur",
       "namaEn": "Sanur Beach",
       "wilayah": "Denpasar",
+      "zona": "sanur",
       "kategori": "pantai",
+      "tags": [
+        "keluarga",
+        "sunrise",
+        "pantai-sepi"
+      ],
+      "alamat": "Jl. prophesies, Sanur, Denpasar, Bali",
+      "lat": -8.687,
+      "lng": 115.262,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pantai%20Sanur%20Jl.%20prophesies%20Bali",
       "hargaTiket": 0,
+      "hargaTiketLokal": 0,
+      "hargaTiketTuris": 0,
       "jamBuka": "05.00 - 22.00",
       "durasiMenit": 90,
-      "deskripsi": "Pantai yang tenang dan ramah keluarga dengan dermaga untuktesy fast boat menuju Nusa Penida dan Nusa Lembongan, serta jalur promenade sore hari.",
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 30000,
+        "menengah": 65000,
+        "mewah": 150000
+      },
+      "dressCode": "Tidak ada dress code",
+      "dressCodeEn": "No dress code",
+      "keramaian": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Pantai yang tenang dan ramah keluarga dengan dermaga untuk Polymer fast boat menuju Nusa Penida dan Nusa Lembongan, serta jalur promenade sore hari.",
       "tipsEtika": [
         "Tidak memancing di area dermaga yang dilayani perahu.",
         "Simpan tas rapat saat berada di pasar.",
         "Jaga kebersihan pantai.",
         "Gunakan life jacket saat naik perahu."
+      ],
+      "tipsEtikaEn": [
+        "Do not fish in the jetty area served by boats.",
+        "Keep bags closed while at the market.",
+        "Keep the beach clean.",
+        "Wear a life jacket when boarding any boat."
       ],
       "catatanAI": "Titik keberangkatan fast boat ke Nusa Penida dan Nusa Lembongan. Cocok untuk sore hari."
     },
@@ -481,16 +1303,46 @@
       "nama": "Pantai Lovina dan Turis Lumba",
       "namaEn": "Lovina Beach and Dolphin Tour",
       "wilayah": "Buleleng",
+      "zona": "lovina",
       "kategori": "pantai",
+      "tags": [
+        "sunrise",
+        "pantai-sepi"
+      ],
+      "alamat": "Jl. Mutiara, Lovina, Buleleng, Bali",
+      "lat": -8.06,
+      "lng": 115.025,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Pantai%20Lovina%20dan%20Turis%20Lumba%20Jl.%20Mutiara%20Bali",
       "hargaTiket": 50000,
+      "hargaTiketLokal": 50000,
+      "hargaTiketTuris": 75000,
       "jamBuka": "06.00 - 21.00",
       "durasiMenit": 180,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "early morning",
+      "makan": {
+        "hemat": 30000,
+        "menengah": 60000,
+        "mewah": 130000
+      },
+      "dressCode": "Tidak ada dress code; bawa jaket untuk pagi",
+      "dressCodeEn": "No dress code; bring a jacket for the morning",
+      "keramaian": "rendah",
+      "intensitas": "santai",
+      "biayaAktivitas": 150000,
+      "butuhHariPenuh": false,
       "deskripsi": "Pantai di Buleleng yang tenang dengan monumen dan mercusuar, menjadi titik awal tur melihat lumba di laut lepas pada pagi hari.",
       "tipsEtika": [
         "Ikuti arahan pemandu dan jangan menyentuh lumba.",
         "Gunakan life jacket saat berada di perahu.",
         "Bawa jaket karena udara laut pagi terasa dingin.",
         "Jaga kebersihan pantai."
+      ],
+      "tipsEtikaEn": [
+        "Follow the guide and never touch the dolphins.",
+        "Wear a life jacket on the boat.",
+        "Bring a jacket, the sea breeze is cold in the morning.",
+        "Keep the beach clean."
       ],
       "catatanAI": "Berada di ujung utara, jauh dari Bali selatan. Cocok untuk hari tersendiri bila durasi itinerary 5 hari atau lebih."
     },
@@ -499,16 +1351,45 @@
       "nama": "Air Terjun Gitgit",
       "namaEn": "Gitgit Waterfall",
       "wilayah": "Buleleng",
+      "zona": "lovina",
       "kategori": "alam",
+      "tags": [
+        "air-terjun"
+      ],
+      "alamat": "Jl. Raya Air Terjun Gitgit, Gitgit, Buleleng, Bali",
+      "lat": -8.283,
+      "lng": 115.125,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Air%20Terjun%20Gitgit%20Jl.%20Raya%20Air%20Terjun%20Gitgit%20Bali",
       "hargaTiket": 25000,
+      "hargaTiketLokal": 25000,
+      "hargaTiketTuris": 35000,
       "jamBuka": "08.00 - 17.00",
       "durasiMenit": 75,
+      "waktuTerbaik": "pagi",
+      "waktuTerbaikEn": "morning",
+      "makan": {
+        "hemat": 25000,
+        "menengah": 50000,
+        "mewah": 120000
+      },
+      "dressCode": "Pakaian yang boleh basah; alas kaki anti selip",
+      "dressCodeEn": "Clothes that can get wet; non-slip shoes",
+      "keramaian": "sedang",
+      "intensitas": "padat",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
       "deskripsi": "Air Terjun setinggi 35 meter yang tersembunyi di antara pohon dan bebatuan, dengan air jatuh yang cukup deras ke kolam alami.",
       "tipsEtika": [
         "Tidak memanjat pada bebatuan yang licin.",
         "Berhati-hati saat menuruni anak tangga yang licin saat basah.",
         "Jangan turun terlalu jauh ke bawah saat debit air tinggi.",
         "Jaga kebersihan area dan simpan barang berharga."
+      ],
+      "tipsEtikaEn": [
+        "Do not climb on the slippery rocks.",
+        "The stairs are slippery when wet, take care.",
+        "Do not go too far down during high water levels.",
+        "Keep the area clean and secure your valuables."
       ],
       "catatanAI": "Berada di ujung utara. Cocok untuk rangkaian rute utara."
     }

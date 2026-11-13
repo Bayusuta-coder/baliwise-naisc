@@ -1,4 +1,4 @@
-# 🎤 Bahan Presentasi & Tanya Jawab — BaliWise
+# 🎤 Bahan Presentasi & Tanya Jawab — Griska Go
 
 **NAISC 2026 · Kategori Website**
 Durasi presentasi: **5 menit** · Tanya jawab: **10 menit**
@@ -15,10 +15,10 @@ Durasi presentasi: **5 menit** · Tanya jawab: **10 menit**
 
 ## Slide 1 — Pembuka *(0:00 – 0:30)*
 
-**TAMPIL:** Slide judul + screenshot hero website BaliWise. Logo, nama tim, sekolah.
+**TAMPIL:** Slide judul + screenshot hero website Griska Go. Logo, nama tim, sekolah.
 
 **BICARA:**
-> "Selamat pagi, kami **[Tim / Nama]** dari **[SMA/SMK]**, dan kami ingin memperkenalkan **BaliWise** — perencana itinerary Bali berbasis AI yang tidak hanya memberi tahu *ke mana* pergi, tetapi juga *bagaimana* berperilaku agar dihormati oleh warga lokal."
+> "Selamat pagi, kami **[Tim / Nama]** dari **[SMA/SMK]**, dan kami ingin memperkenalkan **Griska Go** — perencana itinerary Bali berbasis AI yang tidak hanya memberi tahu *ke mana* pergi, tetapi juga *bagaimana* berperilaku agar dihormati oleh warga lokal."
 
 ---
 
@@ -44,7 +44,7 @@ Durasi presentasi: **5 menit** · Tanya jawab: **10 menit**
 **TAMPIL:** Diagram alur sederhana (Pengguna → Form → AI → Itinerary).
 
 **BICARA:**
-> "BaliWise menjembatani itu. Pengguna cukup mengisi **lima preferensi**: berapa hari, budget berapa, minat apa, gaya perjalanan seperti apa, dan mau mulai dari wilayah mana.
+> "Griska Go menjembatani itu. Pengguna cukup mengisi **lima preferensi**: berapa hari, budget berapa, minat apa, gaya perjalanan seperti apa, dan mau mulai dari wilayah mana.
 >
 > AI lalu menyusun **itinerary per hari**: jam, tempat, aktivitas, estimasi biaya, durasi, dan — yang paling penting — **Tips Budaya & Etika di setiap lokasi**.
 >
@@ -103,7 +103,7 @@ Durasi presentasi: **5 menit** · Tanya jawab: **10 menit**
 **TAMPIL:** Tampilan mobile website + URL.
 
 **BICARA:**
-> "BaliWise dibuat agar mudah dikembangkan — menambah wilayah baru cukup menambah entri di satu file JSON.
+> "Griska Go dibuat agar mudah dikembangkan — menambah wilayah baru cukup menambah entri di satu file JSON.
 >
 > Bali adalah tempat yang hangat, dan kami ingin setiap pengunjung datang sebagai tamu yang tahu sopan santun.
 >

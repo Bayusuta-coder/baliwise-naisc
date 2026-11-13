@@ -1,0 +1,1025 @@
+{
+  "meta": {
+    "nama": "Data pendukung per wilayah (Griska Go)",
+    "versi": "1.0.0",
+    "kursUSD": 16250,
+    "kursUSDcatatan": "1 USD = Rp 16.250 (nilai indikatif, dapat diubah di sini).",
+    "catatan": "Semua angka adalah estimasi rata-rata dalam Rupiah (IDR). File ini dipakai sebagai basis perhitungan di server (kode), bukan dicatat oleh AI.",
+    "acomodasi": {
+      "hostel": "Biaya per orang per malam (kamar berbagi 2-4 orang).",
+      "hotel": "Biaya per kamar per malam (untuk 2 orang).",
+      "villa": "Biaya per unit per malam (untuk maksimal 4 orang)."
+    },
+    "transport": {
+      "motor": "Sewa motor dan bahan bakar per motor per hari.",
+      "mobil": "Sewa mobil dengan driver, bahan bakar, dan tol per hari.",
+      "ojek": "Tarif ojek online dan taksi lokal: jarak pendek, jarak jauh, dan estimasi harian."
+    }
+  },
+  "zona": [
+    {
+      "id": "ubud",
+      "nama": "Ubud",
+      "namaEn": "Ubud",
+      "lat": -8.5069,
+      "lng": 115.2625,
+      "deskripsi": "Kota seni di lembah Sungai Ayung, pusat galeri, pasar, dan pura.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 100000,
+          "menengah": 170000,
+          "mewah": 320000
+        },
+        "hotel": {
+          "hemat": 300000,
+          "menengah": 600000,
+          "mewah": 1600000
+        },
+        "villa": {
+          "hemat": 900000,
+          "menengah": 1600000,
+          "mewah": 4000000
+        }
+      },
+      "makan": {
+        "hemat": 30000,
+        "menengah": 65000,
+        "mewah": 140000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 75000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 600000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 35000,
+          "perHari": 120000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Babi Guling Ibu Oka",
+          "jenis": "Babi guling, lawar, sambal matah",
+          "harga": 55000
+        },
+        {
+          "nama": "Nasi Campur Bu Mi",
+          "jenis": "Nasi campur khas Ubud",
+          "harga": 25000
+        },
+        {
+          "nama": "Warung Nasi Ayam Kedewatan",
+          "jenis": "Nasi ayam dengan sambal matah",
+          "harga": 22000
+        },
+        {
+          "nama": "Bakso Pak Ah",
+          "jenis": "Bakso ball dengan mie",
+          "harga": 28000
+        }
+      ],
+      "catatan": "Kuliner paling ikonik di Bali ada di sini. Pasar Seni Ubud paling ramai pukul 09.00 sampai 11.00."
+    },
+    {
+      "id": "gianyar",
+      "nama": "Gianyar",
+      "namaEn": "Gianyar",
+      "lat": -8.4478,
+      "lng": 115.3494,
+      "deskripsi": "Kabupaten di timur Ubud, gerbang menuju pura di lereng Gunung Agung.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 80000,
+          "menengah": 140000,
+          "mewah": 260000
+        },
+        "hotel": {
+          "hemat": 260000,
+          "menengah": 520000,
+          "mewah": 1400000
+        },
+        "villa": {
+          "hemat": 750000,
+          "menengah": 1300000,
+          "mewah": 3200000
+        }
+      },
+      "makan": {
+        "hemat": 25000,
+        "menengah": 55000,
+        "mewah": 120000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 70000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 550000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 35000,
+          "perHari": 110000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Otoh",
+          "jenis": "Nasi campur khas Gianyar",
+          "harga": 22000
+        },
+        {
+          "nama": "Lawon Otoh Warung",
+          "jenis": "Lawon ayam dan sate lilit",
+          "harga": 30000
+        },
+        {
+          "nama": "Sate Babi Bintang Mane",
+          "jenis": "Sate babi dengan lalapan",
+          "harga": 35000
+        },
+        {
+          "nama": "Bakso Bintang Mane",
+          "jenis": "Bakso rebus khas Bali",
+          "harga": 25000
+        }
+      ],
+      "catatan": "Pagar Ayu di tengah kota adalah landmark yang mudah dikenali."
+    },
+    {
+      "id": "kuta",
+      "nama": "Kuta",
+      "namaEn": "Kuta",
+      "lat": -8.7197,
+      "lng": 115.1684,
+      "deskripsi": "Pantai ikonik dengan ombak selancar, pusat belanja, dan nightlife.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 80000,
+          "menengah": 140000,
+          "mewah": 260000
+        },
+        "hotel": {
+          "hemat": 250000,
+          "menengah": 480000,
+          "mewah": 1300000
+        },
+        "villa": {
+          "hemat": 800000,
+          "menengah": 1300000,
+          "mewah": 3200000
+        }
+      },
+      "makan": {
+        "hemat": 35000,
+        "menengah": 70000,
+        "mewah": 180000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 70000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 550000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 40000,
+          "perHari": 130000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Mak Beng",
+          "jenis": "Nasi campur dan ayam goreng",
+          "harga": 25000
+        },
+        {
+          "nama": "Nasi Ayam Goreng Ibu Oki",
+          "jenis": "Nasi ayam goreng sambal balado",
+          "harga": 25000
+        },
+        {
+          "nama": "Sate Babi Bintang Mane",
+          "jenis": "Sate babi panggang",
+          "harga": 35000
+        },
+        {
+          "nama": "Bebek Tepung Sista",
+          "jenis": "Bebek goreng dan lalapan",
+          "harga": 45000
+        }
+      ],
+      "catatan": "Pantai paling ramai. Datang pagi hari agar ombaknya lebih kecil."
+    },
+    {
+      "id": "seminyak",
+      "nama": "Seminyak",
+      "namaEn": "Seminyak",
+      "lat": -8.69,
+      "lng": 115.157,
+      "deskripsi": "Pantai lebih tenang dengan butik, beach club, dan sunset yang ikonik.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 100000,
+          "menengah": 180000,
+          "mewah": 340000
+        },
+        "hotel": {
+          "hemat": 320000,
+          "menengah": 700000,
+          "mewah": 2000000
+        },
+        "villa": {
+          "hemat": 1000000,
+          "menengah": 1800000,
+          "mewah": 4500000
+        }
+      },
+      "makan": {
+        "hemat": 40000,
+        "menengah": 80000,
+        "mewah": 200000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 75000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 600000
+        },
+        "ojek": {
+          "pendek": 13000,
+          "jauh": 45000,
+          "perHari": 140000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Bu Mi",
+          "jenis": "Nasi campur khas Bali",
+          "harga": 25000
+        },
+        {
+          "nama": "Kori Restaurant",
+          "jenis": "Nasi campur dan kari",
+          "harga": 45000
+        },
+        {
+          "nama": "Bintang BBQ",
+          "jenis": "Sate dan sate panggang",
+          "harga": 40000
+        },
+        {
+          "nama": "Cafe Lava",
+          "jenis": "Sandwich, kopi, dan sarapan",
+          "harga": 55000
+        }
+      ],
+      "catatan": "Jarak Kuta ke Seminyak hanya sekitar 5 km, sering digabung dalam satu hari."
+    },
+    {
+      "id": "canggu",
+      "nama": "Canggu",
+      "namaEn": "Canggu",
+      "lat": -8.6478,
+      "lng": 115.1385,
+      "deskripsi": "Dekat Seminyak, ramah selancar, banyak kedai kopi dan warung kekinian.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 110000,
+          "menengah": 190000,
+          "mewah": 360000
+        },
+        "hotel": {
+          "hemat": 350000,
+          "menengah": 750000,
+          "mewah": 2100000
+        },
+        "villa": {
+          "hemat": 1100000,
+          "menengah": 2000000,
+          "mewah": 4800000
+        }
+      },
+      "makan": {
+        "hemat": 40000,
+        "menengah": 80000,
+        "mewah": 190000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 75000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 600000
+        },
+        "ojek": {
+          "pendek": 13000,
+          "jauh": 45000,
+          "perHari": 140000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Nasi Campur",
+          "jenis": "Nasi campur dan sate",
+          "harga": 25000
+        },
+        {
+          "nama": "Crate Cafe",
+          "jenis": "Breakfast dan brunch",
+          "harga": 75000
+        },
+        {
+          "nama": "Nasi Ayam Specialty",
+          "jenis": "Nasi ayam suwir",
+          "harga": 25000
+        },
+        {
+          "nama": "Sambal Thai Food",
+          "jenis": "Thai dan Asian fusion",
+          "harga": 65000
+        }
+      ],
+      "catatan": "Zona ini satu jalur dengan Seminyak, jadi bisa digabung dalam satu hari."
+    },
+    {
+      "id": "uluwatu",
+      "nama": "Uluwatu",
+      "namaEn": "Uluwatu",
+      "lat": -8.8291,
+      "lng": 115.0849,
+      "deskripsi": "Tebing Uluwatu, sunset, Tari Kecak, dan seafood grill Jimbaran.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 90000,
+          "menengah": 160000,
+          "mewah": 300000
+        },
+        "hotel": {
+          "hemat": 300000,
+          "menengah": 650000,
+          "mewah": 2200000
+        },
+        "villa": {
+          "hemat": 1200000,
+          "menengah": 2400000,
+          "mewah": 6000000
+        }
+      },
+      "makan": {
+        "hemat": 40000,
+        "menengah": 85000,
+        "mewah": 210000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 75000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 600000
+        },
+        "ojek": {
+          "pendek": 15000,
+          "jauh": 50000,
+          "perHari": 150000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Jimbaran Bay Seafood",
+          "jenis": "Seafood grill di tepi laut",
+          "harga": 175000
+        },
+        {
+          "nama": "Warung Segara",
+          "jenis": "Ikan bakar dan sambal",
+          "harga": 40000
+        },
+        {
+          "nama": "Sambal Bolong",
+          "jenis": "Ikan bakar segar dan sambal matah",
+          "harga": 45000
+        },
+        {
+          "nama": "Bebek Tepung Uluwatu",
+          "jenis": "Bebek goreng dan lalapan",
+          "harga": 40000
+        }
+      ],
+      "catatan": "Jarak ke Kuta sekitar 1 jam. Cocok untuk malam Tari Kecak."
+    },
+    {
+      "id": "nusa-dua",
+      "nama": "Nusa Dua",
+      "namaEn": "Nusa Dua",
+      "lat": -8.8,
+      "lng": 115.167,
+      "deskripsi": "Area resort dengan GWK, pantai putih, dan marina.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 110000,
+          "menengah": 190000,
+          "mewah": 350000
+        },
+        "hotel": {
+          "hemat": 380000,
+          "menengah": 800000,
+          "mewah": 2600000
+        },
+        "villa": {
+          "hemat": 1300000,
+          "menengah": 2600000,
+          "mewah": 7000000
+        }
+      },
+      "makan": {
+        "hemat": 45000,
+        "menengah": 95000,
+        "mewah": 250000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 80000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 700000
+        },
+        "ojek": {
+          "pendek": 15000,
+          "jauh": 50000,
+          "perHari": 160000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "The Pirate Bay",
+          "jenis": "Seafood dan live music",
+          "harga": 150000
+        },
+        {
+          "nama": "Warung Pak Oles",
+          "jenis": "Nasi campur dan sate",
+          "harga": 25000
+        },
+        {
+          "nama": "Nasi Ayam Ibu Oki",
+          "jenis": "Nasi ayam goreng",
+          "harga": 25000
+        },
+        {
+          "nama": "Bali Beach Club",
+          "jenis": "Grill dan casual dining",
+          "harga": 120000
+        }
+      ],
+      "catatan": "GWK sering digabung dengan santai di Pantai Nusa Dua pada hari yang sama."
+    },
+    {
+      "id": "sanur",
+      "nama": "Sanur",
+      "namaEn": "Sanur",
+      "lat": -8.687,
+      "lng": 115.262,
+      "deskripsi": "Dermaga keberangkatan fast boat ke Nusa Penida dan Nusa Lembongan.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 85000,
+          "menengah": 150000,
+          "mewah": 280000
+        },
+        "hotel": {
+          "hemat": 280000,
+          "menengah": 560000,
+          "mewah": 1600000
+        },
+        "villa": {
+          "hemat": 850000,
+          "menengah": 1500000,
+          "mewah": 3800000
+        }
+      },
+      "makan": {
+        "hemat": 30000,
+        "menengah": 65000,
+        "mewah": 140000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 75000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 600000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 35000,
+          "perHari": 120000
+        },
+        "boat": {
+          "perPax": 45000,
+          "minimum": 400000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Makassan",
+          "jenis": "Nasi campur dan ikan bakar",
+          "harga": 28000
+        },
+        {
+          "nama": "Sushi Tei Sanur",
+          "jenis": "Sushi dan makanan Jepang",
+          "harga": 95000
+        },
+        {
+          "nama": "La Petitenget",
+          "jenis": "French and Indonesian",
+          "harga": 180000
+        },
+        {
+          "nama": "Warung Telor",
+          "jenis": "Nasi campur khas Sanur",
+          "harga": 25000
+        }
+      ],
+      "catatan": "Titik berangkat paling murah untuk tur ke Nusa Penida dan Nusa Lembongan."
+    },
+    {
+      "id": "nusa-penida",
+      "nama": "Nusa Penida",
+      "namaEn": "Nusa Penida",
+      "lat": -8.7072,
+      "lng": 115.5445,
+      "deskripsi": "Pulau di tenggara Bali: Pantai Kelingking, Crystal Bay, dan reef snorkeling.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 120000,
+          "menengah": 210000,
+          "mewah": 380000
+        },
+        "hotel": {
+          "hemat": 400000,
+          "menengah": 850000,
+          "mewah": 2700000
+        },
+        "villa": {
+          "hemat": 1400000,
+          "menengah": 2500000,
+          "mewah": 7000000
+        }
+      },
+      "makan": {
+        "hemat": 40000,
+        "menengah": 85000,
+        "mewah": 200000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 85000,
+          "bahanBakar": 35000
+        },
+        "mobil": {
+          "harian": 700000
+        },
+        "ojek": {
+          "pendek": 15000,
+          "jauh": 45000,
+          "perHari": 120000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Ryu",
+          "jenis": "Ikan bakar dan nasi campur",
+          "harga": 35000
+        },
+        {
+          "nama": "Nasi Campur Pulau",
+          "jenis": "Nasi campur segar denganNelayan lokal",
+          "harga": 25000
+        },
+        {
+          "nama": "Sunset Point Grill",
+          "jenis": "Grill dan seafood di tepi laut",
+          "harga": 90000
+        }
+      ],
+      "catatan": "Fast boat dari Sanur berangkat pagi dan kembali sore. Hati-hati ombak di Crystal Bay saat angin kuat."
+    },
+    {
+      "id": "denpasar",
+      "nama": "Denpasar",
+      "namaEn": "Denpasar",
+      "lat": -8.6561,
+      "lng": 115.212,
+      "deskripsi": "Ibu kota Bali: Pasar Badung, museum, pusat administrasi, dan bandara.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 70000,
+          "menengah": 130000,
+          "mewah": 240000
+        },
+        "hotel": {
+          "hemat": 230000,
+          "menengah": 460000,
+          "mewah": 1300000
+        },
+        "villa": {
+          "hemat": 700000,
+          "menengah": 1200000,
+          "mewah": 3000000
+        }
+      },
+      "makan": {
+        "hemat": 28000,
+        "menengah": 60000,
+        "mewah": 130000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 70000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 550000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 30000,
+          "perHari": 120000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Pasar Badung Food Court",
+          "jenis": "Makanan pasar dan bakso",
+          "harga": 20000
+        },
+        {
+          "nama": "Warung Sate DHCP",
+          "jenis": "Sate ayam dan lalapan",
+          "harga": 30000
+        },
+        {
+          "nama": "Ayam Geprek Ibu Nasi",
+          "jenis": "Ayam geprek dan sambal",
+          "harga": 25000
+        },
+        {
+          "nama": "Cafe Principal",
+          "jenis": "Kopi dan roti",
+          "harga": 45000
+        }
+      ],
+      "catatan": "Pasar Badung buka 07.00 sampai 19.00, paling ramai pagi hari."
+    },
+    {
+      "id": "klungkung",
+      "nama": "Klungkung",
+      "namaEn": "Klungkung",
+      "lat": -8.5538,
+      "lng": 115.3377,
+      "deskripsi": "Kerajaan historis dengan Pura Agung Besakih di kaki Gunung Agung.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 75000,
+          "menengah": 135000,
+          "mewah": 250000
+        },
+        "hotel": {
+          "hemat": 250000,
+          "menengah": 500000,
+          "mewah": 1400000
+        },
+        "villa": {
+          "hemat": 720000,
+          "menengah": 1250000,
+          "mewah": 3100000
+        }
+      },
+      "makan": {
+        "hemat": 25000,
+        "menengah": 55000,
+        "mewah": 120000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 70000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 550000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 35000,
+          "perHari": 110000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Jero Mejan",
+          "jenis": "Nasi campur dan lawar",
+          "harga": 22000
+        },
+        {
+          "nama": "Otoloman",
+          "jenis": "Nasi campur khas Klungkung",
+          "harga": 20000
+        },
+        {
+          "nama": "Soto Babi Wong",
+          "jenis": "Soto babi",
+          "harga": 25000
+        },
+        {
+          "nama": "Ayam Bakar Wong",
+          "jenis": "Ayam bakar dan sambal",
+          "harga": 28000
+        }
+      ],
+      "catatan": "Pura Agung Besakih berada sekitar 15 km dari pusat Klungkung."
+    },
+    {
+      "id": "tabsan",
+      "nama": "Tabanan",
+      "namaEn": "Tabanan",
+      "lat": -8.4478,
+      "lng": 115.28,
+      "deskripsi": "Sawah UNESCO, air suci, dan pura di atas laut di Bali selatan.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 70000,
+          "menengah": 125000,
+          "mewah": 230000
+        },
+        "hotel": {
+          "hemat": 240000,
+          "menengah": 480000,
+          "mewah": 1300000
+        },
+        "villa": {
+          "hemat": 700000,
+          "menengah": 1200000,
+          "mewah": 3000000
+        }
+      },
+      "makan": {
+        "hemat": 25000,
+        "menengah": 55000,
+        "mewah": 120000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 70000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 550000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 35000,
+          "perHari": 110000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Tegal",
+          "jenis": "Nasi campur dan sate lilit",
+          "harga": 22000
+        },
+        {
+          "nama": "Ayam Goreng Pak John",
+          "jenis": "Ayam goreng dan lalapan",
+          "harga": 25000
+        },
+        {
+          "nama": "Warung Bu Yanti",
+          "jenis": "Nasi campur khas Tabanan",
+          "harga": 20000
+        },
+        {
+          "nama": "Sate Lilit Pak Yanto",
+          "jenis": "Sate lilit",
+          "harga": 30000
+        }
+      ],
+      "catatan": "Jatiluwih, Tirta Empul, dan Tanah Lot berada di area yang sama sehingga mudah digabung."
+    },
+    {
+      "id": "bedugul",
+      "nama": "Bedugul",
+      "namaEn": "Bedugul",
+      "lat": -8.275,
+      "lng": 115.13,
+      "deskripsi": "Dataran tinggi sejuk di kaki Gunung Batarta dan Pura Ulun Danu Beratan.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 85000,
+          "menengah": 150000,
+          "mewah": 270000
+        },
+        "hotel": {
+          "hemat": 280000,
+          "menengah": 560000,
+          "mewah": 1500000
+        },
+        "villa": {
+          "hemat": 800000,
+          "menengah": 1500000,
+          "mewah": 3600000
+        }
+      },
+      "makan": {
+        "hemat": 30000,
+        "menengah": 65000,
+        "mewah": 130000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 70000,
+          "bahanBakar": 30000
+        },
+        "mobil": {
+          "harian": 550000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 35000,
+          "perHari": 100000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Bedugul",
+          "jenis": "Nasi campur dan sup daging",
+          "harga": 22000
+        },
+        {
+          "nama": "Kafe Taman",
+          "jenis": "Kopi dan camilan",
+          "harga": 35000
+        },
+        {
+          "nama": "Sate Babi Bedugul",
+          "jenis": "Sate babi panggang",
+          "harga": 32000
+        },
+        {
+          "nama": "Warung Sambal Bawang",
+          "jenis": "Nasi campur dan sambal",
+          "harga": 20000
+        }
+      ],
+      "catatan": "Suhu bisa 10 derajat lebih dingin dari pesisir. Bawa jaket."
+    },
+    {
+      "id": "amed",
+      "nama": "Amed",
+      "namaEn": "Amed",
+      "lat": -8.34,
+      "lng": 115.65,
+      "deskripsi": "Pantai tenang di timur Bali dekat Tirta Gangga dengan vista Gunung Agung.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 80000,
+          "menengah": 145000,
+          "mewah": 260000
+        },
+        "hotel": {
+          "hemat": 260000,
+          "menengah": 520000,
+          "mewah": 1400000
+        },
+        "villa": {
+          "hemat": 750000,
+          "menengah": 1400000,
+          "mewah": 3400000
+        }
+      },
+      "makan": {
+        "hemat": 28000,
+        "menengah": 60000,
+        "mewah": 125000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 75000,
+          "bahanBakar": 35000
+        },
+        "mobil": {
+          "harian": 650000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 40000,
+          "perHari": 110000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Amed",
+          "jenis": "Ikan bakar dan nasi campur",
+          "harga": 30000
+        },
+        {
+          "nama": "Bebek Tepung Pak Malen",
+          "jenis": "Bebek goreng dan sambal",
+          "harga": 35000
+        },
+        {
+          "nama": "Galilogue",
+          "jenis": "Smoothie bowl dan kopi",
+          "harga": 50000
+        },
+        {
+          "nama": "Nasi Campur Pulau",
+          "jenis": "Nasi campur",
+          "harga": 20000
+        }
+      ],
+      "catatan": "Jauh dari pusat Bali, jadi digabung dengan Tirta Gangga dalam satu hari."
+    },
+    {
+      "id": "lovina",
+      "nama": "Lovina",
+      "namaEn": "Lovina",
+      "lat": -8.06,
+      "lng": 115.025,
+      "deskripsi": "Pantai utara Bali, titik awal tur lumba, dan air Terjun Gitgit.",
+      "akomodasi": {
+        "hostel": {
+          "hemat": 75000,
+          "menengah": 135000,
+          "mewah": 245000
+        },
+        "hotel": {
+          "hemat": 240000,
+          "menengah": 480000,
+          "mewah": 1300000
+        },
+        "villa": {
+          "hemat": 700000,
+          "menengah": 1300000,
+          "mewah": 3200000
+        }
+      },
+      "makan": {
+        "hemat": 28000,
+        "menengah": 60000,
+        "mewah": 125000
+      },
+      "transport": {
+        "motor": {
+          "sewa": 70000,
+          "bahanBakar": 35000
+        },
+        "mobil": {
+          "harian": 650000
+        },
+        "ojek": {
+          "pendek": 12000,
+          "jauh": 40000,
+          "perHari": 100000
+        }
+      },
+      "kuliner": [
+        {
+          "nama": "Warung Nelayan",
+          "jenis": "Nasi campur dan ikan bakar",
+          "harga": 25000
+        },
+        {
+          "nama": "Damai Lovina",
+          "jenis": "Ikan bakar di tepi laut",
+          "harga": 60000
+        },
+        {
+          "nama": "Bebek Tepung Mustika",
+          "jenis": "Bebek goreng",
+          "harga": 32000
+        },
+        {
+          "nama": "Pondokemu Coffee",
+          "jenis": "Kopi dan camilan",
+          "harga": 30000
+        }
+      ],
+      "catatan": "Jauh di ujung utara, jadi diberi hari tersendiri bila trip 5 hari atau lebih."
+    }
+  ]
+}

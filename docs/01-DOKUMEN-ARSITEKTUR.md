@@ -1,18 +1,18 @@
 # 📐 Dokumen Perancangan Arsitektur Website
 
-**BaliWise — Perencana Itinerary Bali Berbasis AI**
+**Griska Go — Perencana Itinerary Bali Berbasis AI**
 National AI Summit & Competition (NAISC) 2026 · Kategori Website
 
 | | |
 |---|---|
-| **Nama Proyek** | BaliWise |
+| **Nama Proyek** | Griska Go |
 | **Tim** | [Nama Tim / Anggota] |
 | **Institusi** | [Nama SMA/SMK, Kota] |
 | **Tanggal** | [Tanggal] |
 | **Versi Dokumen** | 1.0 |
 | **Status** | Final untuk ditinjau juri |
 
-> **Tujuan dokumen ini** menjelaskan secara teknis bagaimana BaliWise dibangun: arsitektur sistem, komponen, alur data integrasi AI, dan pertimbangan keamanannya — sehingga reviewer dapat memverifikasi bahwa solusi yang dibangun benar-benar berfungsi, bukan sekadar klaim.
+> **Tujuan dokumen ini** menjelaskan secara teknis bagaimana Griska Go dibangun: arsitektur sistem, komponen, alur data integrasi AI, dan pertimbangan keamanannya — sehingga reviewer dapat memverifikasi bahwa solusi yang dibangun benar-benar berfungsi, bukan sekadar klaim.
 
 ---
 
@@ -33,13 +33,13 @@ National AI Summit & Competition (NAISC) 2026 · Kategori Website
 
 ### 1.1 Ringkasan
 
-BaliWise adalah aplikasi **satu halaman (SPA)** tanpa database dan tanpa akun pengguna. Seluruh state sesi (itinerary dan riwayat chat) disimpan **di memori browser** selama halaman terbuka.
+Griska Go adalah aplikasi **satu halaman (SPA)** tanpa database dan tanpa akun pengguna. Seluruh state sesi (itinerary dan riwayat chat) disimpan **di memori browser** selama halaman terbuka.
 
 Sistem terdiri dari tiga entitas logis:
 
 | Entitas | Peran | Isi |
 |---|---|---|
-| **Client** | Antarmuka pengguna | `index.html`, `css/style.css`, `js/app.js`, `js/api.js` |
+| **Client** | Antarmuka pengguna | `index.html`, `css/style.css`, `css/home.css`, `js/app.js`, `js/api.js`, `js/i18n.js`, `js/brand.js`, `js/nav.js`, `js/carousel.js`, `js/countup.js`, `js/reveal.js` |
 | **Serverless Function** | Gerbang ke AI,VALIDASI, orchestration | `api/chat.js` (1 fungsi Node.js) |
 | **AI Service** | Otak penyusun itinerary | Google Gemini API (`gemini-3.8-flash`) |
 
@@ -64,7 +64,7 @@ plus satu **knowledge base** statis:
 | # | Fitur | Jenis | Implementasi |
 |---|---|---|---|
 | F1 | Landing page (hero, masalah, cara kerja, fitur, CTA) | Presentasi | HTML semantik + CSS Grid |
-| F2 | Form preferensi (durasi, budget, minat, gaya, wilayah awal, catatan) | Input | `<fieldset>`/`<legend>` + chip radio/checkbox + validasi ganda |
+| F2 | Form preferensi (durasi, budget, minat + preset + teks bebas, gaya, titik awal bebas, catatan) | Input | `<fieldset>`/`<legend>` + chip radio/checkbox + validasi ganda |
 | F3 | Itinerary per hari (timeline kartu) | Output AI | JSON → DOM builder di `js/app.js` |
 | F4 | Tips Budaya & Etika per lokasi | Output AI | Field `tipsBudaya`, di-*grounding*-kan ke katalog |
 | F5 | Chat lanjutan yang mengingat itinerary | Interaksi | `action: "chat"` membawa `itinerary` + riwayat |
@@ -89,7 +89,7 @@ plus satu **knowledge base** statis:
 | | JavaScript (Vanilla) | ES2020 | Logika UI, render, i18n | Tanpa build step; mudah diaudit |
 | **Font** | Plus Jakarta Sans (Google Fonts) | — | Tipografi | Satu font, rentang bobot 400–800, gratis |
 | **Ikon** | SVG inline | — | Ikon fitur & tombol | Bebas lisensi, scalable, bisa di-style CSS |
-| **Gambar** | Unsplash (URL CDN) | — | Foto hero | Gratis, tanpa link langsung yang melanggar hak cipta |
+| **Gambar** | Foto lokal (`public/images/hero/*.jpg`) | — | Foto hero carousel | Ringan, tampil saat offline saat presentasi |
 | **Backend** | Node.js (Vercel Function) | ≥ 18 | Orkestrasi AI, validasi, filtering | Satu file; auto-deploy; tanpa server |
 | **AI** | Google Gemini REST API | `gemini-3.8-flash` | Pembuatan itinerary | Ringan, cepat, `responseSchema` JSON mode |
 | **Data** | JSON statis | 1.0 | Katalog 28 destinasi | Mudah dibaca, di-*cache* di memori server |
@@ -103,7 +103,8 @@ plus satu **knowledge base** statis:
 ```jsonc
 // action: "generate"
 { "action": "generate", "bahasa": "id", "durasi": 4,
-  "budget": "menengah", "minat": ["pantai","budaya"],
+  "budget": "menengah", "minat": ["pantai","budaya"], "minatTeks": ["surfing"],
+  "titikAwal": { "nama": "Canggu", "lat": -8.6478, "lng": 115.1385 },
   "gaya": "padat", "wilayahAwal": "Ubud", "catatan": "bawa keluarga" }
 
 // action: "chat"
@@ -116,9 +117,16 @@ plus satu **knowledge base** statis:
 
 ```jsonc
 { "ok": true,
-  "itinerary": { "ringkasan": "...", "totalEstimasi": 465000, "hari": [ /* ... */ ] },
-  "meta": { "jumlahHari": 2, "jumlahTempat": 6, "tempatDitebuang": 0,
-            "model": "gemini-3.8-flash", "bahasa": "id" } }
+  "itinerary": { "ringkasan": "...", "hari": [ /* ... */ ], "tipsUmum": { /* ... */ } },
+  "budget": { "total": 7216000, "perOrang": 3608000, "perHari": 2405333,
+              "kategori": { "akomodasi": 1200000, "transportasi": 1800000, "tiket": 1140000,
+                            "makan": 800000, "aktivitas": 900000, "lainLain": 720000,
+                            "cadangan": 656000 },
+              "rincianHari": [ /* per hari, per kategori */ ],
+              "status": { "kode": "dalam_budget", "batas": 8400000, "sisa": 1184000 },
+              "saranHemat": [ /* ... */ ] },
+  "meta": { "jumlahHari": 3, "jumlahTempat": 12, "narasiAI": true,
+            "model": "gemini-3.8-flash", "bahasa": "id", "kursUSD": 16250 } }
 ```
 
 ---
@@ -130,20 +138,25 @@ plus satu **knowledge base** statis:
 **Tahap 1 — Persiapan di browser** (`js/app.js`)
 
 1. Pengguna mengisi form. `bacaPreferensi()` membaca seluruh field dari DOM.
-2. `validasiPreferensi()` memeriksa: durasi integer 1–7, budget ∈ {hemat, menengah, mewah}, minat ≥ 1 dari 5 kategori, gaya ∈ {santai, padat}, wilayah awal tidak kosong, catatan ≤ 300 karakter.
+2. `validasiPreferensi()` memeriksa: durasi integer 1-14, budget ∈ {hemat, menengah, mewah}, minat (kategori/preset/teks bebas) minimal 1, gaya ∈ {santai, padat}, wilayah awal tidak kosong, catatan ≤ 300 karakter.
 3. Tombol submit dinonaktifkan, loading state ditampilkan.
 
 **Tahap 2 — Transportasi** (`js/api.js`)
 
-`BaliWiseApi.buatItinerary()` melakukan `fetch('/api/chat', { method:'POST', body: JSON.stringify(payload) })` dengan `AbortController` timeout 70 detik. Pesan error dipetakan ke bahasa pengguna.
+`Griska GoApi.buatItinerary()` melakukan `fetch('/api/chat', { method:'POST', body: JSON.stringify(payload) })` dengan `AbortController` timeout 70 detik. Pesan error dipetakan ke bahasa pengguna.
 
-**Tahap 3 — Validasi & Orkhestrasi di server** (`api/chat.js`)
+**Tahap 3 — Validasi & Perencanaan di server** (`api/chat.js` + `lib/rencana.js`)
 
 1. Cek metode HTTP (`POST`) dan `AI_API_KEY` tersedia.
 2. Rate limit 20 permintaan/menit per IP.
-3. Validasi ulang preferensi (**server-side, tanpa mempercayai klien**).
-4. `muatDestinasi()` membaca `data/destinasi.json` (di-*cache* di memori server).
-5. `bangunSystemPrompt(data, bahasa)` menyusun system prompt bilingual + menyisipkan seluruh katalog.
+3. Validasi ulang preferensi (`validasiPreferensiLengkap()`: durasi, budget, minat, gaya, wilayah awal, traveler, tipe turis, transport, akomodasi, budget maksimum).
+4. `muatDestinasi()` membaca `data/destinasi.json` dan `muatWilayah()` membaca `data/wilayah.json` (di-*cache* di memori server).
+5. **Rencana disusun oleh kode**, bukan AI:
+   - `pilihDestinasi()` menilai 28 destinasi (skor minat, gaya, harga, jarak).
+   - `kelompokkanHari()` mengelompokkan secara geografis (haversine + greedy nearest-neighbour, radius harian 45 km).
+   - `susunJadwal()` menyusun jam mulai/selesai di dalam jam operasional tiap tempat.
+   - `hitungBudget()` menghitung akomodasi, transport, tiket, makan, aktivitas, oleh-oleh, dan dana cadangan 10%.
+6. Hasil kode inilah yang dikirim ke AI: **AI hanya menulis narasi untuk rencana yang sudah final**.
 
 **Tahap 4 — Panggilan AI**
 
@@ -303,9 +316,9 @@ dan otomatis berpindah bila satu model bermasalah.
 Setiap kegagalan dicatat di terminal dengan **status + pesan asli dari Google**, tanpa API key:
 
 ```
-[BaliWise] Gemini gagal | model=gemini-2.5-flash | status=404 (NOT_FOUND) | pesan: This model
+[Griska Go] Gemini gagal | model=gemini-2.5-flash | status=404 (NOT_FOUND) | pesan: This model
 models/gemini-2.5-flash is no longer available to new users. ...
-[BaliWise] Gemini OK | model=gemini-3.6-flash | mode=schema+temperature | maxOutputTokens=32768 | 3763ms
+[Griska Go] Gemini OK | model=gemini-3.6-flash | mode=schema+temperature | maxOutputTokens=32768 | 3763ms
 ```
 
 
@@ -319,11 +332,16 @@ models/gemini-2.5-flash is no longer available to new users. ...
 flowchart TB
     subgraph Client["Browser / Client (HTML5 · CSS3 · Vanilla JS)"]
         UI["index.html<br/>Struktur semantik + aksesibilitas"]
-        CSS["css/style.css<br/>Tema Bali · Responsive"]
-        APP["js/app.js<br/>i18n · validasi · render timeline · chat"]
+        CSS["css/style.css + css/home.css<br/>Tema Bali · Glassmorphism · Responsive"]
+        APP["js/app.js<br/>validasi · render timeline · chat"]
+        COMP["js/brand.js · js/nav.js<br/>js/carousel.js · js/countup.js · js/reveal.js"]
+        I18N["js/i18n.js<br/>Kamus ID/EN"]
         APIC["js/api.js<br/>Client fetch + pesan error"]
         UI --> CSS
         UI --> APP
+        UI --> COMP
+        APP --> I18N
+        COMP --> I18N
         APP --> APIC
     end
 
@@ -541,7 +559,7 @@ flowchart LR
 | Lapis | Kontrol |
 |---|---|
 | HTML | `maxlength="300"` pada textarea catatan & input chat |
-| Client JS | `validasiPreferensi()` menolak durasi ≠ 1–7, budget/gaya di luar whitelist, minat kosong, wilayah kosong |
+| Client JS | `validasiPreferensi()` menolak durasi di luar 1-14, budget/gaya di luar whitelist, minat kosong, wilayah kosong, biaya "lainnya" kosong |
 | Server JS | `validasiPreferensi()` mengulang validasi yang sama (**tidak mempercayai klien**) |
 | Server JS | `pesan.slice(0, 300)` sebelum dikirim ke AI |
 | Server JS | `catatan.slice(0, 300)` sebelum dikirim ke AI |
@@ -586,7 +604,7 @@ flowchart LR
 |---|---|
 | Parser JSON | JSON polos; code fence markdown; teks tambahan; non-JSON; string berisi `{}` |
 | Anti-halusinasi | Tempat fiktis dibuang; grounding wilayah/kategori; tips kosong diisi katalog; total dihitung ulang; nama dirapikan ke nama resmi; itinerary kosong → `null` |
-| Validasi | Durasi 1–7; durasi non-bulat; budget salah; minat kosong; gaya salah; wilayah kosong; input valid; catatan dipotong 300 |
+| Validasi | Durasi 1-14; durasi non-bulat; budget salah; minat kosong; gaya salah; wilayah kosong; input valid; catatan dipotong 300 |
 | System prompt | Katalog lengkap ikut prompt; aturan anti-halusinasi ada; format JSON ada; versi English memakai `namaEn` |
 | Handler e2e | Generate sukses; chat sukses; pesan >300 ditolak; GET ditolak; tanpa API key; fallback JSON tidak valid |
 
@@ -650,10 +668,15 @@ Yang dilakukan: label pada semua input, `alt` pada gambar, skip-link, `aria-live
 | Filter anti-halusinasi | `api/chat.js` → `bersihkanItinerary()` / `bersihkanChat()` |
 | Validasi preferensi | `api/chat.js` → `validasiPreferensi()` |
 | Rate limit | `api/chat.js` → `terlaluBanyak()` |
-| Kamus bahasa | `js/app.js` → `i18n` |
+| Kamus bahasa | `js/i18n.js` → `window.BaliWiseI18n` |
 | Render itinerary | `js/app.js` → `renderItinerary()` / `renderHari()` / `renderStop()` |
 | Chat | `js/app.js` → `kirimPesan()` / `tambahPesan()` |
 | Client HTTP | `js/api.js` → `buatItinerary()` / `kirimChat()` |
+| Logo brand | `js/brand.js` → `pasangLogo()` (file: `public/logo.png`) |
+| Navbar (glass + menu aktif + drawer) | `js/nav.js` → `pasangEfekScroll()` / `pasangMenuAktif()` / `pasangDrawer()` |
+| Carousel hero | `js/carousel.js` → `initCarousel()` (auto-play, dots, swipe, badge tips) |
+| Angka statistik | `js/countup.js` → `jalankan()` |
+| Animasi scroll-reveal | `js/reveal.js` → `init()` |
 
 ## Lampiran B — Rujukan Teknis
 
@@ -667,5 +690,5 @@ Yang dilakukan: label pada semua input, `alt` pada gambar, skip-link, `aria-live
 ---
 
 <div align="center">
-**BaliWise** · Dokumen Perancangan Arsitektur · NAISC 2026
+**Griska Go** · Dokumen Perancangan Arsitektur · NAISC 2026
 </div>
