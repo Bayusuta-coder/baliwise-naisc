@@ -28,7 +28,7 @@
   /* ======================================================================
      KONFIGURASI - ubah baris ini untuk memakai file logo Anda sendiri
      ====================================================================== */
-  const LOGO_SUMBER = '/logo.png';
+  const LOGO_SUMBER = '/public/logo.png';
   const NAMA_BRAND = 'Griska Go';
 
   /* Mark SVG cadangan (dipakai kalau file logo tidak bisa dimuat). */
