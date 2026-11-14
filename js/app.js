@@ -33,7 +33,8 @@
     chatHistory: [],          // [{ role: 'user'|'assistant', text }]
     sedangProses: false,
     minatBebas: [],          // minat bebas yang diketik traveler (maks 5)
-    titikAwal: null          // { nama, lat, lng } atau null (pakai dropdown)
+    titikAwal: null,         // { nama, lat, lng } atau null (pakai dropdown)
+    dikecualikan: { destinasi: [], makan: [] }
   };
 
   /* Timer teks progres saat memproses rencana. */
@@ -141,6 +142,7 @@
     terjemahkanUI();
 
     // Teks dinamis komponen form ikut berbahasa.
+    tambahChipBeachClub();
     perbaruiLabelTanggal();
     gambarWilayah('');
     gambarWilayahNative();
@@ -206,7 +208,12 @@
       biayaTransportHarian: biayaTransport ? Number(biayaTransport.value || 0) : 0,
       biayaAkomodasiMalam: biayaAkomodasi ? Number(biayaAkomodasi.value || 0) : 0,
       tanggal: tanggal ? tanggal.value : '',
-      budgetMaks: maks ? angkaDariTeks(maks.value) : 0
+      budgetMaks: maks ? angkaDariTeks(maks.value) : 0,
+      // Tempat yang traveler minta dikecualikan (bertahan di revisi berikutnya).
+      dikecualikan: {
+        destinasi: ((state.dikecualikan && state.dikecualikan.destinasi) || []).slice(),
+        makan: ((state.dikecualikan && state.dikecualikan.makan) || []).slice()
+      }
     };
   }
 
@@ -707,6 +714,112 @@
     return el;
   }
 
+  /** Bahasa aktif (dari atribut <html lang>). */
+  function bahasaSekarang() {
+    return (document.documentElement.lang || 'id') === 'en' ? 'en' : 'id';
+  }
+
+  /* Kalimat yang mengklaim perubahan TIDAK boleh tampil dari teks AI:
+   klaim hanya boleh datang dari flag "diubah" milik server. */
+  const POLA_KLAIM_KLIEN = /(diperbarui|diperbaharui|diupdate|updated|has been updated|have been updated|sudah diubah|perubahan telah diterapkan|applied (the|your) changes?)/i;
+
+  /** Membuang kalimat klaim-perubahan dari teks balasan AI. */
+  function buangKlaimTeks(teks) {
+    const baris = String(teks || '').split(/\n+/);
+    const hasil = [];
+    baris.forEach(function (b) {
+      const kalimat = b.split(/(?<=[.!?])\s+/);
+      const aman = kalimat.filter(function (k) { return !POLA_KLAIM_KLIEN.test(k); });
+      const gabung = aman.join(' ').replace(/\s+/g, ' ').trim();
+      if (gabung) hasil.push(gabung);
+    });
+    return hasil.join('\n');
+  }
+
+  /** Scroll halus ke area hasil setelah rencana diperbarui. */
+  function scrollKeHasil() {
+    const target = $('#hasil') || $('#plan');
+    if (!target) return;
+    try {
+      // scrollIntoView dipakai lebih dulu (pola yang sama dengan bagian loading).
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (e) {
+      try {
+        const y = target.getBoundingClientRect().top + window.pageYOffset - 88;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      } catch (e2) { /* abaikan */ }
+    }
+  }
+
+  /** Sinkronkan preferensi budget/akomodasi/transport setelah revisi chat. */
+  function terapkanPreferensiBaru(pref) {
+    if (!pref || !state.preferensi) return;
+    if (pref.budget) {
+      state.preferensi.budget = pref.budget;
+      const radio = $('input[name="budget"][value="' + pref.budget + '"]');
+      if (radio && !radio.checked) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    if (pref.akomodasi) state.preferensi.akomodasi = pref.akomodasi;
+    if (pref.transport) state.preferensi.transport = pref.transport;
+    if (pref.dikecualikan) {
+      state.dikecualikan = {
+        destinasi: (pref.dikecualikan.destinasi || []).slice(),
+        makan: (pref.dikecualikan.makan || []).slice()
+      };
+      state.preferensi.dikecualikan = {
+        destinasi: state.dikecualikan.destinasi.slice(),
+        makan: state.dikecualikan.makan.slice()
+      };
+    }
+    if (pref.budgetMaks) {
+      state.preferensi.budgetMaks = pref.budgetMaks;
+      const maks = $('#budget-maks');
+      if (maks && maks.value !== formatRibuan(pref.budgetMaks)) {
+        maks.value = formatRibuan(pref.budgetMaks);
+        maks.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+  }
+
+  /** Label chip beach club sesuai bahasa. */
+  function labelBeachClub() {
+    return bahasaSekarang() === 'en' ? 'Beach Club' : 'Beach Club / Klub Pantai';
+  }
+
+  /**
+   * Menambahkan pilihan minat "Beach club" (kategori baru di katalog).
+   * Chip dibuat dari JS supaya file index.html tidak perlu diubah.
+   */
+  function tambahChipBeachClub() {
+    const cek = $('input[name="minat"][value="beach-club"]');
+    if (cek) {
+      const label = cek.parentNode.querySelector('span');
+      if (label) label.textContent = labelBeachClub();
+      return;
+    }
+    const acuan = $('input[name="minat"][value="nightlife"]');
+    if (!acuan || !acuan.parentNode || !acuan.parentNode.parentNode) return;
+
+    const label = document.createElement('label');
+    label.className = 'chip';
+    label.id = 'chip-beach-club';
+
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.name = 'minat';
+    input.value = 'beach-club';
+
+    const span = document.createElement('span');
+    span.textContent = labelBeachClub();
+
+    label.appendChild(input);
+    label.appendChild(span);
+    acuan.parentNode.parentNode.insertBefore(label, acuan.parentNode.nextSibling);
+  }
+
   /** Mengirim pesan chat ke AI. */
   async function kirimPesan(teks) {
     if (!teks || !teks.trim()) {
@@ -748,22 +861,48 @@
       return;
     }
 
-    const balasan = hasil.balasan;
-    let teksTampil = balasan.reply || '';
+    const balasan = hasil.balasan || {};
+    const meta = hasil.meta || {};
 
-    // Jika AI mengembalikan itinerary baru, render ulang (budget dihitung server).
-    if (balasan.itinerary) {
+    // Flag "diubah" dari server: satu-satunya sumber kebenaran.
+    const diubah = typeof balasan.diubah === 'boolean'
+      ? balasan.diubah
+      : (typeof meta.diubah === 'boolean' ? meta.diubah : false);
+
+    // Teks AI tidak boleh mengklaim perubahan -> kalimat klaim dibuang.
+    // Pesan utama diambil dari server (ringkasan perubahan yang jujur).
+    let teksTampil = meta.pesan
+      ? String(meta.pesan)
+      : buangKlaimTeks(balasan.reply || '');
+
+    // Rencana baru? Render ulang seluruh hasil (ringkasan, tab hari,
+    // timeline, peta, rincian budget), lalu scroll + highlight singkat.
+    if (diubah && balasan.itinerary) {
       state.itinerary = balasan.itinerary;
       state.budget = hasil.budget || null;
       state.bahasaItinerary = state.bahasa;
-      renderItinerary(state.itinerary, hasil.budget, { bahasa: state.bahasa, narasiAI: true });
-      if (balasan.perubahan && balasan.perubahan.length) {
-        teksTampil += (teksTampil ? '\n' : '') + t('chat.rebuild');
+      renderItinerary(state.itinerary, hasil.budget, {
+        bahasa: state.bahasa,
+        narasiAI: meta.narasiAI !== false
+      });
+      terapkanPreferensiBaru(meta.preferensi);
+      scrollKeHasil();
+      if (window.GriskaHasil && window.GriskaHasil.tandaiDiperbarui) {
+        window.GriskaHasil.tandaiDiperbarui();
       }
     }
 
-    tambahPesan('assistant', teksTampil, balasan.perubahan);
-    state.chatHistory.push({ role: 'assistant', text: balasan.reply || '' });
+    // Cadangan kalau server tidak mengirim ringkasan.
+    if (!teksTampil) {
+      teksTampil = diubah
+        ? (bahasaSekarang() === 'en' ? 'Plan updated.' : 'Rencana diperbarui.')
+        : (bahasaSekarang() === 'en'
+            ? 'No change was made to the plan.'
+            : 'Belum ada perubahan pada rencana.');
+    }
+
+    tambahPesan('assistant', teksTampil, diubah ? (balasan.perubahan || []) : []);
+    state.chatHistory.push({ role: 'assistant', text: buangKlaimTeks(balasan.reply || '') });
 
     // Batasi riwayat agar tidak membengkak.
     if (state.chatHistory.length > 20) {
@@ -1729,6 +1868,9 @@
       });
     }
     gambarChipMinatBebas();
+
+    /* --- Minat tambahan: beach club (chip dibuat dari JS) --- */
+    tambahChipBeachClub();
 
     /* --- Komponen form: budget maks, kalender, picker wilayah --- */
     initBudgetMaks();

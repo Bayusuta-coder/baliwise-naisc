@@ -328,9 +328,16 @@
     };
 
     if (item.tipe === 'makan') {
-      tambah(t('res.makanSiang') === 'Makan siang' ? t('res.makanSiang') : t('res.makanSiang'), item.jenis);
+      tambah(item.waktu === 'malam' ? t('res.makanMalam') : t('res.makanSiang'), item.jenis);
       if (item.catatanMakan) tambah(t('res.catatanMakan'), item.catatanMakan);
-      if (item.biayaMakan) tambah(t('res.makan'), rupiah(item.biayaMakan) + ' / ' + (budget.traveler.total > 1 ? budget.traveler.total + ' pax' : '1 pax'));
+      if (item.biayaMakan) {
+        const catatanHarga = item.estimasiMakan
+          ? (bahasaAktif() === 'en' ? ' (estimate)' : ' (estimasi)')
+          : '';
+        tambah(t('res.makan'), rupiah(item.biayaMakan) + ' / ' +
+          (budget.traveler.total > 1 ? budget.traveler.total + ' pax' : '1 pax') + catatanHarga);
+      }
+      if (item.tips) tambah(t('res.catatanMakan'), item.tips);
     } else {
       tambah(t('res.alamat'), item.alamat);
       if (item.jarakKm) {
@@ -700,17 +707,80 @@
   /* =====================================================================
      G. RENDER UTAMA
      ===================================================================== */
+
+  /**
+   * Budget cadangan: dipakai bila server tidak mengirim rincian budget
+   * (mis. revisi chat yang tidak mengubah biaya).
+   */
+  function budgetCadangan(rencana) {
+    const hari = (rencana && Array.isArray(rencana.hari)) ? rencana.hari : [];
+    const rincianHari = hari.map(function (h) {
+      return {
+        hari: h.hari, akomodasi: 0, transportasi: 0, tiket: 0, makan: 0,
+        aktivitas: 0, lainLain: 0, cadangan: 0, total: h.totalBiaya || 0
+      };
+    });
+    const total = rincianHari.reduce(function (s, r) { return s + r.total; }, 0);
+    return {
+      total: total,
+      perOrang: total,
+      perHari: hari.length ? Math.round(total / hari.length) : 0,
+      perBulan: null,
+      traveler: { dewasa: 1, anak: 0, total: 1 },
+      malam: 0,
+      tipeAkomodasi: 'hotel',
+      jumlahUnit: 1,
+      unitAkomodasi: 1,
+      jenisTransport: 'motor',
+      rincianTransportasi: [],
+      kategori: { akomodasi: 0, transportasi: 0, tiket: 0, makan: 0, aktivitas: 0, lainLain: 0, cadangan: 0 },
+      rincianHari: rincianHari,
+      status: { kode: 'dalam_budget', batas: total, batasAcuan: total, selisih: 0, sisa: 0, sumberBatas: 'acuan' },
+      saranHemat: [],
+      kursUSD: 16250
+    };
+  }
+
+  /**
+   * Highlight singkat "Rencana diperbarui" setelah revisi chat.
+   * Gaya memakai inline style supaya tidak bergantung file CSS baru.
+   */
+  function tandaiDiperbarui() {
+    const wadah = document.querySelector('#hasil') || document.querySelector('#plan');
+    if (!wadah) return;
+
+    const notif = document.createElement('div');
+    notif.className = 'updated-badge';
+    notif.setAttribute('role', 'status');
+    notif.textContent = bahasaAktif() === 'en' ? 'Plan updated' : 'Rencana diperbarui';
+    notif.style.cssText = 'position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:1200;'      + 'background:#0a3d62;color:#fff;padding:.55rem 1rem;border-radius:999px;'      + 'font-size:.82rem;font-weight:700;line-height:1.25;white-space:nowrap;'      + 'box-shadow:0 12px 28px rgba(10,61,98,.35);';
+    document.body.appendChild(notif);
+    window.setTimeout(function () {
+      if (notif.parentNode) notif.parentNode.removeChild(notif);
+    }, 2600);
+
+    // Kilau singkat pada panel hasil.
+    const bayangLama = wadah.style.boxShadow;
+    wadah.style.transition = 'box-shadow .4s ease';
+    wadah.style.boxShadow = '0 0 0 3px rgba(232,163,61,.6)';
+    window.setTimeout(function () {
+      wadah.style.boxShadow = bayangLama;
+    }, 1700);
+  }
+
   function render(rencana, budget, meta) {
-    if (!rencana || !budget) return;
+    if (!rencana) return;
     const bahasa = (meta && meta.bahasa) || (I18n ? I18n.bahasa : 'id');
+    // Budget cadangan bila server tidak mengirim rincian.
+    const b = budget || budgetCadangan(rencana);
 
     $('#res-empty').hidden = true;
     $('#plan').hidden = false;
 
-    renderRingkasan(rencana, budget, meta || {});
-    renderHari(rencana, budget);
+    renderRingkasan(rencana, b, meta || {});
+    renderHari(rencana, b);
     renderPeta(rencana);
-    renderBudget(budget);
+    renderBudget(b);
     renderTips(rencana);
     pasangAksi(rencana, budget, bahasa);
     pasangTogglePeta();
@@ -730,6 +800,7 @@
   global.GriskaHasil = {
     render: render,
     pilihHari: pilihHari,
+    tandaiDiperbarui: tandaiDiperbarui,
     teksRingkas: teksRingkas,
     ambilTersimpan: ambilTersimpan,
     rupiah: rupiah,

@@ -9,9 +9,12 @@
       "budaya",
       "kuliner",
       "alam",
-      "belanja"
+      "belanja",
+      "beach-club"
     ],
-    "sumber": "Data disusun dari informasi tourist spot resmi Bali dan OpenStreetMap (koordinat WGS84)."
+    "sumber": "Data disusun dari informasi tourist spot resmi Bali dan OpenStreetMap (koordinat WGS84).",
+    "catatanTambahanBeachClub": "DATA ESTIMASI - 6 beach club di bawah perlu diverifikasi manual (minimum spend, jam buka, koordinat, dress code) sebelum dipakai untuk budget resmi.",
+    "estimasiBeachClub": true
   },
   "destinasi": [
     {
@@ -1392,6 +1395,298 @@
         "Keep the area clean and secure your valuables."
       ],
       "catatanAI": "Berada di ujung utara. Cocok untuk rangkaian rute utara."
+    },
+    {
+      "id": "potato-head",
+      "nama": "Potato Head Beach Club",
+      "namaEn": "Potato Head Beach Club",
+      "wilayah": "Seminyak",
+      "zona": "seminyak",
+      "kategori": "beach-club",
+      "tags": [
+        "beach-club",
+        "sunset",
+        "nightlife",
+        "romantis"
+      ],
+      "alamat": "Jl. Kayu Aya, Seminyak, Bali",
+      "lat": -8.6867,
+      "lng": 115.1559,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Potato%20Head%20Beach%20Club%20Seminyak%20Bali",
+      "hargaTiket": 300000,
+      "hargaTiketLokal": 300000,
+      "hargaTiketTuris": 350000,
+      "jamBuka": "09.00 - 23.00",
+      "durasiMenit": 120,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 150000,
+        "menengah": 250000,
+        "mewah": 400000
+      },
+      "dressCode": "Smart casual, tidak boleh bercelana atau alas kaki di dalam",
+      "dressCodeEn": "Smart casual, no shorts or beachwear inside",
+      "kerumai": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Beach club di tepi laut Seminyak dengan restoran, bar, dan hamam. Minimum spend dipakai sebagai estimasi biaya masuk di katalog.",
+      "tipsEtika": [
+        "Minimum spend berlaku dan dibayar di kasir, bukan tiket masuk.",
+        "Pakai baju sopan dan tidak masuk area kolam dengan swimwear.",
+        "Pesan tempat lebih awal saat akhir pekan agar tidak antre."
+      ],
+      "tipsEtikaEn": [
+        "A minimum spend applies and is paid at the counter, it is not an entrance ticket.",
+        "Wear smart casual clothes and do not enter the pool area in swimwear.",
+        "Book a table early on weekends to avoid the queue."
+      ],
+      "catatanAI": "Datang sore menuju sunset. Minimum spend membuatnya terasa mahal, jadi cocok untuk budget menengah ke atas.",
+      "foto": null
+    },
+    {
+      "id": "ku-de-ta",
+      "nama": "Ku De Ta",
+      "namaEn": "Ku De Ta",
+      "wilayah": "Seminyak",
+      "zona": "seminyak",
+      "kategori": "beach-club",
+      "tags": [
+        "beach-club",
+        "sunset",
+        "romantis",
+        "nightlife"
+      ],
+      "alamat": "Jl. Kayu Aya No. 7, Seminyak, Bali",
+      "lat": -8.6849,
+      "lng": 115.1573,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Ku%20De%20Ta%20Seminyak%20Bali",
+      "hargaTiket": 200000,
+      "hargaTiketLokal": 200000,
+      "hargaTiketTuris": 250000,
+      "jamBuka": "10.00 - 23.00",
+      "durasiMenit": 90,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 120000,
+        "menengah": 200000,
+        "mewah": 320000
+      },
+      "dressCode": "Smart casual, tidak boleh bercelana pendek",
+      "dressCodeEn": "Smart casual, no shorts",
+      "keremale": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Beach club di Seminyak yang terkenal dengan sesi sunset dan menu cocktail. Minimum spend dipakai sebagai estimasi biaya di katalog.",
+      "tipsEtika": [
+        "Minimum spend berlaku dan dibayar di kasir.",
+        "Berpakaian sopan; shorts tidak diterima di area restoran.",
+        "Datang satu jam sebelum sunset untuk mendapat tempat yang bagus."
+      ],
+      "tipsEtikaEn": [
+        "A minimum spend applies and is paid at the counter.",
+        "Dress respectfully, shorts are not accepted in the restaurant area.",
+        "Arrive an hour before sunset to get a good table."
+      ],
+      "catatanAI": "Tempat sunset klasik Seminyak. Cocok dijadwalkan sore menjelang matahari terbenam.",
+      "foto": null
+    },
+    {
+      "id": "finns-beach-club",
+      "nama": "Finns Beach Club",
+      "namaEn": "Finns Beach Club",
+      "wilayah": "Canggu",
+      "zona": "canggu",
+      "kategori": "beach-club",
+      "tags": [
+        "beach-club",
+        "sunset",
+        "nightlife",
+        "romantis"
+      ],
+      "alamat": "Jl. Pantai Batu Bolong No. 10, Canggu, Bali",
+      "lat": -8.6479,
+      "lng": 115.1357,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Finns%20Beach%20Club%20Canggu%20Bali",
+      "hargaTiket": 300000,
+      "hargaTiketLokal": 300000,
+      "hargaTiketTuris": 350000,
+      "jamBuka": "09.00 - 23.00",
+      "durasiMenit": 120,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 150000,
+        "menengah": 250000,
+        "mewah": 400000
+      },
+      "dressCode": "Smart casual, simpan alas kaki di loker yang tersedia",
+      "dressCodeEn": "Smart casual, leave your shoes in the provided lockers",
+      "kerumai": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Beach club di Canggu dengan hamam dan live music, dekat Batu Bolong. Minimum spend dipakai sebagai estimasi biaya masuk di katalog.",
+      "tipsEtika": [
+        "Minimum spend berlaku dan dibayar di kasir.",
+        "Simpan alas kaki dan gunakan loker yang tersedia.",
+        "Tidak berjalan di atas hamam saat ramai karena itu dipakai bersama."
+      ],
+      "tipsEtikaEn": [
+        "A minimum spend applies and is paid at the counter.",
+        "Leave your shoes at the entrance and use the provided lockers.",
+        "Do not walk across the hamam when it is crowded, it is shared space."
+      ],
+      "catatanAI": "Sangat populer untuk sunset. Pasangkan dengan Batu Bolong di hari yang sama karena jaraknya dekat.",
+      "foto": null
+    },
+    {
+      "id": "la-brisa",
+      "nama": "La Brisa",
+      "namaEn": "La Brisa",
+      "wilayah": "Canggu",
+      "zona": "canggu",
+      "kategori": "beach-club",
+      "tags": [
+        "beach-club",
+        "sunset",
+        "romantis"
+      ],
+      "alamat": "Jl. Pantai Batu Bolong No. 8, Canggu, Bali",
+      "lat": -8.649,
+      "lng": 115.1361,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=La%20Brisa%20Canggu%20Bali",
+      "hargaTiket": 250000,
+      "hargaTiketLokal": 250000,
+      "hargaTiketTuris": 300000,
+      "jamBuka": "10.00 - 23.00",
+      "durasiMenit": 90,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 130000,
+        "menengah": 220000,
+        "mewah": 380000
+      },
+      "dressCode": "Smart casual",
+      "dressCodeEn": "Smart casual",
+      "keremale": "sedang",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Beach club yang lebih tenang di Canggu, terkenal karena live music dan sunset yang tenang. Minimum spend dipakai sebagai estimasi biaya di katalog.",
+      "tipsEtika": [
+        "Minimum spend berlaku dan dibayar di kasir.",
+        "Hormati penyanyi live music dan tetangga sekitar, jangan buru-buru.",
+        "Pakai baju sopan dan jangan membawa makanan dari luar tanpa izin."
+      ],
+      "tipsEtikaEn": [
+        "A minimum spend applies and is paid at the counter.",
+        "Respect the live musicians and the neighbours, do not rush them.",
+        "Dress respectfully and do not bring outside food without permission."
+      ],
+      "catatanAI": "Lebih tenang dari Finns dan tetap dekat Batu Bolong. Cocok untuk sore yang santai.",
+      "foto": null
+    },
+    {
+      "id": "single-fin",
+      "nama": "Single Fin Uluwatu",
+      "namaEn": "Single Fin Uluwatu",
+      "wilayah": "Uluwatu",
+      "zona": "uluwatu",
+      "kategori": "beach-club",
+      "tags": [
+        "beach-club",
+        "sunset",
+        "nightlife"
+      ],
+      "alamat": "Jl. Single Fin, Pecatu, Bali",
+      "lat": -8.8288,
+      "lng": 115.0872,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Single%20Fin%20Uluwatu%20Bali",
+      "hargaTiket": 350000,
+      "hargaTiketLokal": 350000,
+      "hargaTiketTuris": 400000,
+      "jamBuka": "11.00 - 23.00",
+      "durasiMenit": 120,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 180000,
+        "menengah": 300000,
+        "mewah": 480000
+      },
+      "dressCode": "Smart casual, alas kaki dilepas di area utama",
+      "dressCodeEn": "Smart casual, shoes off in the main area",
+      "kerumai": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Beach club di tebing Uluwatu yang terkenal dengan rutinitas sunset dan pertunjukan live. Minimum spend dipakai sebagai estimasi biaya masuk di katalog.",
+      "tipsEtika": [
+        "Minimum spend berlaku dan dibayar di kasir.",
+        "Datang sebelum sunset untuk mendapat tempat yang dekat tebing.",
+        "Jangan berdiri di railing tebing saat memotret."
+      ],
+      "tipsEtikaEn": [
+        "A minimum spend applies and is paid at the counter.",
+        "Arrive before sunset to get a table close to the cliff.",
+        "Do not stand on the cliff railing while taking photos."
+      ],
+      "catatanAI": "Sangat populer saat sunset, jadi pesan lebih awal. Cocok dipasangkan dengan Pura Uluwatu di hari yang sama.",
+      "foto": null
+    },
+    {
+      "id": "savaya-uluwatu",
+      "nama": "Savaya Uluwatu",
+      "namaEn": "Savaya Uluwatu",
+      "wilayah": "Uluwatu",
+      "zona": "uluwatu",
+      "kategori": "beach-club",
+      "tags": [
+        "beach-club",
+        "sunset",
+        "romantis",
+        "nightlife"
+      ],
+      "alamat": "Jl. Raya Uluwatu No. 88, Pecatu, Bali",
+      "lat": -8.8293,
+      "lng": 115.0868,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Savaya%20Uluwatu%20Bali",
+      "hargaTiket": 400000,
+      "hargaTiketLokal": 400000,
+      "hargaTiketTuris": 450000,
+      "jamBuka": "11.00 - 23.00",
+      "durasiMenit": 120,
+      "waktuTerbaik": "senja",
+      "waktuTerbaikEn": "sunset",
+      "makan": {
+        "hemat": 200000,
+        "menengah": 350000,
+        "mewah": 550000
+      },
+      "dressCode": "Smart casual, dress code ditegakkan saat akhir pekan",
+      "dressCodeEn": "Smart casual, the dress code is enforced on weekends",
+      "keremale": "tinggi",
+      "intensitas": "santai",
+      "biayaAktivitas": 0,
+      "butuhHariPenuh": false,
+      "deskripsi": "Beach club premium di tebing Uluwatu dengan restoran dan sunset yang dramatis. Minimum spend dipakai sebagai estimasi biaya masuk di katalog.",
+      "tipsEtika": [
+        "Minimum spend berlaku dan dibayar di kasir.",
+        "Dress code smart casual dan ditegakkan saat akhir pekan.",
+        "Reservasi sesi sunset jauh-jauh hari."
+      ],
+      "tipsEtikaEn": [
+        "A minimum spend applies and is paid at the counter.",
+        "The smart casual dress code is enforced on weekends.",
+        "Book the sunset session well in advance."
+      ],
+      "catatanAI": "Pilihan premium di Uluwatu. Paling cocok untuk budget mewah dan sore menuju sunset.",
+      "foto": null
     }
   ]
 }
